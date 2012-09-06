@@ -1,0 +1,180 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mailin 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/mailin\n"
+"POT-Creation-Date: 2012-07-10 12:23-0400\n"
+"PO-Revision-Date: 2012-08-30 16:40+0530\n"
+"Last-Translator: sachin <sachinat911@gmail.com>\n"
+"Language-Team: Contributed <sachinat911@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Your Lists"
+msgstr "Vos listes"
+
+msgid "Mailin Setup"
+msgstr "Paramètres de Mailin"
+
+msgid "You are logged in"
+msgstr "Vous êtes connecté"
+
+msgid "Email already exists"
+msgstr "Cette adresse email existe déjà"
+
+msgid "Please check lists in which users will be added"
+msgstr "Veuillez vérifier les listes dans lesquelles seront ajoutés les abonnés"
+
+msgid "Update List"
+msgstr "Mettre à jour la liste"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Please provide your login information"
+msgstr "Veuillez renseigner vos identifiants"
+
+msgid "To start using the Mailin plugin, please enter your Mailin API Key below."
+msgstr "Pour commencer à utiliser le module de Mailin, veuillez saisir votre clé API ci-dessous"
+
+msgid "Don't have a Mailin account?"
+msgstr "Vous n'avez pas un compte Mailin?"
+
+msgid "Sign up"
+msgstr "Inscrivez-vous ici gratuitement"
+
+msgid "API Key"
+msgstr "Clé API"
+
+msgid "Validate & Save"
+msgstr "Valider et enregistrer"
+
+msgid "Your API is valid, your lists are fetched and saved in the database."
+msgstr "Votre clé API est valide, les listes ont été insérées et enregistrées dans votre base de données"
+
+msgid "Key Not Found In Database"
+msgstr "Clé non trouvée dans la base de données"
+
+msgid "Unable to connect"
+msgstr "Echec de connexion"
+
+msgid "List updated successfully"
+msgstr "Liste mise à jour avec succès"
+
+msgid "Please select a list"
+msgstr "Veuillez sélectionner une liste"
+
+msgid "You have successfully subscribed Mailin newsletter!"
+msgstr "Vous êtes abonné à la newsletter de Mailin"
+
+msgid "Please enter valid email"
+msgstr "Veuillez saisir une adresse email valide"
+
+msgid "Subscribe to newsletter"
+msgstr "Abonnez-vous à la newsletter"
+
+msgid "powered by"
+msgstr "effectué par"
+
+msgid "Your Campaigns"
+msgstr "Vos campagnes"
+
+msgid "Following are your campaigns on Mailin"
+msgstr "Ci-dessous, vos campagnes sur Mailin"
+
+msgid "Update Campaigns"
+msgstr "Mettre à jour vos campagnes"
+
+msgid "Subscribers"
+msgstr "Abonnés"
+
+msgid "Following users have subscribed to Mailin newsletter"
+msgstr "Les abonnés suivants sont inscrits à la newsletter de Mailin"
+
+msgid "Synchronize Users"
+msgstr "Synchroniser les abonnés"
+
+msgid "No users have subscribed Mailin newsletter yet."
+msgstr "Aucun utilisateur abonné à la newsletter de Mailin"
+
+msgid "You have no campaigns on Mailin.fr, please update campaigns if you have added any campaign recently."
+msgstr "Vous n'avez aucune campagne sur Mailin.fr, veuillez actualiser vos campagnes si vous en avez ajouté récemment "
+
+msgid "Please enter first name"
+msgstr "Veuillez saisir votre prénom"
+
+msgid "Please enter last name"
+msgstr "Veuillez saisir votre nom"
+
+msgid "Campaigns updated successfully"
+msgstr "Campagnes mise à jour avec succès"
+
+msgid "Users synchronized successfully"
+msgstr "Abonnés synchronisés avec succès"
+
+msgid "Please enter API key"
+msgstr "Veuillez saisir votre clé API"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
+
+msgid "Please enter valid e-mail"
+msgstr "Veuillez saisir un e-mail valide"
+
+msgid "Please enter your first name"
+msgstr "Veuillez saisir votre prénom"
+
+msgid "Please enter your last name"
+msgstr "Veuillez saisir votre nom"
+
+msgid "List Name"
+msgstr "Nom de la liste"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Blacklisted"
+msgstr "Blacklistés"
+
+msgid "Campaign Name"
+msgstr "Nom de la campagne"
+
+msgid "Sent"
+msgstr "Envoyés"
+
+msgid "Remaining"
+msgstr "Restant"
+
+msgid "No of lists"
+msgstr "Nombre de listes"
+
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+msgid "Subscription date"
+msgstr "Date de souscription"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "No."
+msgstr "No."
+
+msgid "Delivered"
+msgstr "Reçus"
+
+msgid "If you want to keep the users in selected list please click on the button Update List"
+msgstr "Si vous souhaitez conserver les utilisateurs dans la liste sélectionnée, veuillez cliquez sur le bouton Mettre à jour la liste"
+
+msgid "If you want to synchronise unsubscribed users from Mailin to your site now please click on the button Synchronize Users"
+msgstr "Si vous voulez synchroniser les utilisateurs désinscrits à partir de Mailin à votre site maintenant, veuillez cliquer sur le bouton Synchroniser les utilisateurs"
+
+msgid "Subscribe"
+msgstr "S'abonner"
+
+msgid "To synchronize the emails id of your  subscribers from Mailin plateform to your e-commerce website, you should add this link {cron_link} as a cron job (using for example: cpanel or crontab) and this link should be executed each day. You can also synchronize the subscribers manually by clicking on the button Synchronize Users"
+msgstr "Pour synchroniser les emails de vos abonnés de la plateforme Mailin vers votre site E-commerce, il faudra ajouter cette url {cron_link} à la liste de vos tâches planifiées (CRON) en utilisant par exemple crontab, cpanel, etc...Cette url doit être exécutée tous les jours. Vous pouvez aussi synchroniser vos abonnés en cliquant manuellement sur le bouton Synchroniser les abonnés."
+
