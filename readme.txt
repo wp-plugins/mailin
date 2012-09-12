@@ -5,7 +5,7 @@ Requires at least: 2.8
 Tested up to: 3.4.1
 Stable tag: 1.2.9
 
-The Mailin plugin provides quick and easy way to add uers subscribers from wordpress site to mailin website account.
+The Mailin plugin provides quick and easy way to synchronize your customers with Mailin (www.mailin.fr) and it displays statistics of your marketing campaigns.
 
 
 == Installation ==
