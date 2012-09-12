@@ -1,4 +1,4 @@
-=== mailin ===
+=== Mailin ===
 Contributors: mailin
 Tags: mailin, email, signup, plugin, widget, newsletter
 Requires at least: 2.8
