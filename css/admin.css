@@ -1,0 +1,30 @@
+#wpbody #wpbody-content .wrap {font-size:13px;}
+#wpbody #wpbody-content .wrap a {text-decoration:underline;}
+
+
+.mailin_row {clear:both; width:670px; width:100%; border:1px solid; background:none repeat scroll 0 0 #EBEDF4; margin-top:40px;}
+.mailin-logo {float:left; margin:0px 15px 30px 0px;}
+.slogan {float:left;font-weight:bold; padding:25px 0px 0px 0px; color:#268CCD;}
+
+fieldset img {padding:0 4px 0 0; vertical-align:bottom;}
+fieldset.fields {margin-bottom:10px; padding:20px 0 0 10px; position:relative;}
+	fieldset.fields legend {background-color:#EBEDF4; border:1px solid #DFD5C3; margin:0; padding:0.2em 0.5em; text-align:left; position:absolute; top:-15px; float:left; display:inline; width:inherit !important; font:bold 13px Arial;}
+	.contact-details {float:right; width:350px; height:205px; margin-right:12px; border:dashed 1px #666; padding:8px; margin-left:12px; margin-top:10px;}
+
+
+
+/*Blog Form*/
+.blog_form h3 {margin:0px; color:#000; background:-moz-linear-gradient(center top , #F9F9F9, #ECECEC) repeat-x scroll left top #ECECEC; padding:4px 6px; font-size:13px;}
+.blog_table td, .blog_table th {padding:5px;}
+
+.pagination{width:620px; height:25px; margin:0 auto;}
+.pagination ul li{list-style:none; float:left; border:1px solid #000; padding:2px 6px 2px 6px; margin:0 3px 0 3px; font-family:arial; font-size:12px; color:#000; font-weight:bold; background-color:#f2f2f2;}
+.pagination ul li:hover{color:#fff; background-color:#000; cursor:pointer;}
+
+.pagination ul li.inactive,
+.pagination ul li.inactive:hover{background-color:#ededed; color:#bababa; border:1px solid #bababa; cursor:default;}
+
+#mySelectBox{width:260px; height:150px;}
+ul.listt {text-align:justify; margin:8px 0px 8px 0px;list-style:none; padding:0px;}
+ul.listt li:before{ content:"-"; position:relative; left:-5px;}
+ul.listt li{ text-indent:-5px; padding:5px 0px 5px 10px;}
