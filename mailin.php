@@ -3,7 +3,7 @@
 Plugin Name: Mailin
 Plugin URI: http://mailin.fr
 Description: Synchronize your WordPress contacts with Mailin platform and send transactional emails easily to your customers.
-Version: 1.0.0
+Version: 1.5
 Author: Mailin.fr
 Author URI: http://www.mailin.fr
 License: GPLv2 or later
