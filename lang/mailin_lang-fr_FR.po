@@ -1,0 +1,391 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mailin 1.0.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/mailin\n"
+"POT-Creation-Date: 2012-07-10 12:23-0400\n"
+"PO-Revision-Date: 2013-07-16 17:18+0530\n"
+"Last-Translator: deshbandhu <deshbandhu.slit@gmail.com>\n"
+"Language-Team: Contributed <sachinat911@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+msgid "Your Lists"
+msgstr "Vos listes "
+
+msgid "Manage unsubscription from Front-Office"
+msgstr "Gérer les désinscriptions du Front-Office"
+
+msgid "If you activate this option, you will let your customers the possiblity to unsubscribe from your newsletter using the newsletter block displayed in the home page."
+msgstr "En activant cette option, vous laissez à vos contacts la possibilité de se désinscrire de votre newsletter à partir du bloc newsletter affiché sur la page d'accueil."
+
+msgid "From: Mailinblue <contact@mailinblue.com>"
+msgstr "From: Mailin <contact@mailin.fr>"
+
+msgid "Phone : 0899 25 30 61"
+msgstr "Tél: 0899 25 30 61"
+
+msgid "http://www.mailinblue.com/mailin-smtp"
+msgstr "http://www.mailin.fr/mailin-smtp"
+
+msgid "Mailin Setup"
+msgstr "Paramètres de Mailin"
+
+msgid "You are logged in"
+msgstr "Vous êtes connecté"
+
+msgid "Email already exists"
+msgstr "Cette adresse email existe déjà"
+
+msgid "Please check lists in which users will be added"
+msgstr "Veuillez vérifier les listes dans lesquelles seront ajoutés les abonnés"
+
+msgid "Update List"
+msgstr "Mettre à jour la liste"
+
+msgid "Please provide your login information"
+msgstr "Veuillez renseigner vos identifiants"
+
+msgid "To start using the Mailin plugin, please enter your Mailin API Key below."
+msgstr "Pour commencer à utiliser le module de Mailin, veuillez saisir votre clé API ci-dessous."
+
+msgid "Don't have a Mailin account?"
+msgstr "Vous n'avez pas un compte Mailin?"
+
+msgid "Sign up"
+msgstr "Inscrivez-vous ici gratuitement"
+
+msgid "API Key"
+msgstr "Clé API"
+
+msgid "Unsubscription successful"
+msgstr "Vous êtes désabonné de la newsletter"
+
+msgid "Subscription successful"
+msgstr "Vous êtes abonné à la newsletter"
+
+msgid "Validate & Save"
+msgstr "Valider et enregistrer"
+
+msgid "Your API is valid, your lists are fetched and saved in the database."
+msgstr "Votre clé API est valide, les listes ont été insérées et enregistrées dans votre base de données"
+
+msgid "Key Not Found In Database"
+msgstr "Clé non trouvée dans la base de données"
+
+msgid "Unable to connect"
+msgstr "Echec de connexion"
+
+msgid "List updated successfully"
+msgstr "Liste mise à jour avec succès"
+
+msgid "Please select a list"
+msgstr "Veuillez sélectionner une liste"
+
+msgid "Newsletter WordPress status"
+msgstr "Inscrit sur WordPress"
+
+msgid "Send email test From / To"
+msgstr "Envoyé un email de test à"
+
+msgid "Mail sent"
+msgstr "Email envoyé"
+
+msgid "Mail not sent"
+msgstr "Email non envoyé."
+
+msgid "Your SMTP account is not activated and therefore you can't use Mailin SMTP. For more informations, please contact our support to: contact@mailinblue.com"
+msgstr "Votre compte SMTP n'est pas actif et par conséquent vous ne pouvez pas utiliser Mailin SMTP, veuillez contacter le support de mailin à : contact@mailin.fr\""
+
+msgid "You have successfully subscribed Mailin newsletter!"
+msgstr "Vous êtes abonné à la newsletter de Mailin"
+
+msgid "Subscribe to newsletter"
+msgstr "Abonnez-vous à la newsletter"
+
+msgid "powered by"
+msgstr "effectué par"
+
+msgid "Your Campaigns"
+msgstr "Vos campagnes"
+
+msgid "Following are your campaigns on Mailin"
+msgstr "Ci-dessous, vos campagnes sur Mailin"
+
+msgid "Update Campaigns"
+msgstr "Mettre à jour vos campagnes"
+
+msgid "Subscribers"
+msgstr "Abonnés"
+
+msgid "Following users have subscribed to Mailin newsletter"
+msgstr "Les abonnés suivants sont inscrits à la newsletter de Mailin"
+
+msgid "Synchronize Users"
+msgstr "Synchroniser les abonnés"
+
+msgid "No users have subscribed mailin newsletter yet"
+msgstr "Aucun utilisateur abonné à la newsletter de Mailin"
+
+msgid "Activate Mailin SMTP"
+msgstr "Activé Mailin SMTP"
+
+msgid "Activate Mailin SMTP for your transactional emails"
+msgstr "Activé Mailin SMTP pour vos emails transactionnels"
+
+msgid "Please enter valid e-mail"
+msgstr "Veuillez entrer un e-mail valide"
+
+msgid "Please enter your first name"
+msgstr "Veuillez entrer votre prénom"
+
+msgid "Please enter your last name"
+msgstr "Veuillez entrer votre nom"
+
+msgid "Manage unsubscription"
+msgstr "Gérer les désinscriptions"
+
+msgid "You are logged into Mailin plugin with your API Key n°"
+msgstr "Vous êtes connecté au plugin Mailin avec votre clé API n°"
+
+msgid "Email filled does not exist in our database"
+msgstr "L'email renseigné n'existe pas dans la base de données"
+
+msgid "Campaigns updated successfully"
+msgstr "Campagnes mise à jour avec succès"
+
+msgid "Users synchronized successfully"
+msgstr "Abonnés synchronisés avec succès"
+
+msgid "Please enter API key"
+msgstr "Veuillez saisir votre clé API"
+
+msgid "First name"
+msgstr "Prénom"
+
+msgid "Last name"
+msgstr "Nom"
+
+msgid "Title"
+msgstr "Titre"
+
+msgid "Newsletter Mailin Status"
+msgstr "Inscrit sur Mailin"
+
+msgid "Display first name input"
+msgstr "Afficher le champ Prénom"
+
+msgid "Display last name input"
+msgstr "Afficher le champ Nom"
+
+msgid "Subscribe to the newsletter"
+msgstr "Abonnez-vous à la newsletter"
+
+msgid "List Name"
+msgstr "Nom de la liste"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Blacklisted"
+msgstr "Blacklistés"
+
+msgid "Campaign Name"
+msgstr "Nom de la campagne"
+
+msgid "Sent"
+msgstr "Envoyés"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "Remaining"
+msgstr "Restant"
+
+msgid "No of lists"
+msgstr "Nombre de listes"
+
+msgid "Enter an email address below to send a test message"
+msgstr "Entrez une adresse e-mail ci-dessous pour envoyer un message de test"
+
+msgid "Send a Test Email"
+msgstr "Envoyer un e-mail de test"
+
+msgid "Smtp"
+msgstr "Activé Mailin SMTP pour vos emails transactionnels"
+
+msgid "Send"
+msgstr "Envoyer"
+
+msgid "Yes"
+msgstr "oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+msgid "Date of last update"
+msgstr "Date de dernière mise à jour"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "No."
+msgstr "No."
+
+msgid "Delivered"
+msgstr "Reçus"
+
+msgid "If you want to keep the users in selected list please click on the button Update List"
+msgstr "Si vous souhaitez conserver les utilisateurs dans la liste sélectionnée, veuillez cliquez sur le bouton Mettre à jour la liste"
+
+msgid "If you want to synchronise unsubscribed users from Mailin to your site now please click on the button Synchronize Users"
+msgstr "Si vous voulez synchroniser les utilisateurs désinscrits à partir de Mailin à votre site maintenant, veuillez cliquer sur le bouton Synchroniser les utilisateurs"
+
+msgid "Subscribe"
+msgstr "S'abonner"
+
+msgid "Unsubscribe"
+msgstr " Se désabonner"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "To synchronize the emails of your customers from Mailinblue platform to your WordPress website, you should run "
+msgstr "Pour synchroniser les emails de vos clients de la plateforme Mailin vers votre site WordPress, il faudra exécuter "
+
+msgid " each day."
+msgstr " chaque jour. "
+
+msgid " this link"
+msgstr "ce lien"
+
+msgid "Successfully Updated"
+msgstr "Mise à jour effectuée avec succès"
+
+msgid "Mailinblue : THE all-in-one plugin for your marketing and transactional emails."
+msgstr "Mailin : LE plugin tout-en-un pour vos emails marketing et transactionnels."
+
+msgid "Contact Mailinblue team"
+msgstr "Contactez l'équipe Mailin"
+
+msgid "Contact us:"
+msgstr "Contactez-nous : "
+
+msgid "contact@mailinblue.com"
+msgstr "contact@mailin.fr"
+
+msgid "For further informations, please visit our website:"
+msgstr "Pour plus d'informations, merci de visiter notre site internet :"
+
+msgid "http://www.mailinblue.com/"
+msgstr "http://www.mailin.fr/"
+
+msgid "With the Mailinblue plugin, you can find everything you need to easily and efficiently send your emailing campains to your prospects and customers. "
+msgstr "Avec le module Mailin, retrouvez tout ce dont vous avez besoin pour envoyer simplement et efficacement vos campagnes emailing à vos prospects et clients :"
+
+msgid "Synchronize your subscribers with Mailinblue (subscribed and unsubscribed contacts)"
+msgstr "Synchronisation automatique de vos contacts avec Mailin (inscrits et désinscrits)"
+
+msgid "Easily create good looking emailings"
+msgstr "Outils d'aide à la création d'emailings"
+
+msgid "Schedule your campaigns"
+msgstr "Programmation des campagnes"
+
+msgid "Track your results and optimize"
+msgstr "Suivi des résultats"
+
+msgid "Monitor your transactional emails (purchase confirmation, password reset …) with a better deliverability and real-time analytics"
+msgstr "Pilotage simple et efficace de vos emails transactionnels (emails de confirmation de commande, de récupération de mot de passe …) avec une meilleure délivrabilité et le détail des ouvertures et des clics en temps réel "
+
+msgid "Why should you use Mailinblue ?"
+msgstr "Pourquoi utiliser Mailin ?"
+
+msgid "Optimized deliverability"
+msgstr "Une délivrabilité optimisée"
+
+msgid "Unbeatable pricing &ndash; best value in the industry"
+msgstr "Les meilleurs prix du marché, sans engagement"
+
+msgid "Technical support, by phone or by email"
+msgstr "Un support technique joignable par téléphone ou par email"
+
+msgid "Prerequisites"
+msgstr "Pré-requis"
+
+msgid "- You should have a Mailinblue account. You can create a free account here:"
+msgstr "- Pour installer ce module, il est nécessaire d'avoir un compte Mailin. Vous pouvez en créer un gratuitement sur le site:"
+
+msgid "Activate Mailinblue:"
+msgstr "Activer Mailin"
+
+msgid "Mailinblue SMTP"
+msgstr "Mailin SMTP"
+
+msgid "Activate Mailinblue SMTP:"
+msgstr "Activer Mailin SMTP"
+
+msgid "Please enter your API key from your Mailinblue account and if you donot have it yet, please go to www.mailinblue.com and subscribe. You can then get the API key from https://my.mailinblue.com/advanced/apikey"
+msgstr "Veuillez renseigner votre clé API qui est liée à votre compte Mailin. Elle est disponible sur la page Fonctionnalités Avancées > Clé API . Si vous ne possédez pas de compte Mailin, vous devez créer un compte sur le site www.mailin.fr"
+
+msgid "Activate Mailinblue to manage subscribers:"
+msgstr "Activer Mailin pour gérer vos contacts"
+
+msgid "Select the contact list where you want to save the contacts of your site WordPress. By default, we have created a list WordPress in your Mailinblue account and we have selected it"
+msgstr "Choisissez les listes de contacts où vous souhaitez enregistrer les contacts de votre site WordPress. Nous avons créé automatiquement une liste WordPress sur votre compte Mailin, elle est sélectionnée par défaut."
+
+msgid "Transactional email is an expected email because it has been triggered automatically after a transaction or a specific event. Common examples of transactional email is : account opening and welcome message, order shipment confirmation, shipment tracking and purchase order status, registration via a contact form, account termination, payment confirmation, invoice..."
+msgstr "Mailin SMTP permet d’envoyer des emails transactionnels (un email transactionnel est envoyé pour attester d’une transaction ou d’un évènement. Exemple : email d’inscription, de confirmation de commande, une facture …). En activant cette fonctionnalité, vous êtes sûr que vos emails transactionnels parviennent bien à vos destinataires et vous pouvez consulter l'historique de vos emails (ouvertures, clics …)."
+
+msgid "Mailinblue"
+msgstr "Mailin"
+
+msgid "Activate Mailinblue SMTP for your transactional emails"
+msgstr "Activer Mailin SMTP pour vos emails transactionnels"
+
+msgid "For less details,"
+msgstr " Pour moins de détails, cliquez"
+
+msgid "For more details,"
+msgstr " Pour plus de détails, cliquez"
+
+msgid "Contacts list"
+msgstr "Liste des contacts"
+
+msgid "Click on the icon to subscribe / unsubscribe the contact from Mailinblue and WordPress."
+msgstr "Cliquez sur l'icône pour inscrire / désinscrire un contact de Mailin et WordPress."
+
+msgid "You have "
+msgstr "Vous avez "
+
+msgid " contacts subscribed and "
+msgstr " contacts inscrits et "
+
+msgid " contacts unsubscribed from WordPress. "
+msgstr " contacts désinscrits  de WordPress. "
+
+msgid "this link"
+msgstr "ce lien"
+
+msgid "click here"
+msgstr "ici"
+
+msgid "Select option"
+msgstr "Sélectionnez"
+
+msgid "Selected"
+msgstr "liste(s) sélectionnée(s)"
+
+msgid "mailinblue.jpg"
+msgstr "mailin.jpg"
+
+msgid "Synchronize your WordPress contacts with Mailin platform and send transactional emails easily to your customers."
+msgstr "Synchroniser les contacts de votre site WordPress avec la plateforme Mailin et envoyer facilement les emails transactionnels à vos clients."
+
+msgid "  is a product of Mailinblue and it allows you to manage your transactional emails"
+msgstr " est un produit de Mailin et vous permet de gérer vos emails transactionnels."
+

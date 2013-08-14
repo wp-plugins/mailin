@@ -1,0 +1,31 @@
+#mailin_signup_box{background-color:#F5F5F5;border:1px solid #E5E5E5;border-radius:4px 4px 4px 4px;margin-bottom:10px;width:auto;padding:5px}
+.mailin_signup_box_row{width:auto;padding:0 0 4px}
+.mailin_signup_box_row input{font-size:12px;border:1px solid #CCC;border-radius:3px;color:#555;width:92%}
+.mailin_signup_box_row .required{color:red}
+.right{text-align:right}
+.mailin_signup_box_row label{color:#000;font-size:12px}
+#mailin_email{border:1px solid #ccc}
+.mailin_success{color:#468847; margin:0; padding:0}
+.mailin_error{color:#B94A48; margin:0; padding:0}
+.mailin_widget_head{font-size:12px;font-weight:700;text-shadow:0 1px 0 rgba(255,255,255,0.5)}
+#mailin_signup_submit{background-image:0;border-radius:3px;background-color:#0074CC;color:#FFF;width:auto;cursor:pointer;border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);margin:10px 0;padding:3px}
+.mailin_powered{background-color:#339AE1;border-radius:5px 5px 5px 5px;color:#FFF;font-family:Arial;font-weight:700;text-shadow:0 -1px 0 rgba(0,0,0,0.25);padding:2px}
+.toolTip{background:url(../img/help.gif) no-repeat scroll right center transparent;color:#36F;cursor:help;padding-right:20px;position:relative}
+.mailin{background:url(../img/logo.gif) no-repeat}
+#tipkk{position:absolute;z-index:999;opacity:0.9;background:#ccc;border:1px solid #000;max-width:500px;color:#000;padding:10px}
+
+
+/*  Alert css from bootstrap */
+.alert {padding:8px 35px 8px 14px; margin-bottom:20px; text-shadow:0 1px 0 rgba(255, 255, 255, 0.5); background-color:#fcf8e3; border:1px solid #fbeed5; -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px;}
+.alert, .alert h4 {color:#c09853;}
+.alert h4 {margin:0;}
+.alert .close {position:relative; top:-2px; right:-21px; line-height:20px;}
+.alert-success {color:#468847; background-color:#dff0d8; border-color:#d6e9c6;}
+.alert-success h4 {color:#468847;}
+.alert-danger, .alert-error {color:#b94a48; background-color:#f2dede; border-color:#eed3d7;}
+.alert-danger h4, .alert-error h4 {color:#b94a48;}
+.alert-info {color:#3a87ad; background-color:#d9edf7; border-color:#bce8f1;}
+.alert-info h4 {color:#3a87ad;}
+.alert-block {padding-top:14px; padding-bottom:14px;}
+.alert-block > p, .alert-block > ul {margin-bottom:0;}
+.alert-block p + p {margin-top:5px;}
