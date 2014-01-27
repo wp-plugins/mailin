@@ -1,11 +1,11 @@
 <?php
 /**
-Plugin Name: Mailin
-Plugin URI: http://mailin.fr
-Description: Synchronize your WordPress contacts with Mailin platform and send transactional emails easily to your customers.
-Version: 1.5
-Author: Mailin.fr
-Author URI: http://www.mailin.fr
+Plugin Name: SendinBlue Subscribe Form And WP SMTP
+Plugin URI: httpw://www.sendinblue.com
+Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
+Version: 1.6
+Author: SendinBlue
+Author URI: https://www.sendinblue.com
 License: GPLv2 or later
 */
 /*
