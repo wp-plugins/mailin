@@ -11,7 +11,7 @@ Easily send emails from your WordPress blog using your preferred SMTP server
 
 == Description ==
 
-Easy WP SMTP allows you to configure and send all outgoing emails via a SMTP server. This will prevent your emails from going into the junk/spam folder of the recipients.
+SendinBlue Subscribe Form And WP SMTP let's you easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site.
 
 = SendinBlue Subscribe Form And WP SMTP Features =
 
