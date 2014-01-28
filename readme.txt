@@ -3,7 +3,7 @@ Contributors: neeraj_slit
 Tags: mailin,mailinblue,sendinblue, mail, wordpress smtp, phpmailer, smtp, wp_mail, email, gmail, outgoing mail, privacy, security, sendmail, ssl, tls, wp-phpmailer, mail smtp, wp smtp, mailchimp, marketing, newsletter, plugin, signup, widget,  batch sending, bounce, cron, mail throttling, mailing list, multilanguage, send, signup, subscribe, subscription
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.7
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,13 +11,13 @@ Easily send emails from your WordPress blog using your preferred SMTP server
 
 == Description ==
 
-SendinBlue Subscribe Form And WP SMTP let's you easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site.
+SendinBlue Subscribe Form And WP SMTP lets you easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site.
 
 = SendinBlue Subscribe Form And WP SMTP Features =
 
-* Send email using a SMTP sever.
+* Send email using a SMTP server.
 * You can easily add a subscribe widget and all the contacts are sent to the proper list in your SendinBlue account
-* Securely deliver emails to your recipients and don't worry regarding your IP reputation
+* Securely deliver emails to your recipients inbox and don't worry regarding your IP reputation
 
 = SendinBlue Subscribe Form And WP SMTP Plugin Configuration =
 
@@ -39,6 +39,10 @@ https://www.sendinblue.com and then register and use the key which can be found 
 Yes.
 
 == Changelog ==
+
+= 1.7 =
+
+* Fixed typos
 
 = 1.7 =
 
