@@ -1,11 +1,11 @@
 <?php
 /**
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
-Plugin URI: https://www.sendinblue.com
+Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 1.8
+Version: 1.9
 Author: SendinBlue
-Author URI: https://www.sendinblue.com
+Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
 */
 /*
@@ -291,11 +291,11 @@ function mailinSettingsAdminPage()
 add_action('admin_menu', 'adminMenus');
 add_action('init', 'mailinFormSubmit');
 /*
- * show menu in admin
+ * show menu in administrator
  */
 function adminMenus()
 {
-    add_options_page('Mailin Setup', 'Mailin setup', 'administrator', 'mailin_options', 'mailinSettingsAdminPage');
+    add_options_page('SendinBlue Setup', 'SendinBlue setup', 'administrator', 'mailin_options', 'mailinSettingsAdminPage');
 }
 /*
  * show link in admin

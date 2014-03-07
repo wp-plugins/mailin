@@ -19,41 +19,40 @@
 <input type="hidden" name="language" id="language" value="<?php echo get_bloginfo('language'); ?>" />
 <script src="<?php echo plugins_url(); ?>/mailin/js/mailin.js" ></script>
 <div class="">
-<img src="<?php echo plugins_url(); ?>/mailin/img/
-<?php esc_html_e('mailinblue.jpg', 'mailin_i18n' ); ?>" class="mailin-logo">
+
 <div style="float:left;font-weight:bold; padding:25px 0px 0px 0px; color:#268CCD;">
-	<?php esc_html_e('Mailinblue : THE all-in-one plugin for your marketing and transactional emails.', 'mailin_i18n' ); ?></div><div class="clear"></div>
+	<?php esc_html_e('Sendinblue : THE all-in-one plugin for your marketing and transactional emails.', 'mailin_i18n' ); ?></div><div class="clear"></div>
 </div>
 <div class="mailin_row">
 <fieldset class="fields">
 	<legend class="lgend">
 	<img  src="<?php echo plugins_url(); ?>/mailin/img/logo.gif">
-	<?php esc_html_e('Mailinblue', 'mailin_i18n' ); ?>
+	<?php esc_html_e('Sendinblue', 'mailin_i18n' ); ?>
 	</legend>
 		<div class="contact-details">
-		<h2 style="color:#268CCD;"><?php esc_html_e('Contact Mailinblue team', 'mailin_i18n' ); ?> </h2>
+		<h2 style="color:#268CCD;"><?php esc_html_e('Contact Sendinblue team', 'mailin_i18n' ); ?> </h2>
 		<div style="clear: both;"></div>
 		<p> <?php esc_html_e('Contact us:', 'mailin_i18n' ); ?> 
 		<br><br><?php esc_html_e('Email:', 'mailin_i18n' ); ?>
-		<a style="color:#268CCD;" href="mailto:<?php esc_html_e('contact@mailinblue.com', 'mailin_i18n' ); ?>">
-		<?php esc_html_e('contact@mailinblue.com', 'mailin_i18n' ); ?>
+		<a style="color:#268CCD;" href="mailto:<?php esc_html_e('contact@Sendinblue.com', 'mailin_i18n' ); ?>">
+		<?php esc_html_e('contact@Sendinblue.com', 'mailin_i18n' ); ?>
 		</a><br>
 		<?php esc_html_e('Phone : 0899 25 30 61', 'mailin_i18n' ); ?></p>
 		<p style="padding-top:20px;"><b><?php esc_html_e('For further informations, please visit our website:', 'mailin_i18n' ); ?>
-		</b><br><a style="color:#268CCD;" target="_blank" href="<?php esc_html_e('http://www.mailinblue.com/', 'mailin_i18n' ); ?>">
-		<?php esc_html_e('http://www.mailinblue.com/', 'mailin_i18n' ); ?></a></p>
+		</b><br><a style="color:#268CCD;" target="_blank" href="<?php esc_html_e('https://www.Sendinblue.com/?r=wporg', 'mailin_i18n' ); ?>">
+		<?php esc_html_e('https://www.Sendinblue.com/', 'mailin_i18n' ); ?></a></p>
 		</div>
-		<div><?php esc_html_e('With the Mailinblue plugin, you can find everything you need to easily and efficiently send your emailing campains to your prospects and customers. ', 'mailin_i18n' ); ?>
+		<div><?php esc_html_e('With the Sendinblue plugin, you can find everything you need to easily and efficiently send your emailing campains to your prospects and customers. ', 'mailin_i18n' ); ?>
 		<br><br>
 		<ul class="listt">
-		<li><?php esc_html_e('Synchronize your subscribers with Mailinblue (subscribed and unsubscribed contacts)', 'mailin_i18n' ); ?></li>
+		<li><?php esc_html_e('Synchronize your subscribers with Sendinblue (subscribed and unsubscribed contacts)', 'mailin_i18n' ); ?></li>
 		<li><?php esc_html_e('Easily create good looking emailings', 'mailin_i18n' ); ?></li>
 		<li><?php esc_html_e('Schedule your campaigns', 'mailin_i18n' ); ?></li>
 		<li><?php esc_html_e('Track your results and optimize', 'mailin_i18n' ); ?></li>
 		
 		<li><?php esc_html_e('Monitor your transactional emails (purchase confirmation, password reset …) with a better deliverability and real-time analytics', 'mailin_i18n' ); ?></li>
 		</ul>
-		<b><?php esc_html_e('Why should you use Mailinblue ?', 'mailin_i18n' ); ?></b>
+		<b><?php esc_html_e('Why should you use Sendinblue ?', 'mailin_i18n' ); ?></b>
 		<ul class="listt">
 		<li><?php esc_html_e('Optimized deliverability', 'mailin_i18n' ); ?></li>
 		<li><?php esc_html_e('Unbeatable pricing &ndash; best value in the industry', 'mailin_i18n' ); ?></li>
@@ -67,9 +66,9 @@
 <fieldset class="fields">
 	<legend class="lgend"><img  src="<?php echo plugins_url(); ?>/mailin/img/logo.gif">
 	 <?php esc_html_e('Prerequisites', 'mailin_i18n' ); ?></legend>
-<span> <?php esc_html_e('- You should have a Mailinblue account. You can create a free account here:', 'mailin_i18n' ); ?> 
-<a target="_blank" href="<?php esc_html_e('http://www.mailinblue.com/', 'mailin_i18n' ); ?>">
-&nbsp;<?php esc_html_e('http://www.mailinblue.com/', 'mailin_i18n' ); ?></a><br></span></fieldset>
+<span> <?php esc_html_e('- You should have a Sendinblue account. You can create a free account here:', 'mailin_i18n' ); ?> 
+<a target="_blank" href="<?php esc_html_e('https://www.Sendinblue.com/?r=wporg', 'mailin_i18n' ); ?>">
+&nbsp;<?php esc_html_e('https://www.Sendinblue.com/', 'mailin_i18n' ); ?></a><br></span></fieldset>
 </div>
 <?php
 
@@ -106,7 +105,7 @@ $style = '';
 			<tr>
 			<td style = "width:250px; text-align:right;">
 			<label style = "word-wrap:break-word; width:244px;">
-			 <?php esc_html_e('Activate Mailinblue:', 'mailin_i18n' ); ?></label>
+			 <?php esc_html_e('Activate Sendinblue:', 'mailin_i18n' ); ?></label>
 			</td>
 			<td>
 				<?php esc_html_e('Yes', 'mailin_i18n' ); ?>
@@ -120,7 +119,7 @@ $style = '';
             <td scope = "row" style = "width:250px; text-align:right;"><?php esc_html_e('API Key', 'mailin_i18n'); ?>:</td>
             <td>
                <input name = "mailin_apikey" type = "text" id = "mailin_apikey" class = "code" value = "<?php echo esc_attr($api_key); ?>" size = "32" />
-               <span title = "<?php esc_html_e('Please enter your API key from your Mailinblue account and if you donot have it yet, please go to www.mailinblue.com and subscribe. You can then get the API key from https://my.mailinblue.com/advanced/apikey', 'mailin_i18n' ); ?>" class = "toolTip">&nbsp;</span>
+               <span title = "<?php esc_html_e('Please enter your API key from your Sendinblue account and if you donot have it yet, please go to www.Sendinblue.com and subscribe. You can then get the API key from https://my.Sendinblue.com/advanced/apikey', 'mailin_i18n' ); ?>" class = "toolTip">&nbsp;</span>
             </td>
          </tr>
          <tr>
@@ -160,7 +159,7 @@ $style = '';
 						<tr>
 						<td style = "width:259px; text-align:right;">
 						<label style = "word-wrap:break-word; width:244px;">
-						<?php esc_html_e('Activate Mailinblue to manage subscribers:', 'mailin_i18n' ); ?></label>
+						<?php esc_html_e('Activate Sendinblue to manage subscribers:', 'mailin_i18n' ); ?></label>
 						</td>
 						<td>
 						<?php esc_html_e('Yes', 'mailin_i18n' ); ?>
@@ -227,7 +226,7 @@ $style = '';
 								}
 								?>
 								 </select>
-								 <span  class = "toolTip" title = "<?php esc_html_e('Select the contact list where you want to save the contacts of your site WordPress. By default, we have created a list WordPress in your Mailinblue account and we have selected it', 'mailin_i18n'); ?>">&nbsp;</span>
+								 <span  class = "toolTip" title = "<?php esc_html_e('Select the contact list where you want to save the contacts of your site WordPress. By default, we have created a list WordPress in your Sendinblue account and we have selected it', 'mailin_i18n'); ?>">&nbsp;</span>
 								</td>
 							</tr>
 							  
@@ -247,7 +246,7 @@ $style = '';
 					
 					<?php	
 						$cron_link = MAILIN_URL.'cron.php';
-						echo esc_html_e('To synchronize the emails of your customers from Mailinblue platform to your WordPress website, you should run ', 'mailin_i18n').'<a target="_blank" href ="'.$cron_link.'?token='.md5(get_option('mailin_apikey')).'" >';
+						echo esc_html_e('To synchronize the emails of your customers from Sendinblue platform to your WordPress website, you should run ', 'mailin_i18n').'<a target="_blank" href ="'.$cron_link.'?token='.md5(get_option('mailin_apikey')).'" >';
 						echo esc_html_e(' this link', 'mailin_i18n').'</a>';
 						echo esc_html_e(' each day.', 'mailin_i18n');
 					?>
@@ -272,7 +271,7 @@ $style = '';
 <div class = "mailin_row blog_form">
 <fieldset class = "fields">
 <legend class = "lgend"><img  src = "<?php echo plugins_url(); ?>/mailin/img/logo.gif">
-  <?php esc_html_e('Activate Mailinblue SMTP for your transactional emails', 'mailin_i18n'); ?></legend>
+  <?php esc_html_e('Activate Sendinblue SMTP for your transactional emails', 'mailin_i18n'); ?></legend>
 
  
 
@@ -280,10 +279,10 @@ $style = '';
       <tbody>
 		<tr>
 		<td colspan = "2">
-		<a href = "<?php esc_html_e('http://www.mailinblue.com/mailin-smtp', 'mailin_i18n' ); ?>"  target = "_blank" >
-		<?php esc_html_e('Mailinblue SMTP', 'mailin_i18n' ); ?>
+		<a href = "<?php esc_html_e('https://www.Sendinblue.com/mailin-smtp', 'mailin_i18n' ); ?>"  target = "_blank" >
+		<?php esc_html_e('Sendinblue SMTP', 'mailin_i18n' ); ?>
 		</a>
-		<?php esc_html_e('  is a product of Mailinblue and it allows you to manage your transactional emails', 'mailin_i18n'); ?>
+		<?php esc_html_e('  is a product of Sendinblue and it allows you to manage your transactional emails', 'mailin_i18n'); ?>
 		<span class = "toolTip" title = "<?php esc_html_e('Transactional email is an expected email because it has been triggered automatically after a transaction or a specific event. Common examples of transactional email is : account opening and welcome message, order shipment confirmation, shipment tracking and purchase order status, registration via a contact form, account termination, payment confirmation, invoice...', 'mailin_i18n'); ?>">&nbsp;</span>
 
 		</td>
@@ -292,7 +291,7 @@ $style = '';
          <tr>
             <td style = "width:250px; text-align:right;">
                <span style = "word-wrap:break-word; width:244px;">
-                  <?php echo esc_html_e('Activate Mailinblue SMTP:', 'mailin_i18n'); ?>
+                  <?php echo esc_html_e('Activate Sendinblue SMTP:', 'mailin_i18n'); ?>
                </span>
             </td>
             <td>
@@ -389,7 +388,7 @@ if($total != 0)
          <th><?php echo esc_html_e( 'Newsletter WordPress status', 'mailin_i18n'); ?>
          </th>
          <th><?php echo esc_html_e( 'Newsletter Mailin Status', 'mailin_i18n'); ?>
-         <span title="<?php esc_html_e('Click on the icon to subscribe / unsubscribe the contact from Mailinblue and WordPress.', 'mailin_i18n' ); ?>" class="toolTip">&nbsp;</span>
+         <span title="<?php esc_html_e('Click on the icon to subscribe / unsubscribe the contact from Sendinblue and WordPress.', 'mailin_i18n' ); ?>" class="toolTip">&nbsp;</span>
          </th>
          <th><?php echo esc_html_e( 'Date of last update', 'mailin_i18n'); ?>
          </th>
