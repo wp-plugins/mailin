@@ -1,0 +1,1 @@
+﻿Merci de votre inscription. Vous Ãªtes inscrits Ã  la newsletter de {site_domain}. Si vous ne souhaitez plus recevoir ces emails, vous pouvez Vous dÃ©sinscrire. -SendinBlue

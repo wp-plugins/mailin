@@ -1,0 +1,560 @@
+<?php
+
+/**
+ * Admin page : dashboard
+ * @package SIB_Page_Form
+ */
+
+/**
+ * Page class that handles backend page <i>dashboard ( for admin )</i> with form generation and processing
+ * @package SIB_Page_Form
+ */
+
+if(!class_exists('SIB_Page_Form'))
+{
+    class SIB_Page_Form
+    {
+        /**
+         * Page slug
+         */
+        const page_id = 'sib_page_form';
+
+        /**
+         * Page hook
+         * @var string
+         */
+        protected $page_hook;
+
+        /**
+         * page tabs
+         * @var mixed
+         */
+        protected $tabs;
+
+        /**
+         * Constructs new page object and adds entry to Wordpress admin menu
+         */
+        function __construct()
+        {
+            $this->page_hook = add_submenu_page(SIB_Page_Home::page_id, __('Settings', 'sib_lang'), __('Settings', 'sib_lang'), 'manage_options', self::page_id, array(&$this, 'generate'));
+            add_action('load-'.$this->page_hook, array(&$this, 'init'));
+            add_action( 'admin_print_scripts-' . $this->page_hook, array($this, 'enqueue_scripts'));
+            add_action( 'admin_print_styles-' . $this->page_hook, array($this, 'enqueue_styles'));
+        }
+
+        /**
+         * Init Process
+         */
+        function Init()
+        {
+
+        }
+
+        /**
+         * enqueue scripts of plugin
+         */
+        function enqueue_scripts()
+        {
+            wp_enqueue_script('sib-admin-js');
+            wp_enqueue_script('sib-bootstrap-js');
+            wp_localize_script('sib-admin-js', 'ajax_object',
+                array( 'ajax_url' => admin_url( 'admin-ajax.php' )) );
+        }
+
+        /**
+         * enqueue style sheets of plugin
+         */
+        function enqueue_styles()
+        {
+            wp_enqueue_style('sib-admin-css');
+            wp_enqueue_style('sib-bootstrap-css');
+            wp_enqueue_style('sib-fontawesome-css');
+            wp_enqueue_style('thickbox');
+        }
+
+        /** generate page script */
+        function generate()
+        {
+            ?>
+            <div id="wrap" class="box-border-box container-fluid">
+                <h2><img id="logo-img" src="<?php echo SIB_Manager::$plugin_url . '/img/logo.png'; ?>"></h2>
+                <div id="wrap-left" class="box-border-box col-md-9 ">
+                    <?php
+                    if(SIB_Manager::is_done_validation()) {
+                        $this->generate_main_page();
+                    } else {
+                        $this->generate_welcome_page();
+                    }
+                    ?>
+                </div>
+                <div id="wrap-right-side" class="box-border-box col-md-3">
+                    <?php
+
+                    SIB_Page_Home::generate_side_bar();
+                    ?>
+                </div>
+            </div>
+        <?php
+        }
+
+        /** generate main page */
+        function generate_main_page()
+        {
+            // get sender list
+            $senders = self::get_sender_lists();
+            // get template list
+            $templates = self::get_template_lists();
+            $lists = SIB_Page_Home::get_lists();
+            ?>
+            <div id="main-content">
+                <!-- Sign up Process -->
+                <form action="admin-post.php" class="panel panel-default row small-content" method="post" role="form">
+                    <input type="hidden" name="action" value="sib_setting_signup" >
+                    <!-- Adding security through hidden referrer field -->
+                    <?php wp_nonce_field( 'sib_setting_signup' ); ?>
+                    <div class="page-header"><strong><?php _e('Sign up process', 'sib_lang'); ?></strong></div>
+                    <div class="panel-body">
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Select the list where you want to add your new subscribers', 'sib_lang'); ?></span>
+                            <div class="col-md-4">
+                                <select id="sib_select_list" class="col-md-10" name="list_id">
+                                    <?php
+                                    foreach($lists as $list)
+                                    {
+                                        ?>
+                                        <option value="<?php echo $list['id']; ?>" <?php selected(SIB_Manager::$list_id, $list['id']); ?>><?php echo $list['name']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Send a confirmation email', 'sib_lang'); ?><?php echo SIB_Page_Home::get_narration_script(__('Confirmation message', 'sib_lang'),__('You can choose to send a confirmation email. You will be able to set up the template that will be sent to your new suscribers', 'sib_lang')); ?></span>
+                            <div class="col-md-4">
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_confirm_email_yes" name="is_confirm_email" value="yes" <?php checked(SIB_Manager::$is_confirm_email, 'yes'); ?>>&nbsp;<?php _e('Yes', 'sib_lang'); ?></label>
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_confirm_email_no" name="is_confirm_email" value="no" <?php checked(SIB_Manager::$is_confirm_email, 'no'); ?>>&nbsp;<?php _e('No', 'sib_lang'); ?></label>
+                            </div>
+                            <div class="col-md-5">
+                                <small style="font-style: italic;"><?php _e('Select "Yes" if you want your subscribers to receive a confirmation email','sib_lang'); ?></small>
+                            </div>
+                        </div>
+                        <div class="row" id="sib_confirm_template_area">
+                            <div class="col-md-3">
+                                <select class="col-md-11" name="template_id" id="sib_template_id">
+                                    <option value="-1" <?php selected(SIB_Manager::$template_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
+                                    <?php
+                                    foreach($templates as $template)
+                                    {
+                                    ?>
+                                        <option value="<?php echo $template['id']; ?>" <?php selected(SIB_Manager::$template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://my.sendinblue.com/camp/listing#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
+                            </div>
+                        </div>
+                        <div class="row" id="sib_confirm_sender_area" style="margin-top: 10px;">
+                            <div class="col-md-3" id="sib_confirm_sender_area_select">
+                                <select class="col-md-11" name="sender_id" id="sib_sender_id">
+                                    <option value="-1" <?php selected(SIB_Manager::$sender_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
+                                    <?php
+                                    foreach($senders as $sender)
+                                    {
+                                    ?>
+                                        <option value="<?php echo $sender['from_email']; ?>" <?php selected(SIB_Manager::$sender_id, $sender['from_email']); ?>><?php echo $sender['from_email']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://my.sendinblue.com/advanced/advanceparamres" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my senders', 'sib_lang'); ?></a>
+                            </div>
+                        </div>
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Double Opt-In', 'sib_lang'); ?> <?php echo SIB_Page_Home::get_narration_script(__('Double Opt-In', 'sib_lang'),__('You can choose to add a step in the confirmation process, by requiring a new suscriber to click on a link sent to the registered email adress. By doing so, he will be added to your contact', 'sib_lang')); ?></span>
+                            <div class="col-md-4">
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_double_optin_yes" name="is_double_optin" value="yes" <?php checked(SIB_Manager::$is_double_optin, 'yes'); ?>>&nbsp;<?php _e('Yes', 'sib_lang'); ?></label>
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_double_optin_no" name="is_double_optin" value="no" <?php checked(SIB_Manager::$is_double_optin, 'no'); ?>>&nbsp;<?php _e('No', 'sib_lang'); ?></label>
+                            </div>
+                            <div class="col-md-5">
+                                <small style="font-style: italic;"><?php _e('Select "Yes" if you want your subscribers to confirm their email address','sib_lang'); ?></small>
+                            </div>
+                        </div>
+                        <div class="row" id="sib_double_sender_area">
+                            <div class="col-md-3" id="sib_double_sender_area_select">
+
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://my.sendinblue.com/advanced/advanceparamres" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my senders', 'sib_lang'); ?></a>
+                            </div>
+                        </div>
+                        <div class="row small-content" id="sib_double_redirect_area">
+                            <span class="col-md-3"><?php _e('Redirect to this URL after clicking in the email', 'sib_lang'); ?></span>
+                            <div class="col-md-8">
+                                <input type="url" class="col-md-11" name="redirect_url" value="<?php echo SIB_Manager::$redirect_url; ?>">
+                            </div>
+                        </div>
+
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Redirect to this URL after subscription', 'sib_lang'); ?></span>
+                            <div class="col-md-4">
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_redirect_url_click_yes" name="is_redirect_url_click" value="yes" <?php checked(SIB_Manager::$is_redirect_url_click, 'yes'); ?>>&nbsp;<?php _e('Yes', 'sib_lang'); ?></label>
+                                <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_redirect_url_click_no" name="is_redirect_url_click" value="no" <?php
+                                    if(SIB_Manager::$is_redirect_url_click == '' || SIB_Manager::$is_redirect_url_click == 'no') {
+                                        echo 'checked';
+                                    }
+                                    ?>>&nbsp;<?php _e('No', 'sib_lang'); ?></label>
+                            </div>
+                            <div class="col-md-5">
+                                <small style="font-style: italic;"><?php _e('Select "Yes" if you want to redirect your subscribers to a specific page after they fullfill the form','sib_lang'); ?></small>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;<?php
+                        if(SIB_Manager::$is_redirect_url_click != 'yes') {
+                            echo 'display:none;';
+                        }
+                        ?>" id="sib_subscrition_redirect_area" >
+                            <span class="col-md-3"></span>
+                            <div class="col-md-8">
+                                <input type="url" class="col-md-11" name="redirect_url_click" value="<?php echo SIB_Manager::$redirect_url_click; ?>">
+                            </div>
+                        </div>
+
+                        <div class="row small-content" style="margin-top: 30px;">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form><!-- End Sign up process form-->
+
+                <!-- Subscription form -->
+                <form action="admin-post.php" class="panel panel-default row small-content" method="post" role="form">
+                    <input type="hidden" name="action" value="sib_setting_subscription" >
+                    <!-- Adding security through hidden referrer field -->
+                    <?php wp_nonce_field( 'sib_setting_subscription' ); ?>
+                    <div class="page-header">
+                        <strong><?php _e('Subscription form', 'sib_lang'); ?></strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row small-content">
+                            <div class="col-md-6">
+                                <?php
+                                if( function_exists( 'wp_editor' ) ) {
+                                    wp_editor( SIB_Manager::$sib_form_html, 'sibformmarkup', array( 'tinymce' => false, 'media_buttons' => true, 'textarea_name' => 'sib_form_html','textarea_rows' => 15));
+                                } else {
+                                    ?><textarea class="widefat" cols="160" rows="20" id="sibformmarkup" name="sib_form_html"><?php echo esc_textarea( SIB_Manager::$sib_form_html ); ?></textarea><?php
+                                } ?>
+                                <br>
+                                <p>
+                                    <?php
+                                    _e('Use the shortcode','sib_lang');
+                                    ?>
+                                    <i style="background-color: #eee;padding: 3px;">[sibwp_form]</i>
+                                    <?php
+                                    _e('inside a post, page or text widget to display your sign-up form.' ,'sib_lang' ); ?>
+                                    <b><?php _e('Do not copy and paste the above form mark up, that will not work', 'sib_lang'); ?></b>
+                                </p>
+                            </div>
+                            <div class="col-md-6" >
+                                <!-- hidden fields for attributes -->
+                                <input type="hidden" id="sib_hidden_email" data-type="email" data-name="email" data-text="<?php _e('Email Address', 'sib_lang'); ?>">
+                                <input type="hidden" id="sib_hidden_submit" data-type="submit" data-name="submit" data-text="<?php _e('Sign up', 'sib_lang'); ?>">
+                                <?php
+                                $attributes = get_option(SIB_Manager::attribute_list_option_name);
+                                foreach($attributes as $attribute)
+                                {
+                                ?>
+                                    <input type="hidden" id="sib_hidden_<?php echo $attribute['name']; ?>" data-type="<?php echo $attribute['type']; ?>" data-name="<?php echo $attribute['name']; ?>" data-text="<?php echo $attribute['name']; ?>">
+                                <?php
+                                }
+                                ?>
+                                <div id="sib-field-form" class="panel panel-default row" style="padding-bottom: 20px;">
+                                    <div class="row small-content2" style="margin-top: 20px;margin-bottom: 20px;">
+                                        <b><?php _e('Add a new Field', 'sib_lang'); ?></b>&nbsp;
+                                        <?php SIB_Page_Home::get_narration_script(__('Add a New Field', 'sib_lang'), __('Choose an attribute and add it to the subscription form of your Website', 'sib_lang')); ?>
+                                    </div>
+                                    <div class="row small-content2" style="margin-top: 20px;">
+                                        <select class="col-md-12" id="sib_sel_attribute">
+                                            <option value="-1" disabled selected><?php _e('Select SendinBlue Attribute', 'sib_lang'); ?></option>
+                                            <optgroup label="<?php _e('SendinBlue merge fields', 'sib_lang'); ?>">
+                                                <option value="email"><?php _e('Email Address', 'sib_lang'); ?>*</option>
+                                                <?php
+
+                                                foreach($attributes as $attribute)
+                                                {
+                                                ?>
+                                                    <option value="<?php echo $attribute['name']; ?>"><?php echo $attribute['name']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </optgroup>
+                                            <optgroup label="<?php _e('Other', 'sib_lang'); ?>">
+                                                <option value="submit"><?php _e('Submit Button', 'sib_lang'); ?></option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div style="margin-top: 30px;">
+                                        <div class="row small-content2" style="margin-top: 10px;" id="sib_field_label_area">
+                                            <?php _e('Label', 'sib_lang'); ?> <small>(<?php _e('Optional', 'sib_lang');?>)</small>
+                                            <input type="text" class="col-md-12" id="sib_field_label">
+                                        </div>
+                                        <div class="row small-content2" style="margin-top: 10px;"  id="sib_field_placeholder_area">
+                                            <span><?php _e('Place holder', 'sib_lang'); ?> <small>(<?php _e('Optional', 'sib_lang');?>)</small> </span>
+                                            <input type="text" class="col-md-12" id="sib_field_placeholder">
+                                        </div>
+                                        <div class="row small-content2"  style="margin-top: 10px;"  id="sib_field_initial_area">
+                                            <span><?php _e('Initial value', 'sib_lang'); ?> <small>(<?php _e('Optional', 'sib_lang');?>)</small> </span>
+                                            <input type="text" class="col-md-12" id="sib_field_initial">
+                                        </div>
+                                        <div class="row small-content2"  style="margin-top: 10px;"  id="sib_field_button_text_area">
+                                            <span><?php _e('Button Text', 'sib_lang'); ?></span>
+                                            <input type="text" class="col-md-12" id="sib_field_button_text">
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 20px;">
+                                        <div class="row small-content2"  style="margin-top: 5px;" id="sib_field_wrap_area">
+                                            <label style="font-weight: normal;"><input type="checkbox" id="sib_field_wrap">&nbsp;&nbsp;<?php _e('Wrap in Paragraph (&lt;p&gt;) tags ?', 'sib_lang'); ?></label>
+                                        </div>
+                                        <div class="row small-content2"  style="margin-top: 5px;" id="sib_field_required_area">
+                                            <label style="font-weight: normal;"><input type="checkbox" id="sib_field_required">&nbsp;&nbsp;<?php _e('Required field ?', 'sib_lang'); ?></label>
+                                        </div>
+                                    </div>
+                                    <div class="row small-content2"  style="margin-top: 20px;" id="sib_field_add_area">
+                                        <button type="button" id="sib_add_to_form_btn" class="btn btn-default"><span class="sib-large-icon"><</span> <?php _e('Add to form', 'sib_lang'); ?></button>
+                                    </div>
+                                    <div class="row small-content2"  style="margin-top: 20px;" id="sib_field_html_area">
+                                        <span><?php _e('Generated HTML', 'sib_lang'); ?></span>
+                                        <textarea class="col-md-12" style="height: 140px;" id="sib_field_html"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row small-content" style="margin-top: 30px;">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </form> <!-- End Subscription form-->
+
+                <!-- Confirmation message form -->
+                <form action="admin-post.php" class="panel panel-default row small-content" method="post" role="form">
+                    <input type="hidden" name="action" value="sib_setting_confirmation" >
+                    <!-- Adding security through hidden referrer field -->
+                    <?php wp_nonce_field( 'sib_setting_confirmation' ); ?>
+                    <div class="page-header">
+                        <strong><?php _e('Confirmation message', 'sib_lang'); ?></strong>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Success message', 'sib_lang'); ?></span>
+                            <div class="col-md-8">
+                                <input type="text" class="col-md-11" name="alert_success_message" value="<?php echo SIB_Manager::$alert_success_message; ?>" required>&nbsp;
+                                <?php echo SIB_Page_Home::get_narration_script(__('Success message', 'sib_lang'),__('Set up the success message that will appear when one of your visitors surccessfully signs up', 'sib_lang')); ?>
+                            </div>
+                        </div>
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('General error message', 'sib_lang'); ?></span>
+                            <div class="col-md-8">
+                                <input type="text" class="col-md-11" name="alert_error_message" value="<?php echo SIB_Manager::$alert_error_message; ?>" required>&nbsp;
+                                <?php echo SIB_Page_Home::get_narration_script(__('General message error', 'sib_lang'),__('Set up the message that will appear when an error occurs during the subscritpion process', 'sib_lang')); ?>
+                            </div>
+                        </div>
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Existing subscribers', 'sib_lang'); ?></span>
+                            <div class="col-md-8">
+                                <input type="text" class="col-md-11" name="alert_exist_subscriber" value="<?php echo SIB_Manager::$alert_exist_subscriber; ?>" required>&nbsp;
+                                <?php echo SIB_Page_Home::get_narration_script(__('Existing Suscribers', 'sib_lang'),__('Set up the message that will appear when a suscriber is already in your database', 'sib_lang')); ?>
+                            </div>
+                        </div>
+                        <div class="row small-content">
+                            <span class="col-md-3"><?php _e('Invalid email address', 'sib_lang'); ?></span>
+                            <div class="col-md-8">
+                                <input type="text" class="col-md-11" name="alert_invalid_email" value="<?php echo SIB_Manager::$alert_invalid_email; ?>" required>&nbsp;
+                                <?php echo SIB_Page_Home::get_narration_script(__('Invalid email adress', 'sib_lang'), __('Set up the message that will appear when the email address used to sign up is not valid', 'sib_lang')); ?>
+                            </div>
+                        </div>
+                        <div class="row small-content" style="margin-top: 30px;">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </form> <!-- End Confirmation message form-->
+            </div>
+            <script>
+                jQuery(document).ready(function(){
+                    jQuery('#sib_add_to_form_btn').click(function() {
+                        var field_html = jQuery('#sib_field_html').html();
+
+                        tinyMCE.activeEditor.selection.setContent(field_html);
+
+                        return false;
+                    });
+                });
+            </script>
+        <?php
+        }
+
+        /** generate welcome page */
+        function generate_welcome_page()
+        {
+        ?>
+            <div id="main-content" class="row">
+                <img class="small-content" src="<?php echo SIB_Manager::$plugin_url . '/img/background/setting.png'?>" style="width: 100%;">
+            </div>
+        <?php
+            SIB_Page_Home::print_disable_popup();
+        }
+
+        /** save sign up setting */
+        function save_setting_signup()
+        {
+            // check user role
+            if( !current_user_can( 'manage_options' ) )
+                wp_die('Not allowed');
+
+            // check secret through hidden referrer field
+            check_admin_referer( 'sib_setting_signup' );
+
+            $is_confirm_email = $_POST['is_confirm_email'];
+            $is_double_optin = $_POST['is_double_optin'];
+            $redirect_url = $_POST['redirect_url'];
+            $redirect_url_click = $_POST['redirect_url_click'];
+            $template_id = $_POST['template_id'];
+            $sender_id = $_POST['sender_id'];
+            $is_redirect_url_click = $_POST['is_redirect_url_click'];
+
+            $settings = array(
+                'is_confirm_email' => $is_confirm_email,
+                'is_double_optin' => $is_double_optin,
+                'redirect_url' => $redirect_url,
+                'redirect_url_click' => $redirect_url_click,
+                'template_id' => $template_id,
+                'sender_id' => $sender_id,
+                'is_redirect_url_click' => $is_redirect_url_click
+            );
+            update_option(SIB_Manager::form_signup_option_name, $settings);
+
+            $list_id = $_POST['list_id'];
+            $home_settings = array(
+                'list_id' => $list_id,
+                'activate_email' => SIB_Manager::$activate_email
+            );
+            update_option(SIB_Manager::home_option_name, $home_settings);
+
+            wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
+            exit;
+        }
+
+        /** save confirmation message setting */
+        function save_setting_confirm()
+        {
+            // check user role
+            if( !current_user_can( 'manage_options' ) )
+                wp_die('Not allowed');
+
+            // check secret through hidden referrer field
+            check_admin_referer( 'sib_setting_confirmation' );
+
+            $alert_success_message = esc_attr($_POST['alert_success_message']);
+            $alert_error_message = esc_attr($_POST['alert_error_message']);
+            $alert_exist_subscriber = esc_attr($_POST['alert_exist_subscriber']);
+            $alert_invalid_email = esc_attr($_POST['alert_invalid_email']);
+
+            $settings = array(
+                'alert_success_message' => $alert_success_message,
+                'alert_error_message' => $alert_error_message,
+                'alert_exist_subscriber' => $alert_exist_subscriber,
+                'alert_invalid_email' => $alert_invalid_email
+            );
+            update_option(SIB_Manager::form_confirmation_option_name, $settings);
+
+            wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
+            exit;
+        }
+
+        /** save subscription setting */
+        function save_setting_subscription()
+        {
+            // check user role
+            if( !current_user_can( 'manage_options' ) )
+                wp_die('Not allowed');
+
+            // check secret through hidden referrer field
+            check_admin_referer( 'sib_setting_subscription' );
+
+            // form html of subscription
+            $sib_form_html = stripslashes($_POST['sib_form_html']);
+
+            // get available attributes list
+            $attributes = get_option(SIB_Manager::attribute_list_option_name);
+            $available_attrs = array();
+            foreach($attributes as $attribute)
+            {
+                $pos = strpos($sib_form_html, 'sib-' . $attribute['name'] . '-area');
+
+                if($pos !== false) {
+                    $available_attrs[] = $attribute['name'];
+                }
+            }
+
+            $settings = array(
+                'sib_form_html' => $sib_form_html,
+                'available_attributes' => $available_attrs
+            );
+            update_option(SIB_Manager::form_subscription_option_name, $settings);
+
+            wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
+            exit;
+        }
+
+        /**
+         * get sender lists of sendinblue
+         */
+        public static function get_sender_lists()
+        {
+            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $response = $mailin->get_senders('');
+            return $response['data'];
+        }
+
+        /**
+         * get template lists of sendinblue
+         */
+        public static function get_template_lists()
+        {
+            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $response = $mailin->get_campaigns('template');
+            return $response['data']['campaign_records'];
+        }
+
+        /** ajax process when change template id */
+        function ajax_change_template()
+        {
+            $template_id = $_POST['template_id'];
+            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $response = $mailin->get_campaign($template_id);
+
+            $ret_email = '-1';
+            if($response['code'] == 'success') {
+                $from_email = $response['data'][$template_id]['from_email'];
+                if($from_email == '[DEFAULT_FROM_EMAIL]') {
+                    $ret_email = '-1';
+                } else {
+                    $ret_email = $from_email;
+                }
+            }
+
+            echo $ret_email;
+            die();
+        }
+    }
+}
