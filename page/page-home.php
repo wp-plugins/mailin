@@ -373,6 +373,9 @@ if(!class_exists('SIB_Page_Home'))
                 <div class="panel-heading"><strong><?php _e('Recommended this plugin', 'sib_lang'); ?></strong></div>
                 <div class="panel-body">
                     <p><?php _e('You like this plugin? Let everybody knows and review it' ,'sib_lang'); ?></p>
+                    <ul class="sib-widget-menu">
+                        <li><a href="http://wordpress.org/support/view/plugin-reviews/mailin" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Review this plugin', 'sib_lang'); ?></a></li>
+                    </ul>
                 </div>
             </div>
         <?php

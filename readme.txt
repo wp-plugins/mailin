@@ -39,6 +39,10 @@ https://www.sendinblue.com and then register and use the key which can be found 
 Yes.
 
 == Changelog ==
+= 2.0 =
+* update sendinblue api
+* Add functionality (List,Contact,Stat,Form Management)
+* Update UI user-friendly
 
 = 1.7 =
 
