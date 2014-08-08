@@ -1,5 +1,5 @@
 === SendinBlue Subscribe Form And WP SMTP ===
-Contributors: Dragonofdev 
+Contributors: Dragonofdev, SendinBlue  
 Tags: mailin,mailinblue,sendinblue, mail, wordpress smtp, phpmailer, smtp, wp_mail, email, gmail, outgoing mail, privacy, security, sendmail, ssl, tls, wp-phpmailer, mail smtp, wp smtp, mailchimp, marketing, newsletter, plugin, signup, widget,  batch sending, bounce, cron, mail throttling, mailing list, multilanguage, send, signup, subscribe, subscription
 Requires at least: 3.0
 Tested up to: 3.9.2
