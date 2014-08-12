@@ -554,6 +554,9 @@ if(!class_exists('SIB_Page_Home'))
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
             $mailin->delete_token(SIB_Manager::$access_token);
 
+            // remove account info
+            self::remove_account_info();
+
             wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
             exit;
         }
@@ -671,6 +674,15 @@ if(!class_exists('SIB_Page_Home'))
 
                 update_option(SIB_Manager::account_option_name, $account_settings);
             }
+        }
+
+        /**
+         * Remove account info
+         */
+        static function remove_account_info()
+        {
+            $account_settings = array();
+            update_option(SIB_Manager::account_option_name, $account_settings);
         }
     }
 
