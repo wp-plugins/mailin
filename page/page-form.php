@@ -227,7 +227,7 @@ if(!class_exists('SIB_Page_Form'))
 
                         <div class="row small-content" style="margin-top: 30px;">
                             <div class="col-md-3">
-                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                                <button class="btn btn-primary"><?php _e('Save', 'sib_lang'); ?></button>
                             </div>
                         </div>
 
@@ -338,7 +338,7 @@ if(!class_exists('SIB_Page_Form'))
                         </div>
                         <div class="row small-content" style="margin-top: 30px;">
                             <div class="col-md-3">
-                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                                <button class="btn btn-primary"><?php _e('Save', 'sib_lang'); ?></button>
                             </div>
                         </div>
                     </div>
@@ -383,7 +383,7 @@ if(!class_exists('SIB_Page_Form'))
                         </div>
                         <div class="row small-content" style="margin-top: 30px;">
                             <div class="col-md-3">
-                                <button class="btn btn-primary col-md-6"><?php _e('Save', 'sib_lang'); ?></button>
+                                <button class="btn btn-primary"><?php _e('Save', 'sib_lang'); ?></button>
                             </div>
                         </div>
                     </div>

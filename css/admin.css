@@ -155,3 +155,6 @@ input[type=radio]:focus {
     cursor: pointer;
 }
 
+#main-content  button {
+    min-width: 100px;
+}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SendinBlue plugin\n"
-"POT-Creation-Date: 2014-08-08 09:11+0700\n"
-"PO-Revision-Date: 2014-08-08 09:16+0700\n"
+"POT-Creation-Date: 2014-08-18 12:51+0700\n"
+"PO-Revision-Date: 2014-08-18 12:52+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -266,8 +266,8 @@ msgstr ""
 "Paramétrer le message qui apparaît lorsque l'adresse utilisée pour "
 "l'inscription n'est pas valide"
 
-#: ../page/page-home.php:39 ../page/page-home.php:397
-#: ../page/page-home.php:516 ../sendinblue.php:865 ../sendinblue.php:879
+#: ../page/page-home.php:39 ../page/page-home.php:400
+#: ../page/page-home.php:519 ../sendinblue.php:877 ../sendinblue.php:891
 msgid "SendinBlue"
 msgstr "SendinBlue"
 
@@ -348,7 +348,7 @@ msgstr ""
 
 #: ../page/page-home.php:141
 msgid "Get your API key from your account"
-msgstr "Obtenez la clÃ© API de votre compte"
+msgstr "Obtenez la clé API de votre compte"
 
 #: ../page/page-home.php:145
 msgid "Access Key"
@@ -520,7 +520,11 @@ msgstr "Recommender ce plugin"
 msgid "You like this plugin? Let everybody knows and review it"
 msgstr "Vous aimez ce plugin ? Faites-le savoir et notez le"
 
-#: ../page/page-home.php:401
+#: ../page/page-home.php:377
+msgid "Review this plugin"
+msgstr "Revoir ce plugin"
+
+#: ../page/page-home.php:404
 msgid ""
 "You are currently not logged in. Create an account or log in to benefit from "
 "all of SendinBlue's features an your Wordpress site."
@@ -529,35 +533,35 @@ msgstr ""
 "pour bénéficier de toutes les fonctionnalités de SendinBlue pour votre site "
 "Wordpress"
 
-#: ../page/page-home.php:404
+#: ../page/page-home.php:407
 msgid "Collect and manage your contacts"
 msgstr "Collectez et gérez vos contacts"
 
-#: ../page/page-home.php:405
+#: ../page/page-home.php:408
 msgid "Send transactional emails via SMTP or API"
 msgstr "Envoyer des emails transactionnels via SMTP ou API"
 
-#: ../page/page-home.php:406
+#: ../page/page-home.php:409
 msgid "Real time statistics and email tracking"
 msgstr "Statistiques en temps réel et tracking des emails"
 
-#: ../page/page-home.php:407
+#: ../page/page-home.php:410
 msgid "Edit and send email marketing"
 msgstr "Editer et envoyer des emails marketings"
 
-#: ../page/page-home.php:411
+#: ../page/page-home.php:414
 msgid "Have an account?"
 msgstr "Vous avez un compte ?"
 
-#: ../page/page-home.php:414
+#: ../page/page-home.php:417
 msgid "Free Subscribe Now"
 msgstr "S'inscrire gratuitement"
 
-#: ../page/page-home.php:515
+#: ../page/page-home.php:518
 msgid "[SendinBlue SMTP] test email"
 msgstr "email de test [SendinBlue SMTP]"
 
-#: ../page/page-home.php:517 ../sendinblue.php:864 ../sendinblue.php:878
+#: ../page/page-home.php:520 ../sendinblue.php:876 ../sendinblue.php:890
 msgid "no-reply@sendinblue.com"
 msgstr "no-reply@sendinblue.com"
 
@@ -569,51 +573,51 @@ msgstr "Listes"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: ../sendinblue.php:410
+#: ../sendinblue.php:409
 msgid "Thank you, you have successfully registered !"
 msgstr "Vous êtes désormais inscrit !"
 
-#: ../sendinblue.php:411
+#: ../sendinblue.php:410
 msgid "Something wrong occured"
 msgstr "Une erreur est survenue"
 
-#: ../sendinblue.php:412
+#: ../sendinblue.php:411
 msgid "You have already registered"
 msgstr "Vous êtes déjà inscrit"
 
-#: ../sendinblue.php:413
+#: ../sendinblue.php:412
 msgid "Your email address is invalid"
 msgstr "Cette adresse email n'est pas valide"
 
-#: ../sendinblue.php:857
+#: ../sendinblue.php:869
 msgid "Subscription confirmed"
 msgstr "Inscription confirmée "
 
-#: ../sendinblue.php:859
+#: ../sendinblue.php:871
 msgid "Please confirm subscription"
 msgstr "Confirmer l'inscription "
 
-#: ../sendinblue.php:970
+#: ../sendinblue.php:982
 msgid "Unsubscribe"
 msgstr "Se désabonner"
 
-#: ../sendinblue.php:989
+#: ../sendinblue.php:1001
 msgid "Your request has been taken into account."
 msgstr "Votre demande a bien été prise en compte."
 
-#: ../sendinblue.php:991
+#: ../sendinblue.php:1003
 msgid "The user has been unsubscribed"
 msgstr "L'utilisateur s'est désinscrit"
 
-#: ../sendinblue.php:1070
+#: ../sendinblue.php:1082
 msgid "Thank you for subscribing"
 msgstr "Merci pour votre inscription"
 
-#: ../sendinblue.php:1089
+#: ../sendinblue.php:1101
 msgid "You have just subscribed to the newsletter of "
 msgstr "Vous vous êtes inscrit à la newsletter de"
 
-#: ../sendinblue.php:1090
+#: ../sendinblue.php:1102
 msgid "-SendinBlue"
 msgstr "-SendinBlue"
 
@@ -623,7 +627,7 @@ msgstr "Newsletter SendinBlue"
 
 #: ../widget/widget_form.php:37
 msgid "Subscribe"
-msgstr "S'inscire"
+msgstr "S'inscrire"
 
 #: ../widget/widget_form.php:63
 msgid "Widget Title"
