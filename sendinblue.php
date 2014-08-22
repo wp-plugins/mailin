@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.0.3
+Version: 2.0.4
 Author: SendinBlue, Dragonofdev
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -685,6 +685,8 @@ EOD;
         function signup_process()
         {
             $email = $_POST['email'];
+            if(!is_email($email))
+                return;
 
             $attributes = get_option(SIB_Manager::attribute_list_option_name);
             $info = array();
@@ -934,8 +936,8 @@ EOD;
         function unsubscribe()
         {
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
-            $code = $_GET['code'];
-            $list_id = $_GET['li'];
+            $code = esc_attr($_GET['code']);
+            $list_id = intval($_GET['li']);
 
             $contact_info = SIB_Model_Contact::get_data_by_code($code);
 
@@ -1033,8 +1035,8 @@ EOD;
             $site_domain = str_replace('http://', '', $site_domain);
 
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
-            $code = $_GET['code'];
-            $list_id = $_GET['li'];
+            $code = esc_attr($_GET['code']);
+            $list_id = intval($_GET['li']);
 
             $contact_info = SIB_Model_Contact::get_data_by_code($code);
 
@@ -1125,6 +1127,8 @@ EOD;
         public static function update_access_token()
         {
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin->delete_token(self::$access_token);
+
             $access_response = $mailin->get_access_tokens();
             if($access_response['code'] != 'success') {
                 $access_response = $mailin->get_access_tokens();
