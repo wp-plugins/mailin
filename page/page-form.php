@@ -392,9 +392,9 @@ if(!class_exists('SIB_Page_Form'))
             <script>
                 jQuery(document).ready(function(){
                     jQuery('#sib_add_to_form_btn').click(function() {
-                        var field_html = jQuery('#sib_field_html').html();
+                        //var field_html = jQuery('#sib_field_html').html();
 
-                        tinyMCE.activeEditor.selection.setContent(field_html);
+                       // tinyMCE.activeEditor.selection.setContent(field_html);
 
                         return false;
                     });

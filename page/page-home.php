@@ -439,8 +439,8 @@ if(!class_exists('SIB_Page_Home'))
         /** ajax module for validation (Home - welcome) */
         public function ajax_validation_process()
         {
-            $access_key = $_POST['access_key'];
-            $secret_key = $_POST['secret_key'];
+            $access_key = trim($_POST['access_key']);
+            $secret_key = trim($_POST['secret_key']);
 
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', $access_key, $secret_key);
 

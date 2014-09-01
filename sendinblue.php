@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.0.4
+Version: 2.1.0
 Author: SendinBlue, Dragonofdev
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -558,7 +558,7 @@ EOD;
                     <?php
                     if($widget_attribute != null) {
                     ?>
-                        <p>
+                        <p style="margin-bottom: 20px;">
                             <span class="sib_widget_title"><?php echo $widget_title; ?></span>
                         </p>
                     <?php
@@ -606,10 +606,44 @@ EOD;
                 }
                 form#sib_form_<?php echo $this->reference_form_count; ?>-form p{
                     line-height: 100%;
-                    margin: 0px;
+                    margin: 10px 0px 0px 0px;
+                    padding: 0px;
                 }
                 form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=text],form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=email] {
                     width: 100%;
+                    max-width: 300px;
+                    box-shadow: none;
+                    border: 1px solid #bbbbbb;
+                    height: 30px;
+                    margin: 0px;
+                    margin-top: 5px;
+
+                }
+                form#sib_form_<?php echo $this->reference_form_count; ?>-form button, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit] {
+                    margin: 0px;
+                    margin-top:10px;
+                    margin-bottom: 5px;
+                    color:#fff;
+                    background-color: #444444;
+                    border-color: #2E2E2E;
+                    padding: 6px 12px;
+                    font-size: 14px;
+                    font-weight:400;
+                    line-height: 1.4285;
+                    text-align: center;
+                    cursor: pointer;
+                    vertical-align: middle;
+                    -webkit-user-select:none;
+                    -moz-user-select:none;
+                    -ms-user-select:none;
+                    user-select:none;
+                    white-space: normal;
+                    background-image:none;
+                    border:1px solid transparent;
+                    border-radius: 4px;
+                }
+                form#sib_form_<?php echo $this->reference_form_count; ?>-form button:hover, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit]:hover {
+                    background-color: #333333;
                 }
                 p.sib-alert-message {
                     padding: 15px;
@@ -640,7 +674,7 @@ EOD;
                  <?php
                  if($widget_attribute != null) {
                  ?>
-                     jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type="submit"]').attr('value', '<?php echo stripslashes($button_text); ?>');
+                     jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type="submit"]').attr('value', "<?php echo stripslashes($button_text); ?>");
                      <?php
                       foreach($avail_atts as $att)
                       {

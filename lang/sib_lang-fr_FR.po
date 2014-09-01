@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SendinBlue plugin\n"
 "POT-Creation-Date: 2014-08-18 12:51+0700\n"
-"PO-Revision-Date: 2014-08-18 12:52+0700\n"
+"PO-Revision-Date: 2014-09-01 10:34+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -522,7 +522,7 @@ msgstr "Vous aimez ce plugin ? Faites-le savoir et notez le"
 
 #: ../page/page-home.php:377
 msgid "Review this plugin"
-msgstr "Revoir ce plugin"
+msgstr "Noter ce plugin"
 
 #: ../page/page-home.php:404
 msgid ""
