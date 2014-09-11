@@ -2,8 +2,8 @@
 Contributors: DragonOfDev, SendinBlue
 Tags: mailin,mailinblue,sendinblue, mail, wordpress smtp, phpmailer, smtp, wp_mail, email, gmail, outgoing mail, privacy, security, sendmail, ssl, tls, wp-phpmailer, mail smtp, wp smtp, mailchimp, marketing, newsletter, plugin, signup, widget,  batch sending, bounce, cron, mail throttling, mailing list, multilanguage, send, signup, subscribe, subscription
 Requires at least: 3.0
-Tested up to: 3.9.2
-Stable tag: 2.1.0
+Tested up to: 4.0.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,10 @@ https://www.sendinblue.com and then register and use the key which can be found 
 Yes.
 
 == Changelog ==
+= 2.1.1 =
+* Fix login issue
+* Test on Wordpress 4.0.0
+
 = 2.1.0 =
 * Update the default form UI
 * Update french translation
