@@ -511,7 +511,8 @@ if(!class_exists('SIB_Page_Form'))
                 'available_attributes' => $available_attrs
             );
             update_option(SIB_Manager::form_subscription_option_name, $settings);
-
+            // confirm that use new version
+            update_option('sib_use_new_version', '1');
             wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
             exit;
         }

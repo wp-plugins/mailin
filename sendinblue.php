@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.1.1
+Version: 2.1.2
 Author: SendinBlue, Dragonofdev
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -305,6 +305,32 @@ if(!class_exists('SIB_Manager'))
             }
 
             add_action('init', array(&$this, 'init'));
+
+            // check if updated into new configuration.
+            $use_new_version = get_option('sib_use_new_version', '0');
+            if($use_new_version == '0') {
+                $sib_form_html = <<<EOD
+<p class="sib-email-area">
+    <label class="sib-email-area">Email Address</label>
+    <input type="email" class="sib-email-area" name="email" required="required">
+</p>
+<p class="sib-NAME-area">
+    <label class="sib-NAME-area">Name</label>
+    <input type="text" class="sib-NAME-area" name="NAME" >
+</p>
+<p>
+    <input type="submit" class="sib-default-btn" value="Subscribe">
+</p>
+EOD;
+
+                update_option('sib_use_new_version', '1');
+
+                $form_settings = array(
+                    'sib_form_html' => stripcslashes($sib_form_html),
+                    'available_attributes' => array('NAME')
+                );
+                update_option(self::form_subscription_option_name, $form_settings);
+            }
         }
 
         /**
@@ -424,9 +450,11 @@ if(!class_exists('SIB_Manager'))
     <input type="text" class="sib-NAME-area" name="NAME" >
 </p>
 <p>
-    <input type="submit" value="Subscribe">
+    <input type="submit" class="sib-default-btn" value="Subscribe">
 </p>
 EOD;
+
+            update_option('sib_use_new_version', '1');
 
             $form_settings = array(
                 'sib_form_html' => stripcslashes($sib_form_html),
@@ -619,7 +647,7 @@ EOD;
                     margin-top: 5px;
 
                 }
-                form#sib_form_<?php echo $this->reference_form_count; ?>-form button, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit] {
+                form#sib_form_<?php echo $this->reference_form_count; ?>-form button.sib-default-btn, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit].sib-default-btn {
                     margin: 0px;
                     margin-top:10px;
                     margin-bottom: 5px;
@@ -642,7 +670,7 @@ EOD;
                     border:1px solid transparent;
                     border-radius: 4px;
                 }
-                form#sib_form_<?php echo $this->reference_form_count; ?>-form button:hover, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit]:hover {
+                form#sib_form_<?php echo $this->reference_form_count; ?>-form button.sib-default-btn:hover, form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=submit].sib-default-btn:hover {
                     background-color: #333333;
                 }
                 p.sib-alert-message {
@@ -1175,6 +1203,7 @@ EOD;
             update_option(SIB_Manager::access_token_option_name, $token_settings);
             return $access_token;
         }
+
     }
 
     /**

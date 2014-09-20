@@ -144,7 +144,7 @@ function generate_attribute_html(attr_type, attr_name, attr_text)
             field_html += 'pattern="[0-9]+([\\.|,][0-9]+)?" > \n';
             break;
         case 'submit':
-            field_html += '    <input type="submit" name="' + attr_name + '" ';
+            field_html += '    <input type="submit" class="sib-default-btn" name="' + attr_name + '" ';
             field_html += 'value="' + field_buttontext + '" ';
             field_html += '> \n';
             break;
