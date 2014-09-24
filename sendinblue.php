@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.1.2
+Version: 2.2.0
 Author: SendinBlue, Dragonofdev
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -86,6 +86,11 @@ if(!class_exists('SIB_Manager'))
          * plugin attribute list option name
          */
         const attribute_list_option_name = 'sib_attribute_option';
+
+        /**
+         * plugin smtp details option name
+         */
+        const attribute_smtp_name = 'sib_smtp_details';
 
         /**
          * Plugin directory path value. set in constructor
@@ -219,6 +224,11 @@ if(!class_exists('SIB_Manager'))
         public static $account_user_name;
 
         /**
+         * smtp details
+         */
+        public static $smtp_details;
+
+        /**
          * Private member to store reference count of form
          */
         private $reference_form_count = 0;
@@ -331,6 +341,21 @@ EOD;
                 );
                 update_option(self::form_subscription_option_name, $form_settings);
             }
+
+            // smtp details
+            self::$smtp_details = get_option(SIB_Manager::attribute_smtp_name, null);
+            if((self::is_done_validation()) && (self::$smtp_details == null)) {
+                self::update_smtp_details();
+            }
+            $home_settings = get_option(SIB_Manager::home_option_name, array());
+            if((self::is_done_validation()) && (self::$smtp_details['relay'] == false) ) {
+
+                $home_settings['activate_email'] = 'no';
+                update_option(SIB_Manager::home_option_name, $home_settings);
+            }
+
+            add_action('phpmailer_init', array(&$this, 'smtp_hook'));
+
         }
 
         /**
@@ -508,7 +533,7 @@ EOD;
             update_option(SIB_Manager::main_option_name, $setting);
 
             $home_settings = array(
-                'activate_email' => 'yes'
+                'activate_email' => 'no'
             );
             update_option(SIB_Manager::home_option_name, $home_settings);
 
@@ -1202,6 +1227,55 @@ EOD;
 
             update_option(SIB_Manager::access_token_option_name, $token_settings);
             return $access_token;
+        }
+
+        /** update smtp details */
+        public static function update_smtp_details()
+        {
+            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $response = $mailin->get_smtp_details();
+            if($response['code'] == 'success') {
+                if($response['data']['relay_data']['status'] == 'enabled') {
+                    self::$smtp_details = $response['data']['relay_data']['data'];
+                    update_option(self::attribute_smtp_name, self::$smtp_details);
+                    return true;
+                } else {
+                    self::$smtp_details = array(
+                        'relay' => false
+                    );
+                    update_option(self::attribute_smtp_name, self::$smtp_details);
+                    $home_settings = get_option(self::home_option_name, array());
+                    $home_settings['activate_email'] = 'no';
+                    update_option(SIB_Manager::home_option_name, $home_settings);
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        /**
+         * Hook phpmailer_init
+         */
+        function smtp_hook($phpmailer)
+        {
+            $admin_info = get_userdata(1);
+            $home_settings = get_option(self::home_option_name, array());
+            if($home_settings['activate_email'] != 'yes')
+                return;
+            if(self::$smtp_details['relay'] == false)
+                return;
+            $phpmailer->Mailer = 'smtp';
+            $phpmailer->From = $admin_info->user_email;
+            $phpmailer->FromName = $admin_info->display_name;
+            $phpmailer->Sender = $phpmailer->From; //Return-Path
+            $phpmailer->AddReplyTo($phpmailer->From, $phpmailer->FromName); //Reply-To
+            $phpmailer->Host       = self::$smtp_details['relay'];
+            $phpmailer->SMTPSecure = 'true';
+            $phpmailer->Port       = self::$smtp_details['port'];
+            $phpmailer->SMTPAuth   = true;
+            $phpmailer->Username = self::$smtp_details['username'];
+            $phpmailer->Password = self::$smtp_details['password'];
         }
 
     }

@@ -330,5 +330,9 @@ class Mailin
         {
                 return $this->post("account/deletetoken", json_encode(array("token"=>$key)));
         }
+        public function get_smtp_details()
+        {
+            return $this->get("account/smtpdetail","");
+        }
 }
 ?>

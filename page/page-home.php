@@ -157,10 +157,7 @@ if(!class_exists('SIB_Page_Home'))
         /** generate main home page after validation */
         function generate_main_content()
         {
-            // get list
-
-            $home_settings = get_option(SIB_Manager::home_option_name);
-
+            wp_mail('gaun@sendinblue.com', 'Test email', 'Test message');
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
             $list_response = $mailin->get_lists();
             if($list_response['code'] != 'success') {
@@ -175,7 +172,6 @@ if(!class_exists('SIB_Page_Home'))
                 $total_subscribers = intval($users_response['data']['total_list_records']);
             }
 
-
             // get campaigns
             $campaign_stat = self::get_campaign_stats();
 
@@ -184,6 +180,12 @@ if(!class_exists('SIB_Page_Home'))
                 self::update_account_info();
             }
 
+            // check smtp available
+            if((SIB_Manager::is_done_validation()) && (SIB_Manager::$smtp_details == null)) {
+                SIB_Manager::update_smtp_details();
+            }
+
+            $home_settings = get_option(SIB_Manager::home_option_name);
 
         ?>
 
@@ -304,12 +306,23 @@ if(!class_exists('SIB_Page_Home'))
                         <strong><?php _e('Transactional emails', 'sib_lang'); ?></strong>
                     </div>
                     <div class="panel-body">
+                        <?php
+                        if(SIB_Manager::$smtp_details['relay'] == false) :
+                        ?>
+                            <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert"><?php _e('You still can not use the smtp of SendinBlue. Please confirm at ', 'sib_lang');?><a href="https://mysmtp.sendinblue.com/" target="_blank"><?php _e('here', 'sib_lang'); ?></a> </div>
+                        <?php
+                        endif;
+                        ?>
                         <div id="success-alert" class="col-md-12 alert alert-success" role="alert" style="display: none;"><?php _e('Mail Sent.', 'sib_lang');?></div>
                         <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert" style="display: none;"><?php _e('Please input valid email.', 'sib_lang');?></div>
                         <div class="row">
                             <p class="col-md-4 text-left"><?php _e('Activate email through SendinBlue', 'sib_lang'); ?></p>
                             <div class="col-md-3">
-                                <label class="col-md-6"><input type="radio" name="activate_email" id="activate_email_radio_yes" value="yes" <?php checked($home_settings['activate_email'], 'yes'); ?>>&nbsp;Yes</label>
+                                <label class="col-md-6"><input type="radio" name="activate_email" id="activate_email_radio_yes" value="yes" <?php checked($home_settings['activate_email'], 'yes');
+                                    if(SIB_Manager::$smtp_details['relay'] == false) {
+                                        echo ' disabled';
+                                    }
+                                    ?> >&nbsp;Yes</label>
                                 <label class="col-md-6"><input type="radio" name="activate_email" id="activate_email_radio_no" value="no" <?php checked($home_settings['activate_email'], 'no'); ?>>&nbsp;No</label>
                             </div>
                             <div class="col-md-5">
@@ -544,7 +557,7 @@ if(!class_exists('SIB_Page_Home'))
             update_option(SIB_Manager::main_option_name, $setting);
 
             $home_settings = array(
-                'activate_email' => 'yes'
+                'activate_email' => 'no'
             );
             update_option(SIB_Manager::home_option_name, $home_settings);
 
@@ -683,6 +696,8 @@ if(!class_exists('SIB_Page_Home'))
         {
             $account_settings = array();
             update_option(SIB_Manager::account_option_name, $account_settings);
+            $smtp_details = null;
+            update_option(SIB_Manager::attribute_smtp_name, $smtp_details);
         }
     }
 
