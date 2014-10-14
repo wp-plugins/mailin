@@ -1,9 +1,9 @@
 === SendinBlue Subscribe Form And WP SMTP ===
-Contributors: DragonOfDev, SendinBlue
-Tags: mailin,mailinblue,sendinblue, mail, wordpress smtp, phpmailer, smtp, wp_mail, email, gmail, outgoing mail, privacy, security, sendmail, ssl, tls, wp-phpmailer, mail smtp, wp smtp, mailchimp, marketing, newsletter, plugin, signup, widget,  batch sending, bounce, cron, mail throttling, mailing list, multilanguage, send, signup, subscribe, subscription
+Contributors: SendinBlue
+Tags: sendinblue, mailin, email marketing, email campaign, newsletter, wordpress smtp, subscription form, phpmailer, SMTP, wp_mail, massive email, sendmail, ssl, tls, wp-phpmailer, mail smtp, mailchimp, newsletters, email plugin, signup form, email widget
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,34 +11,102 @@ Easily send emails from your WordPress blog using your preferred SMTP server
 
 == Description ==
 
-SendinBlue Subscribe Form And WP SMTP lets you easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site.
+SendinBlue’s official plugin for WP is a powerful all-in-one email marketing plugin. At a glance:
+<ul>
+<li><b>Subscribe forms</b> - Create custom subscribe forms and integrate them easily in your posts, pages or sidebars</li>
+<li><b>Contact lists</b>  - Manage your contact lists and take advantage of advanced segmentation to improve your campaigns performance</li>
+<li><b>Marketing campaigns</b> - Easily create and send beautiful newsletters using drag and drop builder or selecting from our template library</li>
+<li><b>Transactional emails</b> - The wp_mail() function use automatically SendinBlue’s SMTP for enhanced deliverability and tracking</li>
+<li><b>Statistics</b> - Real-time dashboard giving you a global insight over deliverability and performance : opens, clicks, bounce reports, etc.</li>
+</ul> 
 
-= SendinBlue Subscribe Form And WP SMTP Features =
+= Subcribe forms =
+<ul>
+<li>Form designer with direct HTML / CSS editor if needed</li>
+<li>Integration as widget or shortcode [sibwp_form]</li>
+<li>Confirmation email - you choose the template and the sender</li>
+<li>Double optin - you choose the template and the sender</li>
+<li>URL Redirection</li>
+<li>Confirmation / error message customization</li>
+</ul> 
 
-* Send email using a SMTP server.
-* You can easily add a subscribe widget and all the contacts are sent to the proper list in your SendinBlue account
-* Securely deliver emails to your recipients inbox and don't worry regarding your IP reputation
+= Contact Lists =
+<ul>
+<li>Folder and lists management</li>
+<li>Files import</li>
+<li>Custom fields</li>
+<li>Advanced segmentation. Example: Contacts below 45 years who clicked on the link 3 of my last campagne</li>
+</ul> 
 
-= SendinBlue Subscribe Form And WP SMTP Plugin Configuration =
+= Marketing campaigns =
+<ul>
+<li>Responsive design newsletter builder (drag & drop)</li>
+<li>Advance newsletter builder</li>
+<li>Subject and content personalization. Example: Hello {NAME} </li>
+<li>Inbox and multi-clients rendering tests</li>
+<li>Campaign programming</li>
+</ul> 
 
-Simply enable the "Activate the SendinBlue plugin" and specify your API key from your SendinBlue account. If you don't have it yet, please go to SendinBlue website:
-https://www.sendinblue.com and then register and use the key which can be found here https://my.sendinblue.com/advanced/apikey
+= Transactional emails & statistics =
+<ul>
+<li>Automatic replacement of default SMTP when you use wp_mail function</li>
+<li>Create transactional email templates easy to reuse from API</li>
+<li>Real time and exhaustive statistics : delivered, opens, clicks, etc.</li>
+</ul> 
+
+= Plugin Support =
+To get support, please send an email to <a href="mailto:contact@sendinblue.com">contact@sendinblue.com</a>, we will be happy to help you!
+
+The plugin is available in English and French. 
 
 == Installation ==
 
-* Step 1)Download the latest version of SendinBlue WordPress plugin from https://resources.sendinblue.com/plugin-wordpress/?lang=en
-* Step 2)Login to your WordPress admin panel (Back office).
-* Step 3)Go to Plugins tab and click on the button "Add New" at the top.
-* Step 4)Select the "Upload" tab and then select the "mailin.zip" file using the browse button and hit the "Install Now" button.
-* Step 5)Go to plugin tab, find Mailin plugin and click the 'Settings' link.
+1.	In your WordPress admin panel, go to Plugins > New Plugin, search for "SendinBlue for WP" and click "Install now". Alternatively, download the plugin and upload the contents of mailin.zip to your plugins directory, which may be  /wp-content/plugins/. 
+2.	Activate the plugin SendinBlue through the 'Plugins' menu in WordPress. 
+3.	A tab « SendinBlue » must appear in your wordpress side navigation panel, then set your <a href="https://my.sendinblue.com/advanced/apikey" target="_blank">SendinBlue API key</a> in the plugin homepage.
+
+To get SendinBlue API key, you have to <a href="https://www.sendinblue.com/users/signup" target="_blank">create an account</a>. It's free and takes less than 2 minutes!
+
+== Screenshots ==
+1. First, your are invited to create an account on SendinBlue then enter your API keys
+2. The Homepage gives your an overall view over your campaigns and allows you to activate SendinBlue SMTP for all transactional emails
+3. The Settings page allows to configure your sign up process and customize your form
+4. The Lists page allows you to see, edit or filter, your lists and your contacts
+5. The Campaigns page gives you summary on your last campaigns performance and allow you to create a new campaign using our great Newsletter editor (responsive design)
+6. The Statistic page gices you a global view over your performance : delivered, openeded, clicked, etc.
+7. From the widget page, you are able to add the SendinBlue widget in one or more sidebars. For each form, you can choose the fields displayed and the list where contacts are saved.
 
 == Frequently Asked Questions ==
 
-= Can this plugin be used to send emails via SMTP? =
+= What is SendinBlue? =
+SendinBlue is a powerful all-in-one marketing platform. Combining many powerful features, a competitive pricing  and a very good deliverability thanks to our propiertary Cloud-base infrastructure, SendinBlue managed to convince thousand of companies to use the platform for their newsletters, automatic emails or SMS. SendinBlue is available in 5 languages : English, Spanish, French, Italian, Brazilian.
 
-Yes.
+= Why use SendinBlue as an SMTP relay for my website? =
+By using SendinBlue’s SMTP, you will avoid the risk of having your legitimate emails ending up in the spam folder and you will have statistics on emails sent : deliverability, opens, clicks, etc. SendinBlue’s proprietary infrastructure optimizes your deliverability and let you focus on emails content.
+
+= Why do I need a SendinBlue accout? =
+SendinBlue for WP plugin uses SendinBlue’s API to synchronize contacts, send emails or get statistics. Creating an account on SendinBlue is free and takes less than 2 minutes. Once logged in your contact, you can get the API key from this page.
+ 
+= Do I have to pay to use the plugin and send emails? =
+No, the plugin is totally free and Sendinblue proposes a free plan with 9,000 emails per month. If you need to send more than 9,000 emails / month, we invite you to see our pricing. For example, the Micro plan is $7.44 / month and allows you to send up to 40,000 emails per month. All SendinBlue plans are without any commitment.
+
+= How do I get my get synchronize my lists? =
+You have nothing to do sSynchronization is automatic! It doesn't matter whether your lists were uploaded on your WordPress interface or on your SendiBlue account: they will always remain up-to-date on both sides.
+
+= How can I get support? =
+If you need some assistance, you can post an issue in the tab « Support » or send us an email on contact@sendinblue.com.
+
+= How do I create a signup form? =
+In order to create a signup form, you have to :
+1. Go to Wp admin > SendinBlue > Settings in order to define your form’s fields and settings
+2. Integrate the form in a sidebar using a widget from WP panel > Appearance > Widgets. SendinBlue widget form should appear in your widgets list, you just to have to drag and drop the widget into the sidebar of your choice. 
+
 
 == Changelog ==
+= 2.2.1 =
+* Update the french encoding.
+* Fixed multi-language issue
+
 = 2.2.0 =
 * Update the feautre of smtp activation
 

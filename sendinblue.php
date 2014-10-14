@@ -3,8 +3,8 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.2.0
-Author: SendinBlue, Dragonofdev
+Version: 2.2.1
+Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
  */
@@ -387,7 +387,7 @@ EOD;
             add_action('admin_post_sib_setting_signup', array('SIB_Page_Form', 'save_setting_signup'));
             add_action('admin_post_sib_setting_confirmation', array('SIB_Page_Form', 'save_setting_confirm'));
             add_action('admin_post_sib_setting_subscription', array('SIB_Page_Form', 'save_setting_subscription'));
-
+            SIB_Manager::LoadTextDomain();
             $this->register_scripts();
             $this->register_styles();
         }
@@ -395,6 +395,7 @@ EOD;
         /** hook admin_menu */
         function admin_menu()
         {
+            SIB_Manager::LoadTextDomain();
             new SIB_Page_Home();
             new SIB_Page_Lists();
             new SIB_Page_Campaigns();
@@ -1278,23 +1279,25 @@ EOD;
             $phpmailer->Password = self::$smtp_details['password'];
         }
 
+      /**
+       * Load Text domain.
+       */
+        static function LoadTextDomain() {
+          // load lang file
+          $i18n_file_name = 'sib_lang';
+          $locale         = apply_filters('plugin_locale', get_locale(), $i18n_file_name);
+          $filename       = plugin_dir_path(__FILE__). '/lang/' .$i18n_file_name.'-'.$locale.'.mo';
+          load_textdomain('sib_lang', $filename);
+        }
     }
 
     /**
-     * Plugin entry point Process
+     * Plugin entry point Process.
      * */
 
     add_action( 'sendinblue_init', 'sendinblue_init' );
 
     function sendinblue_init() {
-
-        // load lang file
-        $i18n_file_name = 'sib_lang';
-        $locale         = apply_filters('plugin_locale', get_locale(), $i18n_file_name);
-        $filename       = plugin_dir_path(__FILE__). '/lang/' .$i18n_file_name.'-'.$locale.'.mo';
-
-        load_textdomain('sib_lang', $filename);
-
         new SIB_Manager();
     }
 

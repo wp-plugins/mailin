@@ -157,7 +157,6 @@ if(!class_exists('SIB_Page_Home'))
         /** generate main home page after validation */
         function generate_main_content()
         {
-
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
             $list_response = $mailin->get_lists();
             if($list_response['code'] != 'success') {
