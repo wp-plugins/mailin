@@ -1,4 +1,4 @@
-=== SendinBlue Subscribe Form And WP SMTP ===
+﻿=== SendinBlue Subscribe Form And WP SMTP ===
 Contributors: SendinBlue
 Tags: sendinblue, mailin, email marketing, email campaign, newsletter, wordpress smtp, subscription form, phpmailer, SMTP, wp_mail, massive email, sendmail, ssl, tls, wp-phpmailer, mail smtp, mailchimp, newsletters, email plugin, signup form, email widget
 Requires at least: 3.0
@@ -17,7 +17,7 @@ SendinBlue’s official plugin for WP is a powerful all-in-one email marketing p
 <li><b>Contact lists</b>  - Manage your contact lists and take advantage of advanced segmentation to improve your campaigns performance</li>
 <li><b>Marketing campaigns</b> - Easily create and send beautiful newsletters using drag and drop builder or selecting from our template library</li>
 <li><b>Transactional emails</b> - The wp_mail() function use automatically SendinBlue’s SMTP for enhanced deliverability and tracking</li>
-<li><b>Statistics</b> - Real-time dashboard giving you a global insight over deliverability and performance : opens, clicks, bounce reports, etc.</li>
+<li><b>Statistics</b> - Real-time dashboard giving you a global insight over deliverability and performance: opens, clicks, bounce reports, etc.</li>
 </ul> 
 
 = Subcribe forms =
@@ -51,7 +51,7 @@ SendinBlue’s official plugin for WP is a powerful all-in-one email marketing p
 <ul>
 <li>Automatic replacement of default SMTP when you use wp_mail function</li>
 <li>Create transactional email templates easy to reuse from API</li>
-<li>Real time and exhaustive statistics : delivered, opens, clicks, etc.</li>
+<li>Real time and exhaustive statistics: delivered, opens, clicks, etc.</li>
 </ul> 
 
 = Plugin Support =
@@ -69,11 +69,11 @@ To get SendinBlue API key, you have to <a href="https://www.sendinblue.com/users
 
 == Screenshots ==
 1. First, your are invited to create an account on SendinBlue then enter your API keys
-2. The Homepage gives your an overall view over your campaigns and allows you to activate SendinBlue SMTP for all transactional emails
-3. The Settings page allows to configure your sign up process and customize your form
+2. The Homepage gives you an overall view over your campaigns and allows you to activate SendinBlue SMTP for all transactional emails
+3. The Settings page allows you to configure your sign up process and customize your form
 4. The Lists page allows you to see, edit or filter, your lists and your contacts
 5. The Campaigns page gives you summary on your last campaigns performance and allow you to create a new campaign using our great Newsletter editor (responsive design)
-6. The Statistic page gices you a global view over your performance : delivered, openeded, clicked, etc.
+6. The Statistic page gives you a global view over your performance : delivered, openeded, clicked, etc.
 7. From the widget page, you are able to add the SendinBlue widget in one or more sidebars. For each form, you can choose the fields displayed and the list where contacts are saved.
 
 == Frequently Asked Questions ==
