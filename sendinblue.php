@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.2.2
+Version: 2.2.3
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -1267,8 +1267,8 @@ EOD;
             if(self::$smtp_details['relay'] == false)
                 return;
             $phpmailer->Mailer = 'smtp';
-            $phpmailer->From = $admin_info->user_email;
-            $phpmailer->FromName = $admin_info->display_name;
+            //$phpmailer->From = $admin_info->user_email;
+            //$phpmailer->FromName = $admin_info->display_name;
             $phpmailer->Sender = $phpmailer->From; //Return-Path
             $phpmailer->AddReplyTo($phpmailer->From, $phpmailer->FromName); //Reply-To
             $phpmailer->Host       = self::$smtp_details['relay'];
