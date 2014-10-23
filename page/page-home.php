@@ -79,7 +79,6 @@ if(!class_exists('SIB_Page_Home'))
         /** generate page script */
         function generate()
         {
-            wp_mail('yyccii412@gmail.com', 'test', 'test');
             ?>
             <div id="wrap" class="box-border-box container-fluid">
                 <h2><img id="logo-img" src="<?php echo SIB_Manager::$plugin_url . '/img/logo.png'; ?>"></h2>
