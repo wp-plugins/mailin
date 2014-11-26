@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.2.3
+Version: 2.2.4
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -256,43 +256,43 @@ if(!class_exists('SIB_Manager'))
 
             // api details for sendinblue
             $general_settings = get_option(self::main_option_name, array());
-            self::$access_key = $general_settings['access_key'];
-            self::$secret_key = $general_settings['secret_key'];
+            self::$access_key = isset($general_settings['access_key']) ? $general_settings['access_key'] : '';
+            self::$secret_key = isset($general_settings['secret_key']) ? $general_settings['secret_key'] : '';
 
             $access_token_settings = get_option(self::access_token_option_name, array());
-            self::$access_token = $access_token_settings['access_token'];
+            self::$access_token = isset($access_token_settings['access_token']) ? $access_token_settings['access_token'] : '';
 
             // list id
             $home_options = get_option(self::home_option_name, array());
-            self::$list_id = $home_options['list_id'];
-            self::$activate_email = $home_options['activate_email'];
+            self::$list_id = isset($home_options['list_id']) ? $home_options['list_id'] : '';
+            self::$activate_email = isset($home_options['activate_email']) ? $home_options['activate_email'] : '';
 
             // get sign up parameters
             $signup_settings = get_option(self::form_signup_option_name, array());
-            self::$is_confirm_email = $signup_settings['is_confirm_email'];
-            self::$is_double_optin = $signup_settings['is_double_optin'];
-            self::$redirect_url = $signup_settings['redirect_url'];
-            self::$redirect_url_click = $signup_settings['redirect_url_click'];
-            self::$is_redirect_url_click = $signup_settings['is_redirect_url_click'];
-            self::$template_id = $signup_settings['template_id'];
-            self::$sender_id = $signup_settings['sender_id'];
+            self::$is_confirm_email = isset($signup_settings['is_confirm_email']) ? $signup_settings['is_confirm_email'] : '';
+            self::$is_double_optin = isset($signup_settings['is_double_optin']) ? $signup_settings['is_double_optin'] : '';
+            self::$redirect_url = isset($signup_settings['redirect_url']) ? $signup_settings['redirect_url'] : '';
+            self::$redirect_url_click = isset($signup_settings['redirect_url_click']) ? $signup_settings['redirect_url_click'] : '';
+            self::$is_redirect_url_click = isset($signup_settings['is_redirect_url_click']) ? $signup_settings['is_redirect_url_click'] : '';
+            self::$template_id = isset($signup_settings['template_id']) ? $signup_settings['template_id'] : '';
+            self::$sender_id = isset($signup_settings['sender_id']) ? $signup_settings['sender_id'] : '';
 
             // get alert message parameters
             $alert_settings = get_option(self::form_confirmation_option_name, array());
-            self::$alert_success_message = $alert_settings['alert_success_message'];
-            self::$alert_error_message = $alert_settings['alert_error_message'];
-            self::$alert_exist_subscriber = $alert_settings['alert_exist_subscriber'];
-            self::$alert_invalid_email = $alert_settings['alert_invalid_email'];
+            self::$alert_success_message = isset($alert_settings['alert_success_message']) ? $alert_settings['alert_success_message'] : '';
+            self::$alert_error_message = isset($alert_settings['alert_error_message']) ? $alert_settings['alert_error_message'] : '';
+            self::$alert_exist_subscriber = isset($alert_settings['alert_exist_subscriber']) ? $alert_settings['alert_exist_subscriber'] : '';
+            self::$alert_invalid_email = isset($alert_settings['alert_invalid_email']) ? $alert_settings['alert_invalid_email'] : '';
 
             // get sign up form html
             $form_settings = get_option(self::form_subscription_option_name, array());
-            self::$sib_form_html = $form_settings['sib_form_html'];
+            self::$sib_form_html = isset($form_settings['sib_form_html']) ? $form_settings['sib_form_html'] : '';
 
             // get account info
             $account_settings = get_option(self::account_option_name, array());
-            self::$account_email = $account_settings['account_email'];
-            self::$account_user_name = $account_settings['account_user_name'];
-            self::$account_data = $account_settings['account_data'];
+            self::$account_email = isset($account_settings['account_email']) ? $account_settings['account_email'] : '';
+            self::$account_user_name = isset($account_settings['account_user_name']) ? $account_settings['account_user_name'] : '';
+            self::$account_data = isset($account_settings['account_data']) ? $account_settings['account_data'] : '';
 
             self::$instance = $this;
 
@@ -1260,15 +1260,14 @@ EOD;
          */
         function smtp_hook($phpmailer)
         {
-            $admin_info = get_userdata(1);
             $home_settings = get_option(self::home_option_name, array());
+            if(!isset($home_settings['activate_email']))
+                return;
             if($home_settings['activate_email'] != 'yes')
                 return;
             if(self::$smtp_details['relay'] == false)
                 return;
             $phpmailer->Mailer = 'smtp';
-            //$phpmailer->From = $admin_info->user_email;
-            //$phpmailer->FromName = $admin_info->display_name;
             $phpmailer->Sender = $phpmailer->From; //Return-Path
             $phpmailer->AddReplyTo($phpmailer->From, $phpmailer->FromName); //Reply-To
             $phpmailer->Host       = self::$smtp_details['relay'];
