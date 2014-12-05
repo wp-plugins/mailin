@@ -128,11 +128,12 @@ class SIB_Model_Contact
         if(is_array($results) && (count($results) > 0)) {
             if($id == '')
                 return true;
-
-            foreach($results as $result)
-            {
-                if($result['id'] != $id) {
-                    return true;
+            if (isset($results) && is_array($results)) {
+                foreach($results as $result)
+                {
+                    if($result['id'] != $id) {
+                        return true;
+                    }
                 }
             }
         }

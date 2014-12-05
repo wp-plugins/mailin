@@ -119,11 +119,13 @@ if(!class_exists('SIB_Page_Form'))
                             <div class="col-md-4">
                                 <select id="sib_select_list" class="col-md-10" name="list_id">
                                     <?php
-                                    foreach($lists as $list)
-                                    {
-                                        ?>
-                                        <option value="<?php echo $list['id']; ?>" <?php selected(SIB_Manager::$list_id, $list['id']); ?>><?php echo $list['name']; ?></option>
-                                    <?php
+                                    if (isset($lists) && is_array($lists)) {
+                                        foreach($lists as $list)
+                                        {
+                                            ?>
+                                            <option value="<?php echo $list['id']; ?>" <?php selected(SIB_Manager::$list_id, $list['id']); ?>><?php echo $list['name']; ?></option>
+                                        <?php
+                                        }
                                     }
                                     ?>
                                 </select>
@@ -144,11 +146,13 @@ if(!class_exists('SIB_Page_Form'))
                                 <select class="col-md-11" name="template_id" id="sib_template_id">
                                     <option value="-1" <?php selected(SIB_Manager::$template_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
                                     <?php
-                                    foreach($templates as $template)
-                                    {
-                                    ?>
-                                        <option value="<?php echo $template['id']; ?>" <?php selected(SIB_Manager::$template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
-                                    <?php
+                                    if (isset($templates) && is_array($templates)) {
+                                        foreach($templates as $template)
+                                        {
+                                            ?>
+                                            <option value="<?php echo $template['id']; ?>" <?php selected(SIB_Manager::$template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
+                                        <?php
+                                        }
                                     }
                                     ?>
                                 </select>
@@ -162,11 +166,13 @@ if(!class_exists('SIB_Page_Form'))
                                 <select class="col-md-11" name="sender_id" id="sib_sender_id">
                                     <option value="-1" <?php selected(SIB_Manager::$sender_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
                                     <?php
-                                    foreach($senders as $sender)
-                                    {
-                                    ?>
-                                        <option value="<?php echo $sender['from_email']; ?>" <?php selected(SIB_Manager::$sender_id, $sender['from_email']); ?>><?php echo $sender['from_email']; ?></option>
-                                    <?php
+                                    if (isset($senders) && is_array($senders)) {
+                                        foreach($senders as $sender)
+                                        {
+                                            ?>
+                                            <option value="<?php echo $sender['from_email']; ?>" <?php selected(SIB_Manager::$sender_id, $sender['from_email']); ?>><?php echo $sender['from_email']; ?></option>
+                                        <?php
+                                        }
                                     }
                                     ?>
                                 </select>
@@ -268,11 +274,13 @@ if(!class_exists('SIB_Page_Form'))
                                 <input type="hidden" id="sib_hidden_submit" data-type="submit" data-name="submit" data-text="<?php _e('Sign up', 'sib_lang'); ?>">
                                 <?php
                                 $attributes = get_option(SIB_Manager::attribute_list_option_name);
-                                foreach($attributes as $attribute)
-                                {
-                                ?>
-                                    <input type="hidden" id="sib_hidden_<?php echo $attribute['name']; ?>" data-type="<?php echo $attribute['type']; ?>" data-name="<?php echo $attribute['name']; ?>" data-text="<?php echo $attribute['name']; ?>">
-                                <?php
+                                if (isset($attributes) && is_array($attributes)) {
+                                    foreach($attributes as $attribute)
+                                    {
+                                        ?>
+                                        <input type="hidden" id="sib_hidden_<?php echo $attribute['name']; ?>" data-type="<?php echo $attribute['type']; ?>" data-name="<?php echo $attribute['name']; ?>" data-text="<?php echo $attribute['name']; ?>">
+                                    <?php
+                                    }
                                 }
                                 ?>
                                 <div id="sib-field-form" class="panel panel-default row" style="padding-bottom: 20px;">
@@ -286,12 +294,13 @@ if(!class_exists('SIB_Page_Form'))
                                             <optgroup label="<?php _e('SendinBlue merge fields', 'sib_lang'); ?>">
                                                 <option value="email"><?php _e('Email Address', 'sib_lang'); ?>*</option>
                                                 <?php
-
-                                                foreach($attributes as $attribute)
-                                                {
-                                                ?>
-                                                    <option value="<?php echo $attribute['name']; ?>"><?php echo $attribute['name']; ?></option>
-                                                <?php
+                                                if (isset($attributes) && is_array($attributes)) {
+                                                    foreach($attributes as $attribute)
+                                                    {
+                                                        ?>
+                                                        <option value="<?php echo $attribute['name']; ?>"><?php echo $attribute['name']; ?></option>
+                                                    <?php
+                                                    }
                                                 }
                                                 ?>
                                             </optgroup>
@@ -497,12 +506,14 @@ if(!class_exists('SIB_Page_Form'))
             // get available attributes list
             $attributes = get_option(SIB_Manager::attribute_list_option_name);
             $available_attrs = array();
-            foreach($attributes as $attribute)
-            {
-                $pos = strpos($sib_form_html, 'sib-' . $attribute['name'] . '-area');
+            if (isset($attributes) && is_array($attributes)) {
+                foreach($attributes as $attribute)
+                {
+                    $pos = strpos($sib_form_html, 'sib-' . $attribute['name'] . '-area');
 
-                if($pos !== false) {
-                    $available_attrs[] = $attribute['name'];
+                    if($pos !== false) {
+                        $available_attrs[] = $attribute['name'];
+                    }
                 }
             }
 

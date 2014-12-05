@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.2.4
+Version: 2.2.5
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -588,12 +588,14 @@ EOD;
                 $button_text = stripslashes( $widget_attribute['button_text'] );
                 $sib_list = esc_attr( $widget_attribute['sib_list'] );
                 $displays = array();
-                foreach($avail_atts as $att)
-                {
-                    if(isset($widget_attribute['disp_att_' . $att])) {
-                        $displays['disp_att_' . $att] = esc_attr( $widget_attribute['disp_att_' . $att] );
-                    } else {
-                        $displays['disp_att_' . $att] = 'yes';
+                if(isset($avail_atts) && is_array($avail_atts)) {
+                    foreach($avail_atts as $att)
+                    {
+                        if(isset($widget_attribute['disp_att_' . $att])) {
+                            $displays['disp_att_' . $att] = esc_attr( $widget_attribute['disp_att_' . $att] );
+                        } else {
+                            $displays['disp_att_' . $att] = 'yes';
+                        }
                     }
                 }
             } else {
@@ -730,21 +732,22 @@ EOD;
                  ?>
                      jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type="submit"]').attr('value', "<?php echo stripslashes($button_text); ?>");
                      <?php
-                      foreach($avail_atts as $att)
-                      {
-                          if($displays['disp_att_' . $att] != 'yes') {
-                          ?>
-                             jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form .sib-<?php echo $att; ?>-area').hide();
-                             jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form input.sib-<?php echo $att; ?>-area').attr('disabled', 'true');
-                         <?php
-                         }
+                      if(isset($avail_atts) && is_array($avail_atts)) {
+                          foreach ($avail_atts as $att) {
+                              if ($displays['disp_att_' . $att] != 'yes') {
+                                  ?>
+                                  jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form .sib-<?php echo $att; ?>-area').hide();
+                                  jQuery('form#sib_form_<?php echo $this->reference_form_count; ?>-form input.sib-<?php echo $att; ?>-area').attr('disabled', 'true');
+                              <?php
+                              }
+                          }
                       }
                  }
 
-                 if($this->reference_id == $this->reference_form_count) {
-                     if($this->state_of_form == 'success' && SIB_Manager::$is_redirect_url_click == 'yes' && SIB_Manager::$redirect_url_click != '') {
-                     // process after click subscribe
-                     ?>
+         if($this->reference_id == $this->reference_form_count) {
+             if($this->state_of_form == 'success' && SIB_Manager::$is_redirect_url_click == 'yes' && SIB_Manager::$redirect_url_click != '') {
+             // process after click subscribe
+             ?>
                         window.location.href = '<?php echo SIB_Manager::$redirect_url_click; ?>';
                      <?php
                      }
@@ -778,13 +781,15 @@ EOD;
 
             $attributes = get_option(SIB_Manager::attribute_list_option_name);
             $info = array();
-            foreach($attributes as $attribute)
-            {
-                if(isset($_POST[$attribute['name']])) {
-                    if($attribute['type'] == 'float') {
-                        $info[$attribute['name']] = floatval($_POST[$attribute['name']]);
-                    } else {
-                        $info[$attribute['name']] = esc_attr($_POST[$attribute['name']]);
+            if(isset($attributes) && is_array($attributes)) {
+                foreach($attributes as $attribute)
+                {
+                    if(isset($_POST[$attribute['name']])) {
+                        if($attribute['type'] == 'float') {
+                            $info[$attribute['name']] = floatval($_POST[$attribute['name']]);
+                        } else {
+                            $info[$attribute['name']] = esc_attr($_POST[$attribute['name']]);
+                        }
                     }
                 }
             }
@@ -823,7 +828,7 @@ EOD;
 
             $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
 
-            $response = $mailin->create_update_user($email, $info, 0, $listid,null);
+            $response = $mailin->create_update_user($email, $info, 0, $listid, null);
             if($response['code'] == 'success')
                 return 'success';
 
@@ -932,6 +937,9 @@ EOD;
             }
 
             $listid = $response['data']['listid'];
+            if(!isset($listid) || !is_array($listid)) {
+                $listid = array();
+            }
             if(!in_array($list_id, $listid)) {
                 $ret = array(
                     'code' => 'success',
@@ -968,10 +976,12 @@ EOD;
             } else {
                 $senders = SIB_Page_Form::get_sender_lists();
                 $sender_email = SIB_Manager::$sender_id;
-                foreach($senders as $sender) {
-                    if($sender_email == $sender['from_email']) {
-                        $sender_name = $sender['from_name'];
-                        break;
+                if (isset($senders) && is_array($senders)) {
+                    foreach($senders as $sender) {
+                        if($sender_email == $sender['from_email']) {
+                            $sender_name = $sender['from_name'];
+                            break;
+                        }
                     }
                 }
             }
@@ -1134,6 +1144,9 @@ EOD;
 
                 if($response['code'] == 'success') {
                     $listid = $response['data']['listid'];
+                    if (!isset($listid) || !is_array($listid)) {
+                        $listid = array();
+                    }
                 } else {
                     $listid = array();
                 }

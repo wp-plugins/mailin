@@ -164,8 +164,10 @@ if(!class_exists('SIB_Page_Home'))
             } else {
                 $list_datas = $list_response['data'];
                 $list_ids = array();
-                foreach($list_datas as $list_data) {
-                    $list_ids[] = $list_data['id'];
+                if (isset($list_datas) && is_array($list_datas)) {
+                    foreach($list_datas as $list_data) {
+                        $list_ids[] = $list_data['id'];
+                    }
                 }
                 $users_response = $mailin->display_list_users($list_ids,1,500);
                 $total_subscribers = intval($users_response['data']['total_list_records']);
@@ -595,12 +597,14 @@ if(!class_exists('SIB_Page_Home'))
                 return $lists;
 
             // get lists from response
-            foreach($response_data as $list)
-            {
-                $lists[] = array(
-                    'id' => $list['id'],
-                    'name' => $list['name']
-                );
+            if (isset($response_data) && is_array($response_data)) {
+                foreach($response_data as $list)
+                {
+                    $lists[] = array(
+                        'id' => $list['id'],
+                        'name' => $list['name']
+                    );
+                }
             }
 
             return $lists;
@@ -650,12 +654,13 @@ if(!class_exists('SIB_Page_Home'))
             );
 
             $campaign_records = $response['data']['campaign_records'];
-            foreach($campaign_records as $campaign_record)
-            {
-                if($campaign_record['type'] == 'template')
-                    continue;
+            if(isset($campaign_records) && is_array($campaign_records)) {
+                foreach($campaign_records as $campaign_record) {
+                    if($campaign_record['type'] == 'template')
+                        continue;
 
-                $ret[$campaign_record['type']][$campaign_record['status']] ++;
+                    $ret[$campaign_record['type']][$campaign_record['status']] ++;
+                }
             }
 
             return $ret;
