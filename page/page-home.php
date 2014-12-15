@@ -135,7 +135,7 @@ if(!class_exists('SIB_Page_Home'))
                             <div id="failure-alert" class="alert alert-danger" role="alert" style="display: none;"><?php _e('Please input correct information.', 'sib_lang');?></div>
                             <p>
                                 <?php _e('Once your have created your SendinBlue account, activate this plugin to send all your transactional emails by using SendinBlue SMTP to make sure all of your emails get to your contacts inbox.', 'sib_lang'); ?><br>
-                                <?php _e('To activate your plugin, enter your API Access key and Secret key.', 'sib_lang'); ?><br>
+                                <?php _e('To activate your plugin, enter your API Access key.', 'sib_lang'); ?><br>
                             </p>
                             <p>
                                 <a href="https://my.sendinblue.com/advanced/apikey" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Get your API key from your account', 'sib_lang'); ?></a>
@@ -143,7 +143,6 @@ if(!class_exists('SIB_Page_Home'))
                             <p>
                                 <div class="col-md-7 row">
                                     <p class="col-md-12 row"><input id="sib_access_key" type="text" class="col-md-10" style="margin-top: 10px;" placeholder="<?php _e('Access Key', 'sib_lang'); ?>"></p>
-                                    <p class="col-md-12 row"><input id="sib_secret_key" type="text" class="col-md-10" placeholder="<?php _e('Secret Key', 'sib_lang'); ?>"></p>
                                     <p class="col-md-12 row"><button type="button" id="sib_validate_btn" class="col-md-4 btn btn-primary"><span class="sib-spin"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i>&nbsp;&nbsp;</span><?php _e('Login', 'sib_lang'); ?></button></p>
                                 </div>
                             </p>
@@ -157,7 +156,7 @@ if(!class_exists('SIB_Page_Home'))
         /** generate main home page after validation */
         function generate_main_content()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $list_response = $mailin->get_lists();
             if($list_response['code'] != 'success') {
                 $total_subscribers = 0;
@@ -454,9 +453,8 @@ if(!class_exists('SIB_Page_Home'))
         public function ajax_validation_process()
         {
             $access_key = trim($_POST['access_key']);
-            $secret_key = trim($_POST['secret_key']);
 
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', $access_key, $secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
 
             $response = $mailin->get_attribute('normal');
             if(is_array($response)) {
@@ -465,7 +463,6 @@ if(!class_exists('SIB_Page_Home'))
                     // store api info
                     $settings = array(
                         'access_key' => $access_key,
-                        'secret_key' => $secret_key
                     );
                     update_option(SIB_Manager::main_option_name, $settings);
 
@@ -500,7 +497,7 @@ if(!class_exists('SIB_Page_Home'))
             update_option(SIB_Manager::home_option_name, $home_settings);
 
             // get total contacts
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $list_info = $mailin->get_list($list_id);
 
             if(!is_array($list_info)) {
@@ -542,7 +539,7 @@ if(!class_exists('SIB_Page_Home'))
             $html = $email_templates['html_content'];
 
             $html = str_replace('{title}', $subject, $html);
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
 
             $headers = array();
             $mailin->send_email($to,$subject,$from,$html,$text,$null_array,$null_array,$from,$null_array,$headers);
@@ -565,7 +562,7 @@ if(!class_exists('SIB_Page_Home'))
             // delete access_token
             $token_settings = array();
             update_option(SIB_Manager::access_token_option_name, $token_settings);
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $mailin->delete_token(SIB_Manager::$access_token);
 
             // remove account info
@@ -579,8 +576,7 @@ if(!class_exists('SIB_Page_Home'))
         static function get_lists()
         {
             $access_key = SIB_Manager::$access_key;
-            $secret_key = SIB_Manager::$secret_key;
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', $access_key, $secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
 
             $list_response = $mailin->get_lists();
             $lists = array();
@@ -616,8 +612,7 @@ if(!class_exists('SIB_Page_Home'))
         static function get_campaign_stats()
         {
             $access_key = SIB_Manager::$access_key;
-            $secret_key = SIB_Manager::$secret_key;
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', $access_key, $secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
             $response = $mailin->get_campaigns("");
 
             $ret = array(
@@ -672,8 +667,7 @@ if(!class_exists('SIB_Page_Home'))
         static function update_account_info()
         {
             $access_key = SIB_Manager::$access_key;
-            $secret_key = SIB_Manager::$secret_key;
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', $access_key, $secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
             $response = $mailin->get_account();
 
             if((is_array($response)) && ($response['code'] == 'success')) {

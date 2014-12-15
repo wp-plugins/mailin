@@ -4,54 +4,44 @@
  */ 
 class Mailin
 {
-	public $access_key;
-	public $secret_key;
-	public $base_url;
+    public $api_key;
+    public $base_url;
 	public $curl_opts = array();
-	public function __construct($base_url,$access_key,$secret_key) 
-	{
-		if(!function_exists('curl_init')) 
-		{
-			throw new Exception('Mailin requires CURL module');
-		}
-		$this->base_url = $base_url;
-		$this->access_key = $access_key;
-		$this->secret_key = $secret_key;
-	}
+    public function __construct($base_url,$api_key)
+    {
+        if(!function_exists('curl_init'))
+        {
+            throw new Exception('Mailin requires CURL module');
+        }
+        $this->base_url = $base_url;
+        $this->api_key = $api_key;
+    }
 	/**
 	 * Do CURL request with authorization
 	 */
 	private function do_request($resource,$method,$input)
 	{
-		$called_url = $this->base_url."/".$resource;
-		$ch = curl_init($called_url);
-		$c_date_time = date("r");
-		$md5_content = "";
-		if($input!="") {
-		  $md5_content = md5($input);
-		}
-		$content_type = "application/json";
-		$sign_string = $method."\n".$md5_content."\n".$content_type."\n".$c_date_time."\n".$called_url;
-		$time_header = 'X-mailin-date:'.$c_date_time;
-		$auth_header = 'Authorization:'.$this->access_key.":".base64_encode(hash_hmac('sha1' , utf8_encode($sign_string) ,$this->secret_key));
-		$content_header = "Content-Type:application/json";
-		//if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			// Windows only over-ride
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		//}
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array($time_header,$auth_header,$content_header));
-		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $input);
-		$data = curl_exec($ch);
-		if(curl_errno($ch))
-		{
-    		echo 'Curl error: ' . curl_error($ch). '\n';
-		}
-		curl_close($ch);
-		return json_decode($data,true);
+        $called_url = $this->base_url."/".$resource;
+        $ch = curl_init($called_url);
+        $auth_header = 'api-key:'.$this->api_key;
+        $content_header = "Content-Type:application/json";
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // Windows only over-ride
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array($auth_header,$content_header));
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $input);
+        $data = curl_exec($ch);
+        if(curl_errno($ch))
+        {
+            echo 'Curl error: ' . curl_error($ch). '\n';
+        }
+        curl_close($ch);
+        return json_decode($data,true);
 	}
 	public function get($resource,$input)
 	{
@@ -111,7 +101,7 @@ class Mailin
         }
         public function get_campaigns($type)
         {
-                return $this->get("campaign",json_encode(array("type"=>$type)));
+                return $this->get("campaign/detailsv2",json_encode(array("type"=>$type)));
         }
         public function get_campaign($id)
         {

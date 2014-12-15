@@ -533,7 +533,7 @@ if(!class_exists('SIB_Page_Form'))
          */
         public static function get_sender_lists()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_senders('');
             return $response['data'];
         }
@@ -543,7 +543,7 @@ if(!class_exists('SIB_Page_Form'))
          */
         public static function get_template_lists()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_campaigns('template');
             return $response['data']['campaign_records'];
         }
@@ -552,7 +552,7 @@ if(!class_exists('SIB_Page_Form'))
         function ajax_change_template()
         {
             $template_id = $_POST['template_id'];
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_campaign($template_id);
 
             $ret_email = '-1';

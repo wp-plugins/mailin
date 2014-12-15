@@ -180,16 +180,11 @@ jQuery(document).ready(function(){
     // validate button click process in welcome page
     jQuery('#sib_validate_btn').click(function(){
         var access_key = jQuery('#sib_access_key').val();
-        var secret_key = jQuery('#sib_secret_key').val();
 
         // check validation
         var error_flag = 0;
         if(access_key == '') {
             jQuery('#sib_access_key').addClass('error');
-            error_flag =1;
-        }
-        if(secret_key == '') {
-            jQuery('#sib_secret_key').addClass('error');
             error_flag =1;
         }
 
@@ -200,14 +195,12 @@ jQuery(document).ready(function(){
         // ajax process for validate
         var data = {
             action:'sib_validate_process',
-            access_key: access_key,
-            secret_key: secret_key
+            access_key: access_key
         }
 
         jQuery('#failure-alert').hide();
         jQuery('.sib-spin').show();
         jQuery('#sib_access_key').removeClass('error');
-        jQuery('#sib_secret_key').removeClass('error');
         jQuery(this).attr('disabled', 'true');
 
         jQuery.post(ajax_object.ajax_url, data, function(respond) {
@@ -219,17 +212,12 @@ jQuery(document).ready(function(){
                 window.location.href = cur_url;
             } else {
                 jQuery('#sib_access_key').addClass('error');
-                jQuery('#sib_secret_key').addClass('error');
                 jQuery('#failure-alert').show();
             }
         });
     });
 
     jQuery('#sib_access_key').keypress(function(){
-        jQuery(this).removeClass('error');
-    });
-
-    jQuery('#sib_secret_key').keypress(function(){
         jQuery(this).removeClass('error');
     });
 

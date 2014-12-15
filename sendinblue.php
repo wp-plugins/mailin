@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.2.5
+Version: 2.3.0
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -93,6 +93,11 @@ if(!class_exists('SIB_Manager'))
         const attribute_smtp_name = 'sib_smtp_details';
 
         /**
+         * Request url of sendinblue api
+         */
+        const sendinblue_api_url = 'https://api.sendinblue.com/v2.0';
+
+        /**
          * Plugin directory path value. set in constructor
          * @access public
          * @var string
@@ -117,11 +122,6 @@ if(!class_exists('SIB_Manager'))
          * Access key
          */
         public static $access_key;
-
-        /**
-         * secret key
-         */
-        public static $secret_key;
 
         /**
          * access_token
@@ -257,7 +257,6 @@ if(!class_exists('SIB_Manager'))
             // api details for sendinblue
             $general_settings = get_option(self::main_option_name, array());
             self::$access_key = isset($general_settings['access_key']) ? $general_settings['access_key'] : '';
-            self::$secret_key = isset($general_settings['secret_key']) ? $general_settings['secret_key'] : '';
 
             $access_token_settings = get_option(self::access_token_option_name, array());
             self::$access_token = isset($access_token_settings['access_token']) ? $access_token_settings['access_token'] : '';
@@ -340,6 +339,12 @@ EOD;
                     'available_attributes' => array('NAME')
                 );
                 update_option(self::form_subscription_option_name, $form_settings);
+            }
+
+            $use_api_version = get_option('sib_use_apiv2', '0');
+            if ($use_api_version == '0') {
+                self::uninstall();
+                update_option('sib_use_apiv2', '1');
             }
 
             // smtp details
@@ -559,7 +564,7 @@ EOD;
          */
         static function is_done_validation()
         {
-            if((self::$access_key != '') && (self::$secret_key != ''))
+            if(self::$access_key != '')
                 return true;
             else
                 return false;
@@ -826,7 +831,7 @@ EOD;
             array_push($listid, $list_id);
             $listid_unlink = null;
 
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
 
             $response = $mailin->create_update_user($email, $info, 0, $listid, null);
             if($response['code'] == 'success')
@@ -849,7 +854,7 @@ EOD;
             array_push($listid, $list_id);
             $listid_unlink = null;
 
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
 
             $response = $mailin->create_update_user($email, $info, 0, $listid, null);
 
@@ -918,7 +923,7 @@ EOD;
          */
         function validation_email($email, $list_id)
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_user($email);
             if($response['code'] == 'failure') {
                 $ret = array(
@@ -961,7 +966,7 @@ EOD;
          */
         function send_email($type, $to_email, $code, $list_id, $template_id='-1')
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             // set subject info
             if($type == 'confirm') {
                 $subject = __('Subscription confirmed', 'sib_lang');
@@ -1033,7 +1038,7 @@ EOD;
          */
         function unsubscribe()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $code = esc_attr($_GET['code']);
             $list_id = intval($_GET['li']);
 
@@ -1132,7 +1137,7 @@ EOD;
             $site_domain = str_replace('https://', '', home_url());
             $site_domain = str_replace('http://', '', $site_domain);
 
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $code = esc_attr($_GET['code']);
             $list_id = intval($_GET['li']);
 
@@ -1227,7 +1232,7 @@ EOD;
         /** update access token */
         public static function update_access_token()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $mailin->delete_token(self::$access_token);
 
             $access_response = $mailin->get_access_tokens();
@@ -1246,7 +1251,7 @@ EOD;
         /** update smtp details */
         public static function update_smtp_details()
         {
-            $mailin = new Mailin('https://api.sendinblue.com/v1.0', SIB_Manager::$access_key, SIB_Manager::$secret_key);
+            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_smtp_details();
             if($response['code'] == 'success') {
                 if($response['data']['relay_data']['status'] == 'enabled') {
