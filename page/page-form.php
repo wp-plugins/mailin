@@ -120,8 +120,7 @@ if(!class_exists('SIB_Page_Form'))
                                 <select id="sib_select_list" class="col-md-10" name="list_id">
                                     <?php
                                     if (isset($lists) && is_array($lists)) {
-                                        foreach($lists as $list)
-                                        {
+                                        foreach($lists as $list) {
                                             ?>
                                             <option value="<?php echo $list['id']; ?>" <?php selected(SIB_Manager::$list_id, $list['id']); ?>><?php echo $list['name']; ?></option>
                                         <?php
@@ -161,26 +160,6 @@ if(!class_exists('SIB_Page_Form'))
                                 <a href="https://my.sendinblue.com/camp/listing#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
                             </div>
                         </div>
-                        <div class="row" id="sib_confirm_sender_area" style="margin-top: 10px;">
-                            <div class="col-md-3" id="sib_confirm_sender_area_select">
-                                <select class="col-md-11" name="sender_id" id="sib_sender_id">
-                                    <option value="-1" <?php selected(SIB_Manager::$sender_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
-                                    <?php
-                                    if (isset($senders) && is_array($senders)) {
-                                        foreach($senders as $sender)
-                                        {
-                                            ?>
-                                            <option value="<?php echo $sender['from_email']; ?>" <?php selected(SIB_Manager::$sender_id, $sender['from_email']); ?>><?php echo $sender['from_email']; ?></option>
-                                        <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="https://my.sendinblue.com/advanced/advanceparamres" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my senders', 'sib_lang'); ?></a>
-                            </div>
-                        </div>
                         <div class="row small-content">
                             <span class="col-md-3"><?php _e('Double Opt-In', 'sib_lang'); ?> <?php echo SIB_Page_Home::get_narration_script(__('Double Opt-In', 'sib_lang'),__('You can choose to add a step in the confirmation process, by requiring a new suscriber to click on a link sent to the registered email adress. By doing so, he will be added to your contact', 'sib_lang')); ?></span>
                             <div class="col-md-4">
@@ -189,14 +168,6 @@ if(!class_exists('SIB_Page_Form'))
                             </div>
                             <div class="col-md-5">
                                 <small style="font-style: italic;"><?php _e('Select "Yes" if you want your subscribers to confirm their email address','sib_lang'); ?></small>
-                            </div>
-                        </div>
-                        <div class="row" id="sib_double_sender_area">
-                            <div class="col-md-3" id="sib_double_sender_area_select">
-
-                            </div>
-                            <div class="col-md-4">
-                                <a href="https://my.sendinblue.com/advanced/advanceparamres" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my senders', 'sib_lang'); ?></a>
                             </div>
                         </div>
                         <div class="row small-content" id="sib_double_redirect_area">
@@ -544,7 +515,7 @@ if(!class_exists('SIB_Page_Form'))
         public static function get_template_lists()
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $response = $mailin->get_campaigns('template');
+            $response = $mailin->get_campaigns('template','temp_active');
             return $response['data']['campaign_records'];
         }
 

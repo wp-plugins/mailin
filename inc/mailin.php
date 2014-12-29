@@ -99,13 +99,13 @@ class Mailin
         {
                 return $this->get("sms/".$campid,json_encode(array("to"=>$mobilephone)));
         }
-        public function get_campaigns($type)
+        public function get_campaigns($type,$status)
         {
-                return $this->get("campaign/detailsv2",json_encode(array("type"=>$type)));
+                return $this->get("campaign/detailsv2",json_encode(array("type"=>$type,"status"=>$status)));
         }
         public function get_campaign($id)
         {
-                return $this->get("campaign/".$id,"");
+                return $this->get("campaign/".$id."/detailsv2","");
         }
         public function create_campaign($category,$from_name,$name,$bat_sent,$html_content,$html_url,$listid,$scheduled_date,$subject,$from_email,$reply_to,$to_field,$exclude_list)
         {

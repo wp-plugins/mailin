@@ -613,7 +613,7 @@ if(!class_exists('SIB_Page_Home'))
         {
             $access_key = SIB_Manager::$access_key;
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
-            $response = $mailin->get_campaigns("");
+            $response = $mailin->get_campaigns("", '');
 
             $ret = array(
                 'classic' => array(

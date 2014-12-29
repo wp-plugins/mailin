@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.0
+Version: 2.3.1
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -468,6 +468,7 @@ EOD;
                 'alert_exist_subscriber' =>  __('You have already registered', 'sib_lang'),
                 'alert_invalid_email' =>  __('Your email address is invalid', 'sib_lang')
             );
+
             update_option(self::form_confirmation_option_name, $signup_settings);
 
             // set sign up form html
@@ -975,37 +976,32 @@ EOD;
             }
 
             // get sender info
-            if(SIB_Manager::$sender_id == '-1') {
-                $sender_email = __('no-reply@sendinblue.com', 'sib_lang');
-                $sender_name = __('SendinBlue', 'sib_lang');
-            } else {
-                $senders = SIB_Page_Form::get_sender_lists();
-                $sender_email = SIB_Manager::$sender_id;
-                if (isset($senders) && is_array($senders)) {
-                    foreach($senders as $sender) {
-                        if($sender_email == $sender['from_email']) {
-                            $sender_name = $sender['from_name'];
-                            break;
-                        }
-                    }
-                }
+            $senders = SIB_Page_Form::get_sender_lists();
+            if (isset($senders) && is_array($senders)) {
+                $sender_name = $senders[0]['from_name'];
+                $sender_email = $senders[0]['from_email'];
             }
-
-            if($sender_email == '') {
+            else {
                 $sender_email = __('no-reply@sendinblue.com', 'sib_lang');
                 $sender_name = __('SendinBlue', 'sib_lang');
             }
 
             // get template html and text
-            $template_contents = self::get_email_template($type);
-            $html_content = $template_contents['html_content'];
-            $text_content = $template_contents['text_content'];
-
-            if($type=="confirm" && $template_id != '-1') {
+            if ($type=="confirm" && $template_id != '-1') {
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][$template_id]['html_content'];
+                    if (($response['data'][$template_id]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][$template_id]['from_email'] != '[DEFAULT_FROM_EMAIL]')) {
+                        $sender_name = $response['data'][$template_id]['from_name'];
+                        $sender_email = $response['data'][$template_id]['from_email'];
+                    }
                 }
+            }
+            else {
+                $template_contents = self::get_email_template($type);
+                $html_content = $template_contents['html_content'];
+                $text_content = $template_contents['text_content'];
             }
 
             // send mail
@@ -1315,6 +1311,7 @@ EOD;
     add_action( 'sendinblue_init', 'sendinblue_init' );
 
     function sendinblue_init() {
+        wp_update_post();
         new SIB_Manager();
     }
 
