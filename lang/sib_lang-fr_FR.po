@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SendinBlue plugin\n"
-"POT-Creation-Date: 2014-12-10 10:46+0700\n"
-"PO-Revision-Date: 2014-12-10 10:46+0700\n"
+"POT-Creation-Date: 2015-01-09 23:57+0700\n"
+"PO-Revision-Date: 2015-01-09 23:58+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -23,23 +23,23 @@ msgstr "Campagnes"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: ../page/page-form.php:115
+#: ../page/page-form.php:113
 msgid "Sign up process"
 msgstr "Processus d'inscription"
 
-#: ../page/page-form.php:118
+#: ../page/page-form.php:116
 msgid "Select the list where you want to add your new subscribers"
 msgstr "Sélectionner la liste ou vous voulez enregistrer vos contacts"
 
-#: ../page/page-form.php:135
+#: ../page/page-form.php:132
 msgid "Send a confirmation email"
 msgstr "Envoyer un message de confirmation"
 
-#: ../page/page-form.php:135 ../page/page-form.php:362
+#: ../page/page-form.php:132 ../page/page-form.php:358
 msgid "Confirmation message"
 msgstr "Message de confirmation"
 
-#: ../page/page-form.php:135
+#: ../page/page-form.php:132
 msgid ""
 "You can choose to send a confirmation email. You will be able to set up the "
 "template that will be sent to your new suscribers"
@@ -47,65 +47,61 @@ msgstr ""
 "Vous pouvez choisir d'envoyer un message de confirmation. Vous serez ainsi "
 "capable de paramétrer le template qui sera envoyé à vos nouveaux inscrits"
 
-#: ../page/page-form.php:137 ../page/page-form.php:187
-#: ../page/page-form.php:212
+#: ../page/page-form.php:134 ../page/page-form.php:164
+#: ../page/page-form.php:208
 msgid "Yes"
 msgstr "Oui"
 
-#: ../page/page-form.php:138 ../page/page-form.php:188
-#: ../page/page-form.php:217
+#: ../page/page-form.php:135 ../page/page-form.php:165
+#: ../page/page-form.php:213
 msgid "No"
 msgstr "Non"
 
-#: ../page/page-form.php:141
+#: ../page/page-form.php:138
 msgid ""
 "Select \"Yes\" if you want your subscribers to receive a confirmation email"
 msgstr ""
 "Sélectionner \"Oui\" si vous souhaitez que vous nouveaux inscrits reçoivent "
 "un email de confirmation"
 
-#: ../page/page-form.php:147 ../page/page-form.php:167
+#: ../page/page-form.php:144 ../page/page-form.php:174
 msgid "Default"
 msgstr "Défaut"
 
-#: ../page/page-form.php:161
+#: ../page/page-form.php:158 ../page/page-form.php:195
 msgid "Set up my templates"
 msgstr "Paramétrer mes templates"
 
-#: ../page/page-form.php:181 ../page/page-form.php:199
-msgid "Set up my senders"
-msgstr "Paramétrer mes expéditeurs"
-
-#: ../page/page-form.php:185
+#: ../page/page-form.php:162
 msgid "Double Opt-In"
 msgstr "Double Opt-In"
 
-#: ../page/page-form.php:185
+#: ../page/page-form.php:162
 msgid ""
-"You can choose to add a step in the confirmation process, by requiring a new "
-"suscriber to click on a link sent to the registered email adress. By doing "
-"so, he will be added to your contact"
+"Your subscribers will receive an email inviting them to confirm their "
+"subscription. Be careful, your subscribers are not saved in your list before "
+"confirming their subscription."
 msgstr ""
-"Vous pouvez choisir d'ajouter une étape dans le processus d'inscription, en "
-"demandant à vos nouveaux inscrits de cliquer sur un lien envoyé à l'adresse "
-"email déclarée. Ils seront ensuite ajoutés à votre liste de contact. "
+"Les inscrits à votre newsletter recevront un email pour confirmer leur "
+"inscription. Attention, les inscrits ne sont pas rajoutés à votre liste de "
+"contact tant que leur inscription n'est pas confirmée."
 
-#: ../page/page-form.php:191
+#: ../page/page-form.php:168
 msgid ""
 "Select \"Yes\" if you want your subscribers to confirm their email address"
 msgstr ""
 "Sélectionner \"Oui\" si vous souhaitez que vous nouveaux inscrits confirment "
 "leurs adresses emails"
 
-#: ../page/page-form.php:203
+#: ../page/page-form.php:199
 msgid "Redirect to this URL after clicking in the email"
 msgstr "Rediriger sur cette URL après avoir cliqué sur le lien dans l'email"
 
-#: ../page/page-form.php:210
+#: ../page/page-form.php:206
 msgid "Redirect to this URL after subscription"
 msgstr "Rediriger vers ce lien après inscription"
 
-#: ../page/page-form.php:220
+#: ../page/page-form.php:216
 msgid ""
 "Select \"Yes\" if you want to redirect your subscribers to a specific page "
 "after they fullfill the form"
@@ -113,136 +109,136 @@ msgstr ""
 "Sélectionner \"Oui\" si vous voulez rediriger vos nouveaux inscrits sur une "
 "page après inscription"
 
-#: ../page/page-form.php:236 ../page/page-form.php:350
-#: ../page/page-form.php:395
+#: ../page/page-form.php:232 ../page/page-form.php:346
+#: ../page/page-form.php:391
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: ../page/page-form.php:249
+#: ../page/page-form.php:245
 msgid "Subscription form"
 msgstr "Formulaire d'inscription"
 
-#: ../page/page-form.php:263
+#: ../page/page-form.php:259
 msgid "Use the shortcode"
 msgstr "Utiliser le shortcode"
 
-#: ../page/page-form.php:267
+#: ../page/page-form.php:263
 msgid "inside a post, page or text widget to display your sign-up form."
 msgstr ""
 "à l'intérieur d'un article, d'une page ou d'un widget de texte afin d'y "
 "ajouter votre formulaire d'inscription"
 
-#: ../page/page-form.php:268
+#: ../page/page-form.php:264
 msgid "Do not copy and paste the above form mark up, that will not work"
 msgstr "Ne copiez coller pas le code ci-dessus, cela ne fonctionnera pas"
 
-#: ../page/page-form.php:273 ../page/page-form.php:295
+#: ../page/page-form.php:269 ../page/page-form.php:291
 msgid "Email Address"
 msgstr "Adresse email"
 
-#: ../page/page-form.php:274
+#: ../page/page-form.php:270
 msgid "Sign up"
 msgstr "S'inscrire"
 
-#: ../page/page-form.php:288
+#: ../page/page-form.php:284
 msgid "Add a new Field"
 msgstr "Ajouter un nouveau champ"
 
-#: ../page/page-form.php:289
+#: ../page/page-form.php:285
 msgid "Add a New Field"
 msgstr "Ajouter un nouveau champ"
 
-#: ../page/page-form.php:289
+#: ../page/page-form.php:285
 msgid "Choose an attribute and add it to the subscription form of your Website"
 msgstr ""
 "Choisir un attribut et l'ajouter au formulaire d'inscription de votre site"
 
-#: ../page/page-form.php:293
+#: ../page/page-form.php:289
 msgid "Select SendinBlue Attribute"
 msgstr "Sélectionner un attribut SendinBlue"
 
-#: ../page/page-form.php:294
+#: ../page/page-form.php:290
 msgid "SendinBlue merge fields"
 msgstr "Champs synchronisé avec SendinBlue"
 
-#: ../page/page-form.php:307
+#: ../page/page-form.php:303
 msgid "Other"
 msgstr "Autre"
 
-#: ../page/page-form.php:308
+#: ../page/page-form.php:304
 msgid "Submit Button"
 msgstr "Bouton de validation"
 
-#: ../page/page-form.php:314
+#: ../page/page-form.php:310
 msgid "Label"
 msgstr "Intitulé"
 
-#: ../page/page-form.php:314 ../page/page-form.php:318
-#: ../page/page-form.php:322
+#: ../page/page-form.php:310 ../page/page-form.php:314
+#: ../page/page-form.php:318
 msgid "Optional"
 msgstr "Optionnel"
 
-#: ../page/page-form.php:318
+#: ../page/page-form.php:314
 msgid "Place holder"
 msgstr "Ordre"
 
-#: ../page/page-form.php:322
+#: ../page/page-form.php:318
 msgid "Initial value"
 msgstr "Valeur initiale"
 
-#: ../page/page-form.php:326 ../widget/widget_form.php:84
+#: ../page/page-form.php:322 ../widget/widget_form.php:84
 msgid "Button Text"
 msgstr "Bouton de texte"
 
-#: ../page/page-form.php:332
+#: ../page/page-form.php:328
 msgid "Wrap in Paragraph (&lt;p&gt;) tags ?"
 msgstr "Entourer de balise <p> ?"
 
-#: ../page/page-form.php:335
+#: ../page/page-form.php:331
 msgid "Required field ?"
 msgstr "Champ obligatoire ?"
 
-#: ../page/page-form.php:339
+#: ../page/page-form.php:335
 msgid "Add to form"
 msgstr "Ajouter au formulaire"
 
-#: ../page/page-form.php:342
+#: ../page/page-form.php:338
 msgid "Generated HTML"
 msgstr "HTML généré"
 
-#: ../page/page-form.php:366 ../page/page-form.php:369
+#: ../page/page-form.php:362 ../page/page-form.php:365
 msgid "Success message"
 msgstr "Message de validation"
 
-#: ../page/page-form.php:369
+#: ../page/page-form.php:365
 msgid ""
 "Set up the success message that will appear when one of your visitors "
 "surccessfully signs up"
 msgstr "Paramétrer le message qui apparaît lorsque l'inscription est réussie"
 
-#: ../page/page-form.php:373
+#: ../page/page-form.php:369
 msgid "General error message"
 msgstr "Message d'erreur"
 
-#: ../page/page-form.php:376
+#: ../page/page-form.php:372
 msgid "General message error"
 msgstr "Message d'erreur"
 
-#: ../page/page-form.php:376
+#: ../page/page-form.php:372
 msgid ""
 "Set up the message that will appear when an error occurs during the "
 "subscritpion process"
 msgstr "Paramétrer le message qui apparaît lorsqu'une erreur survient"
 
-#: ../page/page-form.php:380
+#: ../page/page-form.php:376
 msgid "Existing subscribers"
 msgstr "Contact existant déjà"
 
-#: ../page/page-form.php:383
+#: ../page/page-form.php:379
 msgid "Existing Suscribers"
 msgstr "Contact existant déjà"
 
-#: ../page/page-form.php:383
+#: ../page/page-form.php:379
 msgid ""
 "Set up the message that will appear when a suscriber is already in your "
 "database"
@@ -250,15 +246,15 @@ msgstr ""
 "Paramétrer le message qui apparaît lorsque le contact est déjà présent dans "
 "votre base de données"
 
-#: ../page/page-form.php:387
+#: ../page/page-form.php:383
 msgid "Invalid email address"
 msgstr "Adresse email invalide"
 
-#: ../page/page-form.php:390
+#: ../page/page-form.php:386
 msgid "Invalid email adress"
 msgstr "Adresse email invalide"
 
-#: ../page/page-form.php:390
+#: ../page/page-form.php:386
 msgid ""
 "Set up the message that will appear when the email address used to sign up "
 "is not valid"
@@ -266,8 +262,44 @@ msgstr ""
 "Paramétrer le message qui apparaît lorsque l'adresse utilisée pour "
 "l'inscription n'est pas valide"
 
+#: ../page/page-form.php:402
+msgid "Double Optin"
+msgstr "Double Optin"
+
+#: ../page/page-form.php:408
+msgid ""
+"The template you selected does not include a link [DOUBLEOPTIN] to allow "
+"subscribers to confirm their subscription. Please edit the template to "
+"include a link with [DOUBLEOPTIN] as URL."
+msgstr ""
+"Le template choisi ne contient pas de lien [DOUBLEOPTIN] qui permet aux "
+"inscrits de confirmer leur inscription. Vous devez modifier votre template "
+"pour inclure le shortcode [DOUBLEOPTIN] à la place d'une URL avant de "
+"pouvoir le choisir."
+
+#: ../page/page-form.php:414 ../page/page-form.php:436
+msgid "Close"
+msgstr "Fermer"
+
+#: ../page/page-form.php:424
+msgid "Confirmation email"
+msgstr "Les emails de confirmation"
+
+#: ../page/page-form.php:430
+msgid ""
+"Confirmation emails will be sent through your own email server, but you have "
+"no guarantees on their deliverability. <a href=\"https://mysmtp.sendinblue."
+"com\" target=\"_blank\">Click here</a> to send your emails through "
+"SendinBlue in order to improve your deliverability and get statistics"
+msgstr ""
+"Les emails de confirmation seront envoyés par votre propre serveur email. "
+"Vous n'avez donc aucune garantie sur la délivrabilité de vos emails. Pour "
+"améliorer la délivrabilité et obtenir des statistiques, activez l'envoi des "
+"emails via le serveur SMTP de SendinBlue en <a href=\"https://mysmtp."
+"sendinblue.com\" target=\"_blank\">cliquant ici</a>"
+
 #: ../page/page-home.php:39 ../page/page-home.php:413
-#: ../page/page-home.php:530 ../sendinblue.php:980 ../sendinblue.php:996
+#: ../page/page-home.php:530 ../sendinblue.php:991
 msgid "SendinBlue"
 msgstr "SendinBlue"
 
@@ -433,12 +465,15 @@ msgid "Transactional emails"
 msgstr "Emails transactionnels"
 
 #: ../page/page-home.php:312
-msgid "You still can not use the smtp of SendinBlue. Please confirm at "
+msgid ""
+"Unfortunately, you wannot activate \"Transactional emails\"  because your "
+"SendinBlue SMTP account is not valid. Please send an email to "
+"contact@sendinblue.com in order to ask for SMTP account activation"
 msgstr ""
-
-#: ../page/page-home.php:312
-msgid "here"
-msgstr ""
+"Malheureusement, vous ne pouvez pas activer \"Emails transactionnels\" parce "
+"que votre compte SMTP SendinBlue n'a pas été validé. Merci d'envoyer un "
+"email à contact@sendinblue.com afin de demander l'activation de votre compte "
+"SMTP"
 
 #: ../page/page-home.php:316
 msgid "Mail Sent."
@@ -564,7 +599,7 @@ msgstr "S'inscrire gratuitement"
 msgid "[SendinBlue SMTP] test email"
 msgstr "email de test [SendinBlue SMTP]"
 
-#: ../page/page-home.php:531 ../sendinblue.php:979 ../sendinblue.php:995
+#: ../page/page-home.php:531 ../sendinblue.php:990
 msgid "no-reply@sendinblue.com"
 msgstr "no-reply@sendinblue.com"
 
@@ -576,51 +611,51 @@ msgstr "Listes"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: ../sendinblue.php:466
+#: ../sendinblue.php:471
 msgid "Thank you, you have successfully registered !"
 msgstr "Vous êtes désormais inscrit !"
 
-#: ../sendinblue.php:467
+#: ../sendinblue.php:472
 msgid "Something wrong occured"
 msgstr "Une erreur est survenue"
 
-#: ../sendinblue.php:468
+#: ../sendinblue.php:473
 msgid "You have already registered"
 msgstr "Vous êtes déjà inscrit"
 
-#: ../sendinblue.php:469
+#: ../sendinblue.php:474
 msgid "Your email address is invalid"
 msgstr "Cette adresse email n'est pas valide"
 
-#: ../sendinblue.php:972
+#: ../sendinblue.php:978
 msgid "Subscription confirmed"
-msgstr "Inscription confirmée "
+msgstr "Inscription newsletter confirmée"
 
-#: ../sendinblue.php:974
+#: ../sendinblue.php:980
 msgid "Please confirm subscription"
 msgstr "Confirmer l'inscription "
 
-#: ../sendinblue.php:1087
+#: ../sendinblue.php:1102
 msgid "Unsubscribe"
 msgstr "Se désabonner"
 
-#: ../sendinblue.php:1106
+#: ../sendinblue.php:1121
 msgid "Your request has been taken into account."
 msgstr "Votre demande a bien été prise en compte."
 
-#: ../sendinblue.php:1108
+#: ../sendinblue.php:1123
 msgid "The user has been unsubscribed"
 msgstr "L'utilisateur s'est désinscrit"
 
-#: ../sendinblue.php:1190
+#: ../sendinblue.php:1205
 msgid "Thank you for subscribing"
 msgstr "Merci pour votre inscription"
 
-#: ../sendinblue.php:1209
+#: ../sendinblue.php:1224
 msgid "You have just subscribed to the newsletter of "
 msgstr "Vous vous êtes inscrit à la newsletter de"
 
-#: ../sendinblue.php:1210
+#: ../sendinblue.php:1225
 msgid "-SendinBlue"
 msgstr "-SendinBlue"
 
@@ -647,6 +682,32 @@ msgstr "Saisir"
 #: ../widget/widget_form.php:90
 msgid "List"
 msgstr "Liste"
+
+#~ msgid ""
+#~ "You can choose to add a step in the confirmation process, by requiring a "
+#~ "new suscriber to click on a link sent to the registered email adress. By "
+#~ "doing so, he will be added to your contact"
+#~ msgstr ""
+#~ "Vous pouvez choisir d'ajouter une étape dans le processus d'inscription, "
+#~ "en demandant à vos nouveaux inscrits de cliquer sur un lien envoyé à "
+#~ "l'adresse email déclarée. Ils seront ensuite ajoutés à votre liste de "
+#~ "contact. "
+
+#~ msgid ""
+#~ "Confirmation emails will be sent through your own email servers. This "
+#~ "means no guarantees on emails deliverability. If you want to improve your "
+#~ "deliverability and get statistics,"
+#~ msgstr ""
+#~ "Les emails de confirmation seront envoyés par votre propre serveur email. "
+#~ "Vous n'avez donc aucune garantie sur la délivrabilité de vos emails. Pour "
+#~ "améliorer la délivrabilité et obtenir des statistiques, activez l'envoi "
+#~ "des emails via le serveur SMTP de SendinBlue en"
+
+#~ msgid "click here"
+#~ msgstr "cliquant ici"
+
+#~ msgid "Set up my senders"
+#~ msgstr "Paramétrer mes expéditeurs"
 
 #~ msgid "To activate your plugin, enter your API Access key and Secret key."
 #~ msgstr ""

@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.1
+Version: 2.3.2
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -154,6 +154,10 @@ if(!class_exists('SIB_Manager'))
         public static $template_id;
 
         /**
+         * double optin template id for email
+         */
+        public static $doubleoptin_template_id;
+        /**
          * sender id
          */
         public static $sender_id;
@@ -273,7 +277,8 @@ if(!class_exists('SIB_Manager'))
             self::$redirect_url = isset($signup_settings['redirect_url']) ? $signup_settings['redirect_url'] : '';
             self::$redirect_url_click = isset($signup_settings['redirect_url_click']) ? $signup_settings['redirect_url_click'] : '';
             self::$is_redirect_url_click = isset($signup_settings['is_redirect_url_click']) ? $signup_settings['is_redirect_url_click'] : '';
-            self::$template_id = isset($signup_settings['template_id']) ? $signup_settings['template_id'] : '';
+            self::$template_id = isset($signup_settings['template_id']) ? $signup_settings['template_id'] : '-1';
+            self::$doubleoptin_template_id = isset($signup_settings['doubleoptin_template_id']) ? $signup_settings['doubleoptin_template_id'] : '-1';
             self::$sender_id = isset($signup_settings['sender_id']) ? $signup_settings['sender_id'] : '';
 
             // get alert message parameters
@@ -676,7 +681,7 @@ EOD;
                     max-width: 300px;
                     box-shadow: none;
                     border: 1px solid #bbbbbb;
-                    height: 30px;
+                    height: auto;
                     margin: 0px;
                     margin-top: 5px;
 
@@ -914,7 +919,7 @@ EOD;
             }
 
             // send double optin email
-            $this->send_email('double-optin', $email, $uniqid, $list_id);
+            $this->send_email('double-optin', $email, $uniqid, $list_id, self::$doubleoptin_template_id);
 
             return 'success';
         }
@@ -987,7 +992,18 @@ EOD;
             }
 
             // get template html and text
-            if ($type=="confirm" && $template_id != '-1') {
+            if ($type=="confirm" && intval($template_id) > 0) {
+                $response = $mailin->get_campaign($template_id);
+                if($response['code'] == 'success') {
+                    $html_content = $response['data'][$template_id]['html_content'];
+                    if (($response['data'][$template_id]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][$template_id]['from_email'] != '[DEFAULT_FROM_EMAIL]')) {
+                        $sender_name = $response['data'][$template_id]['from_name'];
+                        $sender_email = $response['data'][$template_id]['from_email'];
+                    }
+                }
+            }
+            else if($type=="double-optin" && intval($template_id) > 0) {
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][$template_id]['html_content'];
@@ -1012,6 +1028,9 @@ EOD;
             $site_domain = str_replace('http://', '', $site_domain);
 
             $html_content = str_replace('{title}', $subject, $html_content);
+            $html_content = str_replace('https://[DOUBLEOPTIN]', '{subscribe_url}', $html_content);
+            $html_content = str_replace('http://[DOUBLEOPTIN]', '{subscribe_url}', $html_content);
+            $html_content = str_replace('[DOUBLEOPTIN]', '{subscribe_url}', $html_content);
             $html_content = str_replace('{site_domain}', $site_domain, $html_content);
             $html_content = str_replace('{unsubscribe_url}', add_query_arg(array('sib_action' => 'unsubscribe', 'code' => $code, 'li'=>$list_id), home_url()), $html_content);
             $html_content = str_replace('{subscribe_url}', add_query_arg(array('sib_action' => 'subscribe', 'code' => $code, 'li'=>$list_id), home_url()), $html_content);
@@ -1299,6 +1318,7 @@ EOD;
           // load lang file
           $i18n_file_name = 'sib_lang';
           $locale         = apply_filters('plugin_locale', get_locale(), $i18n_file_name);
+          //$locale = 'fr_FR';
           $filename       = plugin_dir_path(__FILE__). '/lang/' .$i18n_file_name.'-'.$locale.'.mo';
           load_textdomain('sib_lang', $filename);
         }
@@ -1311,7 +1331,7 @@ EOD;
     add_action( 'sendinblue_init', 'sendinblue_init' );
 
     function sendinblue_init() {
-        wp_update_post();
+        SIB_Manager::LoadTextDomain();
         new SIB_Manager();
     }
 

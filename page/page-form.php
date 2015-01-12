@@ -100,8 +100,6 @@ if(!class_exists('SIB_Page_Form'))
         /** generate main page */
         function generate_main_page()
         {
-            // get sender list
-            $senders = self::get_sender_lists();
             // get template list
             $templates = self::get_template_lists();
             $lists = SIB_Page_Home::get_lists();
@@ -161,13 +159,40 @@ if(!class_exists('SIB_Page_Form'))
                             </div>
                         </div>
                         <div class="row small-content">
-                            <span class="col-md-3"><?php _e('Double Opt-In', 'sib_lang'); ?> <?php echo SIB_Page_Home::get_narration_script(__('Double Opt-In', 'sib_lang'),__('You can choose to add a step in the confirmation process, by requiring a new suscriber to click on a link sent to the registered email adress. By doing so, he will be added to your contact', 'sib_lang')); ?></span>
+                            <span class="col-md-3"><?php _e('Double Opt-In', 'sib_lang'); ?> <?php echo SIB_Page_Home::get_narration_script(__('Double Opt-In', 'sib_lang'),__('Your subscribers will receive an email inviting them to confirm their subscription. Be careful, your subscribers are not saved in your list before confirming their subscription.', 'sib_lang')); ?></span>
                             <div class="col-md-4">
                                 <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_double_optin_yes" name="is_double_optin" value="yes" <?php checked(SIB_Manager::$is_double_optin, 'yes'); ?>>&nbsp;<?php _e('Yes', 'sib_lang'); ?></label>
                                 <label class="col-md-6" style="font-weight: normal;"><input type="radio" id="is_double_optin_no" name="is_double_optin" value="no" <?php checked(SIB_Manager::$is_double_optin, 'no'); ?>>&nbsp;<?php _e('No', 'sib_lang'); ?></label>
                             </div>
                             <div class="col-md-5">
                                 <small style="font-style: italic;"><?php _e('Select "Yes" if you want your subscribers to confirm their email address','sib_lang'); ?></small>
+                            </div>
+                        </div>
+                        <div class="row" id="sib_doubleoptin_template_area">
+                            <div class="col-md-3">
+                                <select class="col-md-11" name="doubleoptin_template_id" id="sib_doubleoptin_template_id">
+                                    <option value="-1" <?php selected(SIB_Manager::$doubleoptin_template_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
+                                    <?php
+                                    if (isset($templates) && is_array($templates)) {
+                                        foreach($templates as $template)
+                                        {
+                                            $template_content = $template['html_content'];
+                                            if (strpos($template_content, '[DOUBLEOPTIN]') == false) {
+                                                $double_optin_shortcode_exist = 0;
+                                            }
+                                            else {
+                                                $double_optin_shortcode_exist = 1;
+                                            }
+                                            ?>
+                                            <option value="<?php echo $template['id']; ?>" is_shortcode="<?php echo $double_optin_shortcode_exist; ?>" <?php selected(SIB_Manager::$doubleoptin_template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
+                                        <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="https://my.sendinblue.com/camp/listing#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
                             </div>
                         </div>
                         <div class="row small-content" id="sib_double_redirect_area">
@@ -369,6 +394,50 @@ if(!class_exists('SIB_Page_Form'))
                     </div>
                 </form> <!-- End Confirmation message form-->
             </div>
+            <div class="modal blue-modal fade out" id="doubleoptin_error_dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modal-title"><?php _e('Double Optin', 'sib_lang'); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p>
+                                    <?php
+                                    _e('The template you selected does not include a link [DOUBLEOPTIN] to allow subscribers to confirm their subscription. Please edit the template to include a link with [DOUBLEOPTIN] as URL.', 'sib_lang');
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal"><?php _e('Close', 'sib_lang')?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal blue-modal fade out" id="smtp_alert_dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <h4 class="modal-title"><?php _e('Confirmation email', 'sib_lang'); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p>
+                                    <?php
+                                    _e('Confirmation emails will be sent through your own email server, but you have no guarantees on their deliverability. <a href="https://mysmtp.sendinblue.com" target="_blank">Click here</a> to send your emails through SendinBlue in order to improve your deliverability and get statistics', 'sib_lang');
+                                    ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal"><?php _e('Close', 'sib_lang')?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <script>
                 jQuery(document).ready(function(){
                     jQuery('#sib_add_to_form_btn').click(function() {
@@ -409,6 +478,7 @@ if(!class_exists('SIB_Page_Form'))
             $redirect_url = $_POST['redirect_url'];
             $redirect_url_click = $_POST['redirect_url_click'];
             $template_id = $_POST['template_id'];
+            $doubleoptin_template_id = $_POST['doubleoptin_template_id'];
             $sender_id = $_POST['sender_id'];
             $is_redirect_url_click = $_POST['is_redirect_url_click'];
 
@@ -418,6 +488,7 @@ if(!class_exists('SIB_Page_Form'))
                 'redirect_url' => $redirect_url,
                 'redirect_url_click' => $redirect_url_click,
                 'template_id' => $template_id,
+                'doubleoptin_template_id' => $doubleoptin_template_id,
                 'sender_id' => $sender_id,
                 'is_redirect_url_click' => $is_redirect_url_click
             );

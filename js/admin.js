@@ -382,9 +382,12 @@ jQuery(document).ready(function(){
         jQuery('#sib_confirm_sender_area').hide();
         jQuery('#sib_double_sender_area_select').html(jQuery('#sib_sender_id'));
         jQuery('#sib_double_sender_area').show();
+        jQuery('#sib_doubleoptin_template_area').show();
+
     } else {
         jQuery('#sib_double_sender_area').hide();
         jQuery('#sib_double_redirect_area').hide();
+        jQuery('#sib_doubleoptin_template_area').hide();
     }
 
     // click confirm email
@@ -398,6 +401,8 @@ jQuery(document).ready(function(){
             jQuery('#sib_double_redirect_area').hide();
             jQuery('#sib_confirm_template_area').show();
             jQuery('#sib_confirm_sender_area').show();
+            jQuery('#sib_doubleoptin_template_area').hide();
+            jQuery('#smtp_alert_dialog').modal();
         } else {
             jQuery('#sib_confirm_template_area').hide();
             jQuery('#sib_confirm_sender_area').hide();
@@ -415,9 +420,12 @@ jQuery(document).ready(function(){
             jQuery('#sib_double_sender_area_select').html(jQuery('#sib_sender_id'));
             jQuery('#sib_double_sender_area').show();
             jQuery('#sib_double_redirect_area').show();
+            jQuery('#sib_doubleoptin_template_area').show();
+            jQuery('#smtp_alert_dialog').modal();
         } else {
             jQuery('#sib_double_sender_area').hide();
             jQuery('#sib_double_redirect_area').hide();
+            jQuery('#sib_doubleoptin_template_area').hide();
         }
     });
 
@@ -427,5 +435,15 @@ jQuery(document).ready(function(){
     });
     jQuery('#is_redirect_url_click_no').click(function() {
         jQuery('#sib_subscrition_redirect_area').hide();
+    });
+
+    // double optin template id
+    jQuery('#sib_doubleoptin_template_id').change(function() {
+        var shortcode_exist = jQuery(this).find(':selected').attr('is_shortcode');
+        if (shortcode_exist == 0 && jQuery(this).val() != -1) {
+            jQuery('#doubleoptin_error_dialog').modal();
+            jQuery(this).val('-1');
+        }
+
     });
 });

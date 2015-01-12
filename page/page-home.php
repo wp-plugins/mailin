@@ -181,8 +181,13 @@ if(!class_exists('SIB_Page_Home'))
             }
 
             // check smtp available
-            if((SIB_Manager::is_done_validation()) && (SIB_Manager::$smtp_details == null)) {
-                SIB_Manager::update_smtp_details();
+            if(SIB_Manager::is_done_validation()) {
+                if (SIB_Manager::$smtp_details == null) {
+                    SIB_Manager::update_smtp_details();
+                }
+                else if((is_array(SIB_Manager::$smtp_details)) && (SIB_Manager::$smtp_details['relay'] == false)) {
+                    SIB_Manager::update_smtp_details();
+                }
             }
 
             $home_settings = get_option(SIB_Manager::home_option_name);
@@ -309,7 +314,7 @@ if(!class_exists('SIB_Page_Home'))
                         <?php
                         if(SIB_Manager::$smtp_details['relay'] == false) :
                         ?>
-                            <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert"><?php _e('You still can not use the smtp of SendinBlue. Please confirm at ', 'sib_lang');?><a href="https://mysmtp.sendinblue.com/" target="_blank"><?php _e('here', 'sib_lang'); ?></a> </div>
+                            <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert"><?php _e('Unfortunately, you wannot activate "Transactional emails"  because your SendinBlue SMTP account is not valid. Please send an email to contact@sendinblue.com in order to ask for SMTP account activation', 'sib_lang');?></div>
                         <?php
                         endif;
                         ?>

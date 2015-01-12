@@ -2,8 +2,8 @@
 Contributors: SendinBlue
 Tags: sendinblue, mailin, email marketing, email campaign, newsletter, wordpress smtp, subscription form, phpmailer, SMTP, wp_mail, massive email, sendmail, ssl, tls, wp-phpmailer, mail smtp, mailchimp, newsletters, email plugin, signup form, email widget, widget, plugin, sidebar, shortcode
 Requires at least: 3.0
-Tested up to: 4.0.1
-Stable tag: 2.3.1
+Tested up to: 4.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,13 @@ In order to create a signup form, you have to :
 
 
 == Changelog ==
+= 2.3.2 =
+* Check with wordpress version 4.1.
+* Add function to select mail template for double optin.
+* Improvement help message.
+* Fix padding issue of subscribe form.
+* Update the state of smtp activation automatically.
+
 = 2.3.1 =
 * Update sender setting.
 
