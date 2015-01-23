@@ -112,6 +112,10 @@ if(!class_exists('SIB_Page_Form'))
                     <?php wp_nonce_field( 'sib_setting_signup' ); ?>
                     <div class="page-header"><strong><?php _e('Sign up process', 'sib_lang'); ?></strong></div>
                     <div class="panel-body">
+                        <div id="sib_form_alert_message" class="alert alert-danger alert-dismissable fade in" role="alert" style="display: none;">
+                            <span id="sib_disclaim_smtp" style="display: none;"><?php _e('Confirmation emails will be sent through your own email server, but you have no guarantees on their deliverability. <br/> <a href="https://mysmtp.sendinblue.com" target="_blank">Click here</a> to send your emails through SendinBlue in order to improve your deliverability and get statistics', 'sib_lang'); ?></span>
+                            <span id="sib_disclaim_do_template" style="display: none;"><?php _e('The template you selected does not include a link [DOUBLEOPTIN] to allow subscribers to confirm their subscription. <br/> Please edit the template to include a link with [DOUBLEOPTIN] as URL.', 'sib_lang');?></span>
+                        </div>
                         <div class="row small-content">
                             <span class="col-md-3"><?php _e('Select the list where you want to add your new subscribers', 'sib_lang'); ?></span>
                             <div class="col-md-4">
@@ -393,50 +397,6 @@ if(!class_exists('SIB_Page_Form'))
                         </div>
                     </div>
                 </form> <!-- End Confirmation message form-->
-            </div>
-            <div class="modal blue-modal fade out" id="doubleoptin_error_dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h4 class="modal-title"><?php _e('Double Optin', 'sib_lang'); ?></h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <p>
-                                    <?php
-                                    _e('The template you selected does not include a link [DOUBLEOPTIN] to allow subscribers to confirm their subscription. Please edit the template to include a link with [DOUBLEOPTIN] as URL.', 'sib_lang');
-                                    ?>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn btn-default" data-dismiss="modal"><?php _e('Close', 'sib_lang')?></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal blue-modal fade out" id="smtp_alert_dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                            <h4 class="modal-title"><?php _e('Confirmation email', 'sib_lang'); ?></h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <p>
-                                    <?php
-                                    _e('Confirmation emails will be sent through your own email server, but you have no guarantees on their deliverability. <a href="https://mysmtp.sendinblue.com" target="_blank">Click here</a> to send your emails through SendinBlue in order to improve your deliverability and get statistics', 'sib_lang');
-                                    ?>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" class="btn btn-default" data-dismiss="modal"><?php _e('Close', 'sib_lang')?></a>
-                        </div>
-                    </div>
-                </div>
             </div>
             <script>
                 jQuery(document).ready(function(){
