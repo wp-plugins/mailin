@@ -999,7 +999,7 @@ EOD;
             if ($type=="confirm" && intval($template_id) > 0) {
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
-                    $html_content = $response['data'][$template_id]['html_content'];
+                    $html_content = $response['data'][0]['html_content'];
                     if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
                         ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
                         ($response['data'][0]['from_email'] != '')) {
@@ -1011,7 +1011,7 @@ EOD;
             else if($type=="double-optin" && intval($template_id) > 0) {
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
-                    $html_content = $response['data'][$template_id]['html_content'];
+                    $html_content = $response['data'][0]['html_content'];
                     if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
                         ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
                         ($response['data'][0]['from_email'] != '')) {
