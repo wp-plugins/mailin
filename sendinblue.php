@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.3
+Version: 2.3.4
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -982,7 +982,7 @@ EOD;
 
             // get sender info
             $senders = SIB_Page_Form::get_sender_lists();
-            if (isset($senders) && is_array($senders)) {
+            if (isset($senders) && is_array($senders) && count($senders) > 0) {
                 $sender_name = $senders[0]['from_name'];
                 $sender_email = $senders[0]['from_email'];
             }
@@ -991,15 +991,20 @@ EOD;
                 $sender_name = __('SendinBlue', 'sib_lang');
             }
 
+            $template_contents = self::get_email_template($type);
+            $html_content = $template_contents['html_content'];
+            $text_content = $template_contents['text_content'];
+
             // get template html and text
             if ($type=="confirm" && intval($template_id) > 0) {
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][$template_id]['html_content'];
-                    if (($response['data'][$template_id]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                        ($response['data'][$template_id]['from_email'] != '[DEFAULT_FROM_EMAIL]')) {
-                        $sender_name = $response['data'][$template_id]['from_name'];
-                        $sender_email = $response['data'][$template_id]['from_email'];
+                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                        ($response['data'][0]['from_email'] != '')) {
+                        $sender_name = $response['data'][0]['from_name'];
+                        $sender_email = $response['data'][0]['from_email'];
                     }
                 }
             }
@@ -1007,17 +1012,13 @@ EOD;
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][$template_id]['html_content'];
-                    if (($response['data'][$template_id]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                        ($response['data'][$template_id]['from_email'] != '[DEFAULT_FROM_EMAIL]')) {
-                        $sender_name = $response['data'][$template_id]['from_name'];
-                        $sender_email = $response['data'][$template_id]['from_email'];
+                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                        ($response['data'][0]['from_email'] != '')) {
+                        $sender_name = $response['data'][0]['from_name'];
+                        $sender_email = $response['data'][0]['from_email'];
                     }
                 }
-            }
-            else {
-                $template_contents = self::get_email_template($type);
-                $html_content = $template_contents['html_content'];
-                $text_content = $template_contents['text_content'];
             }
 
             // send mail
