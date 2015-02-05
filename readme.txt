@@ -103,6 +103,9 @@ In order to create a signup form, you have to :
 
 
 == Changelog ==
+= 2.3.6 =
+* Update the process for blacklisted contact.
+
 = 2.3.5 =
 * Improve the function that send template for confirm & double optin.
 * Update the process for blacklisted contact.
