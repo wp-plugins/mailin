@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.4
+Version: 2.3.5
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -631,7 +631,7 @@ EOD;
                     <?php
                     }
                     if($this->reference_id == $this->reference_form_count) {
-                        if($this->state_of_form == 'success') {
+                        if($this->state_of_form == 'success' || $this->state_of_form == 'update') {
                         ?>
                             <p class="sib-alert-message sib-alert-message-success">
                                 <?php echo SIB_Manager::$alert_success_message; ?>
@@ -674,7 +674,7 @@ EOD;
                 form#sib_form_<?php echo $this->reference_form_count; ?>-form p{
                     line-height: 100%;
                     margin: 10px 0px 0px 0px;
-                    padding: 0px;
+                    padding: 5px;
                 }
                 form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=text],form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=email] {
                     width: 100%;
@@ -786,10 +786,14 @@ EOD;
          */
         function signup_process()
         {
+            $list_id = $_POST['sib_form_list_id'];
+            $ref_id = $_POST['reference_id'];
             $email = $_POST['email'];
-            if(!is_email($email))
+            if (!is_email($email)) {
+                $this->reference_id = $ref_id;
+                $this->state_of_form = 'invalid';
                 return;
-
+            }
             $attributes = get_option(SIB_Manager::attribute_list_option_name);
             $info = array();
             if(isset($attributes) && is_array($attributes)) {
@@ -804,8 +808,7 @@ EOD;
                     }
                 }
             }
-            $list_id = $_POST['sib_form_list_id'];
-            $ref_id = $_POST['reference_id'];
+
 
             $error = '';
             if(SIB_Manager::$is_double_optin == 'yes') {
@@ -830,11 +833,13 @@ EOD;
         {
 
             $response = $this->validation_email($email, $list_id);
-            if($response['code'] != 'success')
+            if ($response['code'] == 'already_exist')
                 return $response['code'];
 
             $listid = $response['listid'];
-            array_push($listid, $list_id);
+            if ($response['code'] == 'success') {
+                array_push($listid, $list_id);
+            }
             $listid_unlink = null;
 
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
@@ -852,12 +857,14 @@ EOD;
         function confirm_signup($email, $info, $list_id)
         {
             $response = $this->validation_email($email, $list_id);
-            if($response['code'] != 'success')
+            if($response['code'] == 'already_exist')
                 return $response['code'];
 
             $template_id = SIB_Manager::$template_id;
             $listid = $response['listid'];
-            array_push($listid, $list_id);
+            if ($response['code'] == 'success') {
+                array_push($listid, $list_id);
+            }
             $listid_unlink = null;
 
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
@@ -898,7 +905,7 @@ EOD;
         function double_optin_signup($email, $info, $list_id)
         {
             $response = $this->validation_email($email, $list_id);
-            if($response['code'] != 'success')
+            if($response['code'] == 'already_exist')
                 return $response['code'];
 
             // db store
@@ -939,30 +946,30 @@ EOD;
                 return $ret;
             }
 
-            if($response['data']['blacklisted'] == 1) {
-                $ret = array(
-                    'code' => 'invalid',
-                    'listid' => array()
-                );
-                return $ret;
-            }
-
             $listid = $response['data']['listid'];
             if(!isset($listid) || !is_array($listid)) {
                 $listid = array();
             }
-            if(!in_array($list_id, $listid)) {
+            if($response['data']['blacklisted'] == 1) {
                 $ret = array(
-                    'code' => 'success',
+                    'code' => 'update',
                     'listid' => $listid
                 );
-                return $ret;
             }
-
-            $ret = array(
-                'code' => 'already_exist',
-                'listid' => $listid
-            );
+            else {
+                if(!in_array($list_id, $listid)) {
+                    $ret = array(
+                        'code' => 'success',
+                        'listid' => $listid
+                    );
+                }
+                else {
+                    $ret = array(
+                        'code' => 'already_exist',
+                        'listid' => $listid
+                    );
+                }
+            }
             return $ret;
         }
 
@@ -981,12 +988,16 @@ EOD;
             }
 
             // get sender info
-            $senders = SIB_Page_Form::get_sender_lists();
-            if (isset($senders) && is_array($senders) && count($senders) > 0) {
-                $sender_name = $senders[0]['from_name'];
-                $sender_email = $senders[0]['from_email'];
+            if (self::$account_email != '') {
+                $sender_name = trim(self::$account_user_name);
+                $sender_email = trim(self::$account_email);
             }
             else {
+                $sender_email = trim(get_bloginfo('admin_email'));
+                $sender_name = trim(get_bloginfo('name'));
+            }
+
+            if ($sender_email == '') {
                 $sender_email = __('no-reply@sendinblue.com', 'sib_lang');
                 $sender_name = __('SendinBlue', 'sib_lang');
             }
@@ -1000,6 +1011,9 @@ EOD;
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][0]['html_content'];
+                    if (trim($response['data'][0]['subject']) != '') {
+                        $subject = trim($response['data'][0]['subject']);
+                    }
                     if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
                         ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
                         ($response['data'][0]['from_email'] != '')) {
@@ -1012,6 +1026,9 @@ EOD;
                 $response = $mailin->get_campaign($template_id);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][0]['html_content'];
+                    if (trim($response['data'][0]['subject']) != '') {
+                        $subject = trim($response['data'][0]['subject']);
+                    }
                     if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
                         ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
                         ($response['data'][0]['from_email'] != '')) {
@@ -1042,10 +1059,9 @@ EOD;
                 $headers = array();
                 $mailin->send_email($to,$subject,$from,$html_content,$text_content,$null_array,$null_array,$from,$null_array,$headers);
             } else {
-                $headers  = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $headers .= 'From: ' . $sender_name . ' <' . $sender_email . '>' . "\r\n";
-                mail($to_email, $subject, $html_content, $headers);
+                $headers[] = 'Content-Type: text/html; charset=UTF-8';
+                $headers[] = 'From: ' . $sender_name . ' <' . $sender_email . '>';
+                @wp_mail($to_email, $subject, $html_content, $headers);
             }
         }
 
