@@ -393,6 +393,7 @@ jQuery(document).ready(function(){
     // click confirm email
     jQuery("input[type='radio'][name='is_confirm_email']").click(function() {
         var confirm_email = jQuery("input[type='radio'][name='is_confirm_email']:checked").val();
+        var is_activated_smtp = parseInt(jQuery("#is_smtp_activated").val());
 
         if(confirm_email == 'yes') {
             jQuery('#is_double_optin_no').prop("checked", true);
@@ -402,10 +403,11 @@ jQuery(document).ready(function(){
             jQuery('#sib_confirm_template_area').show();
             jQuery('#sib_confirm_sender_area').show();
             jQuery('#sib_doubleoptin_template_area').hide();
-            jQuery('#sib_form_alert_message').show();
-            jQuery('#sib_disclaim_smtp').show();
-            jQuery('#sib_disclaim_do_template').hide();
-            //jQuery('#smtp_alert_dialog').modal();
+            if (is_activated_smtp == 0) {
+                jQuery('#sib_form_alert_message').show();
+                jQuery('#sib_disclaim_smtp').show();
+                jQuery('#sib_disclaim_do_template').hide();
+            }
         } else {
             jQuery('#sib_confirm_template_area').hide();
             jQuery('#sib_confirm_sender_area').hide();
@@ -416,7 +418,7 @@ jQuery(document).ready(function(){
     // click double optin
     jQuery("input[type='radio'][name='is_double_optin']").click(function() {
         var double_optin = jQuery("input[type='radio'][name='is_double_optin']:checked").val();
-
+        var is_activated_smtp = parseInt(jQuery("#is_smtp_activated").val());
         if(double_optin == 'yes') {
             jQuery('#is_confirm_email_no').prop("checked", true);
             jQuery('#sib_confirm_template_area').hide();
@@ -425,9 +427,11 @@ jQuery(document).ready(function(){
             jQuery('#sib_double_sender_area').show();
             jQuery('#sib_double_redirect_area').show();
             jQuery('#sib_doubleoptin_template_area').show();
-            jQuery('#sib_form_alert_message').show();
-            jQuery('#sib_disclaim_smtp').show();
-            jQuery('#sib_disclaim_do_template').hide();
+            if (is_activated_smtp == 0) {
+                jQuery('#sib_form_alert_message').show();
+                jQuery('#sib_disclaim_smtp').show();
+                jQuery('#sib_disclaim_do_template').hide();
+            }
         } else {
             jQuery('#sib_double_sender_area').hide();
             jQuery('#sib_double_redirect_area').hide();

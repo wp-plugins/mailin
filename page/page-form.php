@@ -103,9 +103,17 @@ if(!class_exists('SIB_Page_Form'))
             // get template list
             $templates = self::get_template_lists();
             $lists = SIB_Page_Home::get_lists();
+            $home_settings = get_option(SIB_Manager::home_option_name, array());
+            if(!isset($home_settings['activate_email']) || $home_settings['activate_email'] != 'yes' || SIB_Manager::$smtp_details['relay'] == false) {
+              $is_activated_smtp = 0;
+            }
+            else {
+              $is_activated_smtp = 1;
+            }
             ?>
             <div id="main-content">
                 <!-- Sign up Process -->
+                <input type="hidden" id="is_smtp_activated" value="<?php echo $is_activated_smtp; ?>">
                 <form action="admin-post.php" class="panel panel-default row small-content" method="post" role="form">
                     <input type="hidden" name="action" value="sib_setting_signup" >
                     <!-- Adding security through hidden referrer field -->
