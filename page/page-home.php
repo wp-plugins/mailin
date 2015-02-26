@@ -138,7 +138,7 @@ if(!class_exists('SIB_Page_Home'))
                                 <?php _e('To activate your plugin, enter your API Access key.', 'sib_lang'); ?><br>
                             </p>
                             <p>
-                                <a href="https://my.sendinblue.com/advanced/apikey?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Get your API key from your account', 'sib_lang'); ?></a>
+                                <a href="https://my.sendinblue.com/advanced/apikey/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Get your API key from your account', 'sib_lang'); ?></a>
                             </p>
                             <p>
                                 <div class="col-md-7 row">
