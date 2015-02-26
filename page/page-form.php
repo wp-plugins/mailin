@@ -204,7 +204,7 @@ if(!class_exists('SIB_Page_Form'))
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <a href="https://my.sendinblue.com/camp/listing#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
+                                <a href="https://my.sendinblue.com/camp/listing#temp_active_m?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
                             </div>
                         </div>
                         <div class="row small-content" id="sib_double_redirect_area">

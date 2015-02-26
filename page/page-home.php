@@ -119,9 +119,9 @@ if(!class_exists('SIB_Page_Home'))
                                 <li><span class="glyphicon glyphicon-ok" style="font-size: 12px;"></span>&nbsp;&nbsp;<?php _e('Use SendinBlue SMTP to send your transactional emails', 'sib_lang'); ?></li>
                                 <li class="home-read-more-content"><span class="glyphicon glyphicon-ok" style="font-size: 12px;"></span>&nbsp;&nbsp;<?php _e('Email marketing builders', 'sib_lang'); ?></li>
                                 <li class="home-read-more-content"><span class="glyphicon glyphicon-ok" style="font-size: 12px;"></span>&nbsp;&nbsp;<?php _e('Create and schedule your email marketing campaigns', 'sib_lang'); ?></li>
-                                <li class="home-read-more-content"><span class="glyphicon glyphicon-ok" style="font-size: 12px;"></span>&nbsp;&nbsp;<?php _e('See all of', 'sib_lang'); ?>&nbsp;<a href="https://www.sendinblue.com/features/" target="_blank"><?php _e('SendinBlue\'s features', 'sib_lang'); ?></a></li>
+                                <li class="home-read-more-content"><span class="glyphicon glyphicon-ok" style="font-size: 12px;"></span>&nbsp;&nbsp;<?php _e('See all of', 'sib_lang'); ?>&nbsp;<a href="https://www.sendinblue.com/features/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><?php _e('SendinBlue\'s features', 'sib_lang'); ?></a></li>
                             </ul>
-                            <a href="https://www.sendinblue.com/users/signup" class="btn btn-primary" target="_blank" style="margin-top: 10px;"><?php _e('Create an account', 'sib_lang'); ?></a>
+                            <a href="https://www.sendinblue.com/users/signup?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" class="btn btn-primary" target="_blank" style="margin-top: 10px;"><?php _e('Create an account', 'sib_lang'); ?></a>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ if(!class_exists('SIB_Page_Home'))
                                 <?php _e('To activate your plugin, enter your API Access key.', 'sib_lang'); ?><br>
                             </p>
                             <p>
-                                <a href="https://my.sendinblue.com/advanced/apikey" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Get your API key from your account', 'sib_lang'); ?></a>
+                                <a href="https://my.sendinblue.com/advanced/apikey?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Get your API key from your account', 'sib_lang'); ?></a>
                             </p>
                             <p>
                                 <div class="col-md-7 row">
@@ -220,7 +220,7 @@ if(!class_exists('SIB_Page_Home'))
                         <div class="col-md-8 row" style="margin-bottom: 10px;">
                             <p class="col-md-7" style="margin-top: 5px;">
                                 <?php echo __('You have', 'sib_lang') .' <span id="sib_total_contacts">'.$total_subscribers.'</span> '. __('contacts.', 'sib_lang'); ?><br>
-                                <a id="sib_list_link" href="https://my.sendinblue.com/users/list" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Access to the list of all my contacts', 'sib_lang'); ?></a>
+                                <a id="sib_list_link" href="https://my.sendinblue.com/users/list/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Access to the list of all my contacts', 'sib_lang'); ?></a>
                             </p>
                         </div>
                         <span class="col-md-12"><b><?php _e('Campaigns', 'sib_lang'); ?></b></span>
@@ -247,7 +247,7 @@ if(!class_exists('SIB_Page_Home'))
                                         <?php _e('Scheduled', 'sib_lang'); ?>
                                     </a>
                                     <div class="list-group-item">
-                                        <a href="https://my.sendinblue.com/camp/step1/type/classic" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new email campaign', 'sib_lang'); ?></a>
+                                        <a href="https://my.sendinblue.com/camp/step1/type/classic/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new email campaign', 'sib_lang'); ?></a>
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +273,7 @@ if(!class_exists('SIB_Page_Home'))
                                         <?php _e('Scheduled', 'sib_lang'); ?>
                                     </a>
                                     <div class="list-group-item">
-                                        <a href="https://my.sendinblue.com/camp/step1/type/sms" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new sms campaign', 'sib_lang'); ?></a>
+                                        <a href="https://my.sendinblue.com/camp/step1/type/sms/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new sms campaign', 'sib_lang'); ?></a>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@ if(!class_exists('SIB_Page_Home'))
                                         <?php _e('Scheduled', 'sib_lang'); ?>
                                     </a>
                                     <div class="list-group-item">
-                                        <a href="https://my.sendinblue.com/camp/step1/type/trigger" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new trigger campaign', 'sib_lang'); ?></a>
+                                        <a href="https://my.sendinblue.com/camp/step1/type/trigger/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Create new trigger campaign', 'sib_lang'); ?></a>
                                     </div>
                                 </div>
                             </div>
@@ -365,13 +365,13 @@ if(!class_exists('SIB_Page_Home'))
                     <p><?php _e('SendinBlue is an online software that allows you to send emails and SMS. Easily manage your Marketing campaigns, transactional emails and SMS.', 'sib_lang'); ?></p>
                     <ul class="sib-widget-menu">
                         <li>
-                            <a href="https://www.sendinblue.com/about/" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Who we are', 'sib_lang'); ?></a>
+                            <a href="https://www.sendinblue.com/about/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Who we are', 'sib_lang'); ?></a>
                         </li>
                         <li>
-                            <a href="https://www.sendinblue.com/pricing/" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Pricing', 'sib_lang'); ?></a>
+                            <a href="https://www.sendinblue.com/pricing/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Pricing', 'sib_lang'); ?></a>
                         </li>
                         <li>
-                            <a href="https://www.sendinblue.com/features/" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Features', 'sib_lang'); ?></a>
+                            <a href="https://www.sendinblue.com/features/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Features', 'sib_lang'); ?></a>
                         </li>
                     </ul>
                 </div>
@@ -382,8 +382,8 @@ if(!class_exists('SIB_Page_Home'))
                 <div class="panel-body">
                     <p><?php _e('You have a question or need more information ?', 'sib_lang'); ?></p>
                     <ul class="sib-widget-menu">
-                        <li><a href="https://resources.sendinblue.com/category/tutorials/" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Tutorials', 'sib_lang'); ?></a></li>
-                        <li><a href="https://resources.sendinblue.com/category/faq" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('FAQ', 'sib_lang'); ?></a></li>
+                        <li><a href="https://resources.sendinblue.com/category/tutorials/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('Tutorials', 'sib_lang'); ?></a></li>
+                        <li><a href="https://resources.sendinblue.com/category/faq/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link" target="_blank"><i class="fa fa-angle-right"></i> &nbsp;<?php _e('FAQ', 'sib_lang'); ?></a></li>
                     </ul>
                 </div>
             </div>
