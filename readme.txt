@@ -11,7 +11,7 @@ Easily send emails from your WordPress blog using your preferred SMTP server
 
 == Description ==
 
-SendinBlue’s official plugin for WP is a powerful all-in-one email marketing plugin. At a glance:
+<a href="https://www.sendinblue.com/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=addons_page" target="_blank">SendinBlue</a>’s official plugin for WP is a powerful all-in-one email marketing plugin. At a glance:
 <ul>
 <li><b>Subscribe forms</b> - Create custom subscribe forms and integrate them easily in your posts, pages or sidebars</li>
 <li><b>Contact lists</b>  - Manage your contact lists and take advantage of advanced segmentation to improve your campaigns performance</li>
@@ -63,9 +63,9 @@ The plugin is available in English and French.
 
 1.	In your WordPress admin panel, go to Plugins > New Plugin, search for "SendinBlue for WP" and click "Install now". Alternatively, download the plugin and upload the contents of mailin.zip to your plugins directory, which may be  /wp-content/plugins/. 
 2.	Activate the plugin SendinBlue through the 'Plugins' menu in WordPress. 
-3.	A tab « SendinBlue » must appear in your wordpress side navigation panel, then set your <a href="https://my.sendinblue.com/advanced/apikey" target="_blank">SendinBlue API key</a> in the plugin homepage.
+3.	A tab « SendinBlue » must appear in your wordpress side navigation panel, then set your <a href="https://my.sendinblue.com/advanced/apikey/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=addons_page" target="_blank">SendinBlue API key</a> in the plugin homepage.
 
-To get SendinBlue API key, you have to <a href="https://www.sendinblue.com/users/signup" target="_blank">create an account</a>. It's free and takes less than 2 minutes!
+To get SendinBlue API key, you have to <a href="https://www.sendinblue.com/users/signup/?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=addons_page" target="_blank">create an account</a>. It's free and takes less than 2 minutes!
 
 == Screenshots ==
 1. First, your are invited to create an account on SendinBlue then enter your API keys
