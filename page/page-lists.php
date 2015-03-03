@@ -108,7 +108,7 @@ if(!class_exists('SIB_Page_Lists'))
 
             ?>
 
-                <iframe id="datamain" src="https://s-my.sendinblue.com/lists/index/access_token/<?php echo $access_token; ?>" width="100%" height="750" scrolling="yes"></iframe>
+                <iframe id="datamain" src="https://my.sendinblue.com/lists/index/access_token/<?php echo $access_token; ?>" width="100%" height="750" scrolling="yes"></iframe>
 
             <?php
         }

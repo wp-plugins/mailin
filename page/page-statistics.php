@@ -106,7 +106,7 @@ if(!class_exists('SIB_Page_Statistics'))
         {
             $access_token = SIB_Manager::update_access_token();
             ?>
-                <iframe id="datamain" src="https://s-my.sendinblue.com/camp/message/access_token/<?php echo $access_token; ?>" width="100%" height="750" scrolling="yes"></iframe>
+                <iframe id="datamain" src="https://my.sendinblue.com/camp/message/access_token/<?php echo $access_token; ?>" width="100%" height="750" scrolling="yes"></iframe>
         <?php
         }
 
