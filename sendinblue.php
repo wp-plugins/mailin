@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.9
+Version: 2.3.10
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -311,6 +311,9 @@ if(!class_exists('SIB_Manager'))
             add_action('wp_ajax_sib_activate_email_change', array('SIB_Page_Home', 'ajax_activate_email_change'));
             add_action('wp_ajax_sib_send_email', array('SIB_Page_Home', 'ajax_send_email'));
             add_action('wp_ajax_sib_change_template', array('SIB_Page_Form', 'ajax_change_template'));
+            add_action('wp_ajax_sib_get_lists', array('SIB_Page_Form', 'ajax_get_lists'));
+            add_action('wp_ajax_sib_get_templates', array('SIB_Page_Form', 'ajax_get_templates'));
+            add_action('wp_ajax_sib_get_attributes', array('SIB_Page_Form', 'ajax_get_attributes'));
 
             if(self::is_done_validation() == true) {
                 add_shortcode('sibwp_form', array(&$this, 'sibwp_form_shortcode'));
@@ -676,7 +679,7 @@ EOD;
                     margin: 10px 0px 0px 0px;
                     padding: 5px;
                 }
-                form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=text],form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=email] {
+                form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=text],form#sib_form_<?php echo $this->reference_form_count; ?>-form input[type=email], form#sib_form_<?php echo $this->reference_form_count; ?>-form select {
                     width: 100%;
                     max-width: 300px;
                     box-shadow: none;
@@ -800,16 +803,18 @@ EOD;
                 foreach($attributes as $attribute)
                 {
                     if(isset($_POST[$attribute['name']])) {
-                        if($attribute['type'] == 'float') {
+                        if ($attribute['type'] == 'float') {
                             $info[$attribute['name']] = floatval($_POST[$attribute['name']]);
-                        } else {
+                        }
+                        elseif ($attribute['type'] == 'category') {
+                            $info[$attribute['name']] = intval($_POST[$attribute['name']]);
+                        }
+                        else {
                             $info[$attribute['name']] = esc_attr($_POST[$attribute['name']]);
                         }
                     }
                 }
             }
-
-
             $error = '';
             if(SIB_Manager::$is_double_optin == 'yes') {
                 // double optin process

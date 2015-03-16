@@ -1,3 +1,6 @@
+var normal_attributes = [];
+var category_attributes = [];
+
 function change_list_val(list_id)
 {
     var data = {
@@ -21,11 +24,30 @@ function isValidEmailAddress(emailAddress) {
 function change_field_attr()
 {
     var attr_val = jQuery('#sib_sel_attribute').val();
+    var attr_type, attr_name, attr_text;
+    if (attr_val == 'email' || attr_val == 'submit') {
+        // get all info of attr
+        attr_type = jQuery('#sib_hidden_' + attr_val).attr('data-type');
+        attr_name = jQuery('#sib_hidden_' + attr_val).attr('data-name');
+        attr_text = jQuery('#sib_hidden_' + attr_val).attr('data-text');
+    }
+    else {
+        jQuery.each(normal_attributes, function(index, value) {
+            if (value['name'] == attr_val) {
+                attr_type = value['type'];
+                attr_name = value['name'];
+                attr_text = attr_name;
+            }
+        });
 
-    // get all info of attr
-    var attr_type = jQuery('#sib_hidden_' + attr_val).attr('data-type');
-    var attr_name = jQuery('#sib_hidden_' + attr_val).attr('data-name');
-    var attr_text = jQuery('#sib_hidden_' + attr_val).attr('data-text');
+        jQuery.each(category_attributes, function(index, value) {
+            if (value['name'] == attr_val) {
+                attr_type = value['type'];
+                attr_name = value['name'];
+                attr_text = attr_name;
+            }
+        });
+    }
 
     // generate attribute html
     generate_attribute_html(attr_type, attr_name, attr_text);
@@ -40,6 +62,7 @@ function change_attribute_tag(attr_type, attr_name, attr_text)
     jQuery('#sib_field_initial').attr('value', '');
     jQuery('#sib_field_button_text').attr('value', attr_text);
     jQuery('#sib_field_wrap').attr('checked', 'true');
+    jQuery('#sib_field_type_area input[name="sib_field_type"][value="select"]').attr('checked', 'checked');
     switch(attr_type)
     {
         case 'email':
@@ -50,6 +73,7 @@ function change_attribute_tag(attr_type, attr_name, attr_text)
             jQuery('#sib_field_wrap_area').show();
             jQuery('#sib_field_required').attr('checked', 'true');
             jQuery('#sib_field_required_area').show();
+            jQuery('#sib_field_type_area').hide();
             break;
         case 'text':
             jQuery('#sib_field_label_area').show();
@@ -59,6 +83,7 @@ function change_attribute_tag(attr_type, attr_name, attr_text)
             jQuery('#sib_field_wrap_area').show();
             jQuery('#sib_field_required').removeAttr('checked');
             jQuery('#sib_field_required_area').show();
+            jQuery('#sib_field_type_area').hide();
             break;
         case 'float':
             jQuery('#sib_field_label_area').show();
@@ -68,6 +93,17 @@ function change_attribute_tag(attr_type, attr_name, attr_text)
             jQuery('#sib_field_wrap_area').show();
             jQuery('#sib_field_required').removeAttr('checked');
             jQuery('#sib_field_required_area').show();
+            jQuery('#sib_field_type_area').hide();
+            break;
+        case 'category':
+            jQuery('#sib_field_label_area').show();
+            jQuery('#sib_field_placeholder_area').hide();
+            jQuery('#sib_field_initial_area').hide();
+            jQuery('#sib_field_button_text_area').hide();
+            jQuery('#sib_field_wrap_area').show();
+            jQuery('#sib_field_required').removeAttr('checked');
+            jQuery('#sib_field_required_area').show();
+            jQuery('#sib_field_type_area').show();
             break;
         case 'submit':
             jQuery('#sib_field_label_area').hide();
@@ -90,6 +126,7 @@ function generate_attribute_html(attr_type, attr_name, attr_text)
     var field_buttontext = jQuery('#sib_field_button_text').val();
     var field_wrap = jQuery('#sib_field_wrap').is(':checked');
     var field_required = jQuery('#sib_field_required').is(':checked');
+    var field_type = jQuery('#sib_field_type_area input[name="sib_field_type"]:checked').val();
 
     var field_html = '';
 
@@ -102,9 +139,18 @@ function generate_attribute_html(attr_type, attr_name, attr_text)
         }
     }
 
-    if((field_label != '') && (attr_type != 'submit')) {
+    if ((field_label != '') && (attr_type == 'category')) {
+        if (field_type == 'select') {
+            field_html += '    <label class="sib-' + attr_name + '-area">' + field_label + '</label> \n';
+        }
+        else {
+            field_html += '    <div style="display:block;"><label class="sib-' + attr_name + '-area">' + field_label + '</label></div> \n';
+        }
+    }
+    else if((field_label != '') && (attr_type != 'submit')) {
         field_html += '    <label class="sib-' + attr_name + '-area">' + field_label + '</label> \n';
     }
+
 
     switch (attr_type)
     {
@@ -148,6 +194,36 @@ function generate_attribute_html(attr_type, attr_name, attr_text)
             field_html += 'value="' + field_buttontext + '" ';
             field_html += '> \n';
             break;
+        case 'category':
+            var enumeration = [];
+            jQuery.each(category_attributes, function(index, value) {
+                if (value['name'] == attr_name) {
+                    enumeration = value['enumeration'];
+                }
+            });
+            if (field_type == 'select') {
+                field_html += '    <select class="sib-' + attr_name + '-area" name="' + attr_name + '" ';
+                if (field_required == true) {
+                    field_html += 'required="required" ';
+                }
+                field_html += '> \n';
+            }
+            jQuery.each(enumeration, function(index, value) {
+                if (field_type == 'select') {
+                    field_html += '      <option value="' + value['value'] + '">' + value['label'] + '</option> \n';
+                }
+                else {
+                    field_html += '    <div style="display:block;"><input type="radio" class="sib-' + attr_name + '-area" name="' + attr_name + '" value="' + value['value'] + '" ';
+                    if (field_required == true) {
+                        field_html += 'required="required" ';
+                    }
+                    field_html += '>' + value['label'] + '</div> \n';
+                }
+            });
+            if (field_type == 'select') {
+                field_html += '    </select> \n';
+            }
+            break;
     }
 
     if(field_wrap == true) {
@@ -155,6 +231,167 @@ function generate_attribute_html(attr_type, attr_name, attr_text)
     }
 
     jQuery('#sib_field_html').html(field_html);
+}
+
+function set_select_list() {
+    var selected_list_id = jQuery('#sib_selected_list_id').val();
+
+    var data = {
+        action : 'sib_get_lists'
+    };
+    jQuery.post(ajax_object.ajax_url, data, function(respond) {
+        var select_html = '<select id="sib_select_list" class="col-md-10" name="list_id">';
+        jQuery.each(respond.lists, function(index, value) {
+            if (value['id'] == selected_list_id) {
+                select_html += '<option value="' + value['id'] + '" selected>' + value['name'] + '</option>';
+            }
+            else {
+                select_html += '<option value="' + value['id'] + '">' + value['name'] + '</option>';
+            }
+        });
+        select_html += '</select>';
+        jQuery('#sib_select_list_area').html(select_html);
+        set_select_template();
+    });
+}
+
+function set_select_template() {
+    var selected_template_id = jQuery('#sib_selected_template_id').val();
+    var selected_do_template_id = jQuery('#sib_selected_do_template_id').val();
+    var default_template_name = jQuery('#sib_default_template_name').val();
+    var data = {
+        action : 'sib_get_templates'
+    };
+    jQuery.post(ajax_object.ajax_url, data, function(respond) {
+        var select_html = '<select id="sib_template_id" class="col-md-11" name="template_id">';
+        if (selected_template_id == '-1') {
+            select_html += '<option value="-1" selected>' + default_template_name + '</option>';
+        }
+        else {
+            select_html += '<option value="-1">' + default_template_name + '</option>';
+        }
+        jQuery.each(respond.templates, function(index, value) {
+            if (value['id'] == selected_template_id) {
+                select_html += '<option value="' + value['id'] + '" selected>' + value['campaign_name'] + '</option>';
+            }
+            else {
+                select_html += '<option value="' + value['id'] + '">' + value['campaign_name'] + '</option>';
+            }
+        });
+        select_html += '</select>';
+        jQuery('#sib_template_id_area').html(select_html);
+
+        // For double optin.
+        select_html = '<select class="col-md-11" name="doubleoptin_template_id" id="sib_doubleoptin_template_id">';
+        if (selected_do_template_id == '-1') {
+            select_html += '<option value="-1" selected>' + default_template_name + '</option>';
+        }
+        else {
+            select_html += '<option value="-1">' + default_template_name + '</option>';
+        }
+        jQuery.each(respond.templates, function(index, value) {
+            var template_content = value['html_content'];
+            var doubleoptin_exists = 1;
+            if (template_content.indexOf('[DOUBLEOPTIN]') == -1) {
+                doubleoptin_exists = 0;
+            }
+            if (value['id'] == selected_do_template_id) {
+                select_html += '<option is_shortcode="' + doubleoptin_exists  + '" value="' + value['id'] + '" selected>' + value['campaign_name'] + '</option>';
+            }
+            else {
+                select_html += '<option is_shortcode="' + doubleoptin_exists  + '" value="' + value['id'] + '">' + value['campaign_name'] + '</option>';
+            }
+        });
+        select_html += '</select>';
+        jQuery('#sib_doubleoptin_template_id_area').html(select_html);
+        // double optin template id
+        jQuery('#sib_doubleoptin_template_id').on('change', function() {
+            var shortcode_exist = jQuery(this).find(':selected').attr('is_shortcode');
+            if (shortcode_exist == 0 && jQuery(this).val() != -1) {
+                jQuery('#sib_form_alert_message').show();
+                jQuery('#sib_disclaim_smtp').hide();
+                jQuery('#sib_disclaim_do_template').show();
+                jQuery(this).val('-1');
+            }
+            else {
+                jQuery('#sib_form_alert_message').hide();
+            }
+        });
+
+        jQuery('#sib_setting_signup_spin').addClass('hide');
+        jQuery('#sib_setting_signup_body').removeClass('hide');
+        set_select_attributes();
+    });
+}
+
+function set_select_attributes() {
+    var data = {
+        action : 'sib_get_attributes'
+    };
+
+    jQuery.post(ajax_object.ajax_url, data, function(respond) {
+        normal_attributes = respond.attributes.normal_attributes;
+        category_attributes = respond.attributes.category_attributes;
+        var attr_email_name = jQuery('#sib_hidden_email').attr('data-text');
+        var message_1 = jQuery('#sib_hidden_message_1').val();
+        var message_2 = jQuery('#sib_hidden_message_2').val();
+        var message_3 = jQuery('#sib_hidden_message_3').val();
+        var message_4 = jQuery('#sib_hidden_message_4').val();
+        var message_5 = jQuery('#sib_hidden_message_5').val();
+        var select_html = '<select class="col-md-12" id="sib_sel_attribute">' +
+            '<option value="-1" disabled selected>' + message_1 + '</option>' +
+            '<optgroup label="' + message_2 + '">';
+        select_html += '<option value="email">' + attr_email_name + '*</option>';
+        jQuery.each(normal_attributes, function(index, value) {
+            select_html += '<option value="' + value['name'] + '">' + value['name'] + '</option>';
+        });
+        select_html += '</optgroup>';
+        select_html += '<optgroup label="' + message_3 + '">';
+        jQuery.each(category_attributes, function(index, value) {
+            select_html += '<option value="' + value['name'] + '">' + value['name'] + '</option>';
+        });
+        select_html += '</optgroup>';
+        select_html += '<optgroup label="' + message_4 + '">';
+        select_html += '<option value="submit">' + message_5 + '</option>';
+        select_html += '</optgroup>';
+        select_html += '</select>';
+
+        jQuery('#sib_sel_attribute_area').html(select_html);
+        jQuery('#sib_sel_attribute').on('change', function() {
+            var attr_val = jQuery(this).val();
+            var attr_type, attr_name, attr_text;
+            if (attr_val == 'email' || attr_val == 'submit') {
+                // get all info of attr
+                attr_type = jQuery('#sib_hidden_' + attr_val).attr('data-type');
+                attr_name = jQuery('#sib_hidden_' + attr_val).attr('data-name');
+                attr_text = jQuery('#sib_hidden_' + attr_val).attr('data-text');
+            }
+            else {
+                jQuery.each(normal_attributes, function(index, value) {
+                    if (value['name'] == attr_val) {
+                        attr_type = value['type'];
+                        attr_name = value['name'];
+                        attr_text = attr_name;
+                    }
+                });
+
+                jQuery.each(category_attributes, function(index, value) {
+                    if (value['name'] == attr_val) {
+                        attr_type = value['type'];
+                        attr_name = value['name'];
+                        attr_text = attr_name;
+                    }
+                });
+            }
+            // change attribute tags
+            change_attribute_tag(attr_type, attr_name, attr_text);
+
+            // generate attribute html
+            generate_attribute_html(attr_type, attr_name, attr_text);
+        });
+        jQuery('#sib_setting_form_spin').addClass('hide');
+        jQuery('#sib_setting_form_body').removeClass('hide');
+    });
 }
 
 jQuery(document).ready(function(){
@@ -174,6 +411,7 @@ jQuery(document).ready(function(){
     jQuery('#sib_field_button_text_area').hide();
     jQuery('#sib_field_wrap_area').hide();
     jQuery('#sib_field_required_area').hide();
+    jQuery('#sib_field_type_area').hide();
     jQuery('#sib_field_add_area').hide();
     jQuery('#sib_field_html_area').hide();
 
@@ -290,20 +528,7 @@ jQuery(document).ready(function(){
         }
     });
 
-    jQuery('#sib_sel_attribute').change(function() {
-        var attr_val = jQuery(this).val();
 
-        // get all info of attr
-        var attr_type = jQuery('#sib_hidden_' + attr_val).attr('data-type');
-        var attr_name = jQuery('#sib_hidden_' + attr_val).attr('data-name');
-        var attr_text = jQuery('#sib_hidden_' + attr_val).attr('data-text');
-
-        // change attribute tags
-        change_attribute_tag(attr_type, attr_name, attr_text);
-
-        // generate attribute html
-        generate_attribute_html(attr_type, attr_name, attr_text);
-    });
 
     jQuery('#sib_field_wrap').change(function() {
         change_field_attr();
@@ -322,6 +547,10 @@ jQuery(document).ready(function(){
         change_field_attr();
     });
     jQuery('#sib_field_button_text').change(function() {
+        change_field_attr();
+    });
+
+    jQuery('#sib_field_type_area input[type="radio"][name="sib_field_type"]').change(function() {
         change_field_attr();
     });
 
@@ -448,18 +677,7 @@ jQuery(document).ready(function(){
         jQuery('#sib_subscrition_redirect_area').hide();
     });
 
-    // double optin template id
-    jQuery('#sib_doubleoptin_template_id').change(function() {
-        var shortcode_exist = jQuery(this).find(':selected').attr('is_shortcode');
-        if (shortcode_exist == 0 && jQuery(this).val() != -1) {
-            jQuery('#sib_form_alert_message').show();
-            jQuery('#sib_disclaim_smtp').hide();
-            jQuery('#sib_disclaim_do_template').show();
-            jQuery(this).val('-1');
-        }
-        else {
-            jQuery('#sib_form_alert_message').hide();
-        }
-
-    });
+    if (jQuery('#sib_setting_signup_body').find('#sib_select_list_area').length > 0 ) {
+        set_select_list();
+    }
 });

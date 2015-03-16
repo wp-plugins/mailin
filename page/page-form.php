@@ -101,8 +101,10 @@ if(!class_exists('SIB_Page_Form'))
         function generate_main_page()
         {
             // get template list
-            $templates = self::get_template_lists();
-            $lists = SIB_Page_Home::get_lists();
+            $templates = null;
+            $lists = null;
+            //$templates = self::get_template_lists();
+            //$lists = SIB_Page_Home::get_lists();
             $home_settings = get_option(SIB_Manager::home_option_name, array());
             if(!isset($home_settings['activate_email']) || $home_settings['activate_email'] != 'yes' || SIB_Manager::$smtp_details['relay'] == false) {
               $is_activated_smtp = 0;
@@ -118,26 +120,16 @@ if(!class_exists('SIB_Page_Form'))
                     <input type="hidden" name="action" value="sib_setting_signup" >
                     <!-- Adding security through hidden referrer field -->
                     <?php wp_nonce_field( 'sib_setting_signup' ); ?>
-                    <div class="page-header"><strong><?php _e('Sign up process', 'sib_lang'); ?></strong></div>
-                    <div class="panel-body">
+                    <div class="page-header"><strong><?php _e('Sign up process', 'sib_lang'); ?></strong>&nbsp;<i id="sib_setting_signup_spin" class="fa fa-spinner fa-spin fa-fw fa-lg fa-2x"></i></div>
+                    <div id="sib_setting_signup_body" class="panel-body hide">
                         <div id="sib_form_alert_message" class="alert alert-danger alert-dismissable fade in" role="alert" style="display: none;">
                             <span id="sib_disclaim_smtp" style="display: none;"><?php _e('Confirmation emails will be sent through your own email server, but you have no guarantees on their deliverability. <br/> <a href="https://mysmtp.sendinblue.com" target="_blank">Click here</a> to send your emails through SendinBlue in order to improve your deliverability and get statistics', 'sib_lang'); ?></span>
                             <span id="sib_disclaim_do_template" style="display: none;"><?php _e('The template you selected does not include a link [DOUBLEOPTIN] to allow subscribers to confirm their subscription. <br/> Please edit the template to include a link with [DOUBLEOPTIN] as URL.', 'sib_lang');?></span>
                         </div>
                         <div class="row small-content">
                             <span class="col-md-3"><?php _e('Select the list where you want to add your new subscribers', 'sib_lang'); ?></span>
-                            <div class="col-md-4">
-                                <select id="sib_select_list" class="col-md-10" name="list_id">
-                                    <?php
-                                    if (isset($lists) && is_array($lists)) {
-                                        foreach($lists as $list) {
-                                            ?>
-                                            <option value="<?php echo $list['id']; ?>" <?php selected(SIB_Manager::$list_id, $list['id']); ?>><?php echo $list['name']; ?></option>
-                                        <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                            <input type="hidden" id="sib_selected_list_id" value="<?php echo SIB_Manager::$list_id; ?>">
+                            <div class="col-md-4" id="sib_select_list_area">
                             </div>
                         </div>
                         <div class="row small-content">
@@ -151,20 +143,9 @@ if(!class_exists('SIB_Page_Form'))
                             </div>
                         </div>
                         <div class="row" id="sib_confirm_template_area">
-                            <div class="col-md-3">
-                                <select class="col-md-11" name="template_id" id="sib_template_id">
-                                    <option value="-1" <?php selected(SIB_Manager::$template_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
-                                    <?php
-                                    if (isset($templates) && is_array($templates)) {
-                                        foreach($templates as $template)
-                                        {
-                                            ?>
-                                            <option value="<?php echo $template['id']; ?>" <?php selected(SIB_Manager::$template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
-                                        <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                            <input type="hidden" id="sib_selected_template_id" value="<?php echo SIB_Manager::$template_id; ?>">
+                            <input type="hidden" id="sib_default_template_name" value="<?php _e('Default', 'sib_lang'); ?>">
+                            <div class="col-md-3" id="sib_template_id_area">
                             </div>
                             <div class="col-md-4">
                                 <a href="https://my.sendinblue.com/camp/listing#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
@@ -181,27 +162,8 @@ if(!class_exists('SIB_Page_Form'))
                             </div>
                         </div>
                         <div class="row" id="sib_doubleoptin_template_area">
-                            <div class="col-md-3">
-                                <select class="col-md-11" name="doubleoptin_template_id" id="sib_doubleoptin_template_id">
-                                    <option value="-1" <?php selected(SIB_Manager::$doubleoptin_template_id, '-1'); ?>><?php _e('Default', 'sib_lang'); ?></option>
-                                    <?php
-                                    if (isset($templates) && is_array($templates)) {
-                                        foreach($templates as $template)
-                                        {
-                                            $template_content = $template['html_content'];
-                                            if (strpos($template_content, '[DOUBLEOPTIN]') == false) {
-                                                $double_optin_shortcode_exist = 0;
-                                            }
-                                            else {
-                                                $double_optin_shortcode_exist = 1;
-                                            }
-                                            ?>
-                                            <option value="<?php echo $template['id']; ?>" is_shortcode="<?php echo $double_optin_shortcode_exist; ?>" <?php selected(SIB_Manager::$doubleoptin_template_id, $template['id']); ?>><?php echo $template['campaign_name']; ?></option>
-                                        <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                            <input type="hidden" id="sib_selected_do_template_id" value="<?php echo SIB_Manager::$doubleoptin_template_id; ?>">
+                            <div class="col-md-3" id="sib_doubleoptin_template_id_area">
                             </div>
                             <div class="col-md-4">
                                 <a href="https://my.sendinblue.com/camp/listing?utm_source=wordpress_plugin&utm_medium=plugin&utm_campaign=module_link#temp_active_m" class="col-md-12" target="_blank"><i class="fa fa-angle-right"></i> <?php _e('Set up my templates', 'sib_lang'); ?> </a>
@@ -254,9 +216,9 @@ if(!class_exists('SIB_Page_Form'))
                     <!-- Adding security through hidden referrer field -->
                     <?php wp_nonce_field( 'sib_setting_subscription' ); ?>
                     <div class="page-header">
-                        <strong><?php _e('Subscription form', 'sib_lang'); ?></strong>
+                        <strong><?php _e('Subscription form', 'sib_lang'); ?></strong>&nbsp;<i id="sib_setting_form_spin" class="fa fa-spinner fa-spin fa-fw fa-lg fa-2x"></i>
                     </div>
-                    <div class="panel-body">
+                    <div id="sib_setting_form_body" class="panel-body hide">
                         <div class="row small-content">
                             <div class="col-md-6">
                                 <?php
@@ -280,42 +242,17 @@ if(!class_exists('SIB_Page_Form'))
                                 <!-- hidden fields for attributes -->
                                 <input type="hidden" id="sib_hidden_email" data-type="email" data-name="email" data-text="<?php _e('Email Address', 'sib_lang'); ?>">
                                 <input type="hidden" id="sib_hidden_submit" data-type="submit" data-name="submit" data-text="<?php _e('Sign up', 'sib_lang'); ?>">
-                                <?php
-                                $attributes = get_option(SIB_Manager::attribute_list_option_name);
-                                if (isset($attributes) && is_array($attributes)) {
-                                    foreach($attributes as $attribute)
-                                    {
-                                        ?>
-                                        <input type="hidden" id="sib_hidden_<?php echo $attribute['name']; ?>" data-type="<?php echo $attribute['type']; ?>" data-name="<?php echo $attribute['name']; ?>" data-text="<?php echo $attribute['name']; ?>">
-                                    <?php
-                                    }
-                                }
-                                ?>
+                                <input type="hidden" id="sib_hidden_message_1" value="<?php _e('Select SendinBlue Attribute', 'sib_lang'); ?>">
+                                <input type="hidden" id="sib_hidden_message_2" value="<?php _e('SendinBlue merge fields : Normal', 'sib_lang'); ?>">
+                                <input type="hidden" id="sib_hidden_message_3" value="<?php _e('SendinBlue merge fields : Category', 'sib_lang'); ?>">
+                                <input type="hidden" id="sib_hidden_message_4" value="<?php _e('Other', 'sib_lang'); ?>">
+                                <input type="hidden" id="sib_hidden_message_5" value="<?php _e('Submit Button', 'sib_lang'); ?>">
                                 <div id="sib-field-form" class="panel panel-default row" style="padding-bottom: 20px;">
                                     <div class="row small-content2" style="margin-top: 20px;margin-bottom: 20px;">
                                         <b><?php _e('Add a new Field', 'sib_lang'); ?></b>&nbsp;
                                         <?php SIB_Page_Home::get_narration_script(__('Add a New Field', 'sib_lang'), __('Choose an attribute and add it to the subscription form of your Website', 'sib_lang')); ?>
                                     </div>
-                                    <div class="row small-content2" style="margin-top: 20px;">
-                                        <select class="col-md-12" id="sib_sel_attribute">
-                                            <option value="-1" disabled selected><?php _e('Select SendinBlue Attribute', 'sib_lang'); ?></option>
-                                            <optgroup label="<?php _e('SendinBlue merge fields', 'sib_lang'); ?>">
-                                                <option value="email"><?php _e('Email Address', 'sib_lang'); ?>*</option>
-                                                <?php
-                                                if (isset($attributes) && is_array($attributes)) {
-                                                    foreach($attributes as $attribute)
-                                                    {
-                                                        ?>
-                                                        <option value="<?php echo $attribute['name']; ?>"><?php echo $attribute['name']; ?></option>
-                                                    <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </optgroup>
-                                            <optgroup label="<?php _e('Other', 'sib_lang'); ?>">
-                                                <option value="submit"><?php _e('Submit Button', 'sib_lang'); ?></option>
-                                            </optgroup>
-                                        </select>
+                                    <div id="sib_sel_attribute_area" class="row small-content2" style="margin-top: 20px;">
                                     </div>
                                     <div style="margin-top: 30px;">
                                         <div class="row small-content2" style="margin-top: 10px;" id="sib_field_label_area">
@@ -341,6 +278,10 @@ if(!class_exists('SIB_Page_Form'))
                                         </div>
                                         <div class="row small-content2"  style="margin-top: 5px;" id="sib_field_required_area">
                                             <label style="font-weight: normal;"><input type="checkbox" id="sib_field_required">&nbsp;&nbsp;<?php _e('Required field ?', 'sib_lang'); ?></label>
+                                        </div>
+                                        <div class="row small-content2"  style="margin-top: 5px;" id="sib_field_type_area">
+                                          <label style="font-weight: normal;"><input type="radio" name="sib_field_type" value="select" checked>&nbsp;<?php _e('Drop-down List', 'sib_lang'); ?></label>&nbsp;&nbsp;
+                                          <label style="font-weight: normal;"><input type="radio" name="sib_field_type" value="radio">&nbsp;<?php _e('Radio List', 'sib_lang'); ?></label>
                                         </div>
                                     </div>
                                     <div class="row small-content2"  style="margin-top: 20px;" id="sib_field_add_area">
@@ -558,7 +499,17 @@ if(!class_exists('SIB_Page_Form'))
             return $response['data']['campaign_records'];
         }
 
-        /** ajax process when change template id */
+        /**
+         * get attributes lists of sendinblue
+         */
+        public static function get_crm_attributes()
+        {
+          $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
+          $response = $mailin->get_attributes();
+          return $response['data'];
+        }
+
+      /** ajax process when change template id */
         function ajax_change_template()
         {
             $template_id = $_POST['template_id'];
@@ -578,5 +529,46 @@ if(!class_exists('SIB_Page_Form'))
             echo $ret_email;
             die();
         }
+
+      /**
+       * Ajax module to get all lists.
+       */
+      function ajax_get_lists() {
+        $lists = SIB_Page_Home::get_lists();
+        if (!is_array($lists)) {
+          $lists = array();
+        }
+        $result = array('lists' => $lists);
+        wp_send_json($result);
+      }
+
+      /**
+       * Ajax module to get all templates.
+       */
+      function ajax_get_templates() {
+        $templates = self::get_template_lists();
+        if (!is_array($templates)) {
+          $templates = array();
+        }
+        $result = array('templates' => $templates);
+        wp_send_json($result);
+      }
+
+      /**
+       * Ajax module to get all attributes.
+       */
+      function ajax_get_attributes() {
+        $attributes = self::get_crm_attributes();
+        if (!is_array($attributes)) {
+          $attributes = array(
+            'normal_attributes' => array(),
+            'category_attributes' => array(),
+          );
+        }
+        $result = array('attributes' => $attributes);
+        $attrs = array_merge($attributes['normal_attributes'], $attributes['category_attributes']);;
+        update_option(SIB_Manager::attribute_list_option_name, $attrs);
+        wp_send_json($result);
+      }
     }
 }

@@ -3,7 +3,7 @@ Contributors: SendinBlue
 Tags: sendinblue, mailin, email marketing, email campaign, newsletter, wordpress smtp, subscription form, phpmailer, SMTP, wp_mail, massive email, sendmail, ssl, tls, wp-phpmailer, mail smtp, mailchimp, newsletters, email plugin, signup form, email widget, widget, plugin, sidebar, shortcode
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 2.3.9
+Stable tag: 2.3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,10 @@ In order to create a signup form, you have to :
 
 
 == Changelog ==
+= 2.3.10 =
+* Add the functionality to integrate the category attributes of sendinblue.
+* Improve loading of setting page.
+
 = 2.3.9 =
 * Change iframe url.
 
@@ -187,12 +191,3 @@ Please use the Access Key of API 2.0 in setting of plugin after update plugin.
 * update sendinblue api
 * Add functionality (List,Contact,Stat,Form Management)
 * Update UI user-friendly
-
-= 1.7 =
-* Fixed typos
-
-= 1.7 =
-* Fixed typos
-
-= 1.6 =
-* Update plugin name and update the brand name from mailin to sendinblue

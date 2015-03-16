@@ -461,7 +461,7 @@ if(!class_exists('SIB_Page_Home'))
 
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
 
-            $response = $mailin->get_attribute('normal');
+            $response = $mailin->get_access_tokens();
             if(is_array($response)) {
                 if($response['code'] == 'success') {
 
@@ -471,13 +471,7 @@ if(!class_exists('SIB_Page_Home'))
                     );
                     update_option(SIB_Manager::main_option_name, $settings);
 
-                    // store attribute list
-                    $attribute_list = $response['data'];
-                    update_option(SIB_Manager::attribute_list_option_name, $attribute_list);
-
-                    // get access_token
-                    $access_response = $mailin->get_access_tokens();
-                    $access_token = $access_response['data']['access_token'];
+                    $access_token = $response['data']['access_token'];
                     $token_settings = array(
                         'access_token' => $access_token
                     );
