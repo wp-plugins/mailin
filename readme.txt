@@ -103,6 +103,10 @@ In order to create a signup form, you have to :
 
 
 == Changelog ==
+= 2.3.11 =
+* Update validation process.
+* Improve error message.
+
 = 2.3.10 =
 * Add the functionality to integrate the category attributes of sendinblue.
 * Improve loading of setting page.

@@ -448,8 +448,20 @@ jQuery(document).ready(function(){
                 jQuery('#success-alert').show();
                 var cur_url = jQuery('#cur_refer_url').val();
                 window.location.href = cur_url;
-            } else {
+            }
+            else if (respond == 'curl_no_installed') {
                 jQuery('#sib_access_key').addClass('error');
+                jQuery('#failure-alert').html(jQuery('#curl_no_exist_error').val());
+                jQuery('#failure-alert').show();
+            }
+            else if (respond == 'curl_error') {
+                jQuery('#sib_access_key').addClass('error');
+                jQuery('#failure-alert').html(jQuery('#curl_error').val());
+                jQuery('#failure-alert').show();
+            }
+            else {
+                jQuery('#sib_access_key').addClass('error');
+                jQuery('#failure-alert').html(jQuery('#general_error').val());
                 jQuery('#failure-alert').show();
             }
         });

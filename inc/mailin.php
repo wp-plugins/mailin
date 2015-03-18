@@ -9,10 +9,6 @@ class Mailin
 	public $curl_opts = array();
     public function __construct($base_url,$api_key)
     {
-        if(!function_exists('curl_init'))
-        {
-            throw new Exception('Mailin requires CURL module');
-        }
         $this->base_url = $base_url;
         $this->api_key = $api_key;
     }
@@ -22,13 +18,19 @@ class Mailin
 	private function do_request($resource,$method,$input)
 	{
         $called_url = $this->base_url."/".$resource;
+        if (!function_exists('curl_init')) {
+          $data = array(
+            'code' => 'curl_no_installed',
+          );
+          return $data;
+        }
         $ch = curl_init($called_url);
         $auth_header = 'api-key:'.$this->api_key;
         $content_header = "Content-Type:application/json";
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        //if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             // Windows only over-ride
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        }
+        //}
         curl_setopt($ch, CURLOPT_HTTPHEADER, array($auth_header,$content_header));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -37,7 +39,10 @@ class Mailin
         $data = curl_exec($ch);
         if(curl_errno($ch))
         {
-            echo 'Curl error: ' . curl_error($ch). '\n';
+          $data = array(
+            'code' => 'curl_error',
+          );
+          return $data;
         }
         curl_close($ch);
         return json_decode($data,true);

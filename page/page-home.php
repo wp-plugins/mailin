@@ -132,6 +132,9 @@ if(!class_exists('SIB_Page_Home'))
                     <div class="panel-body">
                         <div class="col-md-9 row">
                             <div id="success-alert" class="alert alert-success" role="alert" style="display: none;"><?php _e('You successfully activate your account.', 'sib_lang');?></div>
+                            <input type="hidden" id="general_error" value="<?php _e('Please input correct information.', 'sib_lang');?>">
+                            <input type="hidden" id="curl_no_exist_error" value="<?php _e('Please install curl on site to use sendinblue plugin.', 'sib_lang');?>">
+                            <input type="hidden" id="curl_error" value="<?php _e('Curl error.', 'sib_lang');?>">
                             <div id="failure-alert" class="alert alert-danger" role="alert" style="display: none;"><?php _e('Please input correct information.', 'sib_lang');?></div>
                             <p>
                                 <?php _e('Once your have created your SendinBlue account, activate this plugin to send all your transactional emails by using SendinBlue SMTP to make sure all of your emails get to your contacts inbox.', 'sib_lang'); ?><br>
@@ -479,7 +482,7 @@ if(!class_exists('SIB_Page_Home'))
                     echo 'success';
                 }
                 else
-                    echo 'fail';
+                    echo $response['code'];
             } else {
                 echo 'fail';
             }
