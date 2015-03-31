@@ -47,6 +47,40 @@ class Mailin
         curl_close($ch);
         return json_decode($data,true);
 	}
+
+  /**
+   *  CURL function to send request to the SendinBlue API server
+	 */
+	public function curlRequest($data)
+  {
+    if (!function_exists('curl_init')) {
+      $data = array(
+        'code' => 'curl_no_installed',
+      );
+      return $data;
+    }
+    $url = 'http://ws.mailin.fr/'; // WS URL
+    $ch = curl_init();
+    // prepate data for curl post
+    $ndata = '';
+    $data['source'] = 'Wordpress';
+    if (is_array($data))
+      foreach ($data as $key => $value)
+        $ndata .= $key.'='.urlencode($value).'&';
+    else
+      $ndata = $data;
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $ndata);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // Set curl to return the
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $data = curl_exec($ch);
+    curl_close($ch);
+    return $data;
+  }
+
 	public function get($resource,$input)
 	{
 		return $this->do_request($resource,"GET",$input);
@@ -328,5 +362,17 @@ class Mailin
         {
             return $this->get("account/smtpdetail","");
         }
+
+      /**
+       * Method is used to add the partner's name in SendinBlue.
+       * In this case its "WORDPRESS".
+       */
+      public function partnerWordpress() {
+        $data = array();
+        $data['key'] = $this->api_key;
+        $data['webaction'] = 'MAILIN-PARTNER';
+        $data['partner'] = 'WORDPRESS';
+        $this->curlRequest($data);
+      }
 }
 ?>

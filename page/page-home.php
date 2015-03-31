@@ -479,6 +479,9 @@ if(!class_exists('SIB_Page_Home'))
                         'access_token' => $access_token
                     );
                     update_option(SIB_Manager::access_token_option_name, $token_settings);
+
+                    $mailin->partnerWordpress();
+
                     echo 'success';
                 }
                 else
