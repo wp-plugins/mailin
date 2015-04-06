@@ -103,6 +103,9 @@ In order to create a signup form, you have to :
 
 
 == Changelog ==
+= 2.3.13 =
+* No changes in "Settings" after update.
+
 = 2.3.12 =
 * Improve validation process.
 

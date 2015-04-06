@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.12
+Version: 2.3.13
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -451,14 +451,17 @@ EOD;
          */
         static function install()
         {
-            // default option when activate
-            $home_settings = array(
+            $general_settings = get_option(self::main_option_name, array());
+            self::$access_key = isset($general_settings['access_key']) ? $general_settings['access_key'] : '';
+            if (self::$access_key == '') {
+              // default option when activate
+              $home_settings = array(
                 'activate_email' => 'no'
-            );
-            update_option(self::home_option_name, $home_settings);
+              );
+              update_option(self::home_option_name, $home_settings);
 
-            // set sign up parameters
-            $signup_settings = array(
+              // set sign up parameters
+              $signup_settings = array(
                 'is_confirm_email' => 'yes',
                 'is_double_optin' => 'no',
                 'template_id' => '-1',
@@ -466,21 +469,21 @@ EOD;
                 'redirect_url_click' => '',
                 'is_redirect_url_click' => 'no',
                 'sender_id' => '-1'
-            );
-            update_option(self::form_signup_option_name, $signup_settings);
+              );
+              update_option(self::form_signup_option_name, $signup_settings);
 
-            // set alert message parameters
-            $signup_settings = array(
+              // set alert message parameters
+              $signup_settings = array(
                 'alert_success_message' => __('Thank you, you have successfully registered !', 'sib_lang'),
                 'alert_error_message' =>  __('Something wrong occured', 'sib_lang'),
                 'alert_exist_subscriber' =>  __('You have already registered', 'sib_lang'),
                 'alert_invalid_email' =>  __('Your email address is invalid', 'sib_lang')
-            );
+              );
 
-            update_option(self::form_confirmation_option_name, $signup_settings);
+              update_option(self::form_confirmation_option_name, $signup_settings);
 
-            // set sign up form html
-            $sib_form_html = <<<EOD
+              // set sign up form html
+              $sib_form_html = <<<EOD
 <p class="sib-email-area">
     <label class="sib-email-area">Email Address</label>
     <input type="email" class="sib-email-area" name="email" required="required">
@@ -494,21 +497,21 @@ EOD;
 </p>
 EOD;
 
-            update_option('sib_use_new_version', '1');
+              update_option('sib_use_new_version', '1');
 
-            $form_settings = array(
+              $form_settings = array(
                 'sib_form_html' => stripcslashes($sib_form_html),
                 'available_attributes' => array('NAME')
-            );
-            update_option(self::form_subscription_option_name, $form_settings);
+              );
+              update_option(self::form_subscription_option_name, $form_settings);
 
-            $account_settings = array(
+              $account_settings = array(
                 'account_email' => '',
                 'account_user_name' => '',
                 'account_data' => array()
-            );
-            update_option(self::account_option_name, $account_settings);
-
+              );
+              update_option(self::account_option_name, $account_settings);
+            }
             SIB_Model_Contact::create_table();
         }
 
