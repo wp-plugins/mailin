@@ -144,9 +144,14 @@ class SIB_Widget_Subscribe extends WP_Widget
 
         // Extract members of args array as individual variables
         extract( $args );
-
+        $widget_title = ( !empty( $instance['widget_title'] ) ?
+            esc_attr( $instance['widget_title'] ) :
+            'SendinBlue Newsletter' );
         // Display widget title
         echo $before_widget;
+        echo $before_title;
+        echo apply_filters('widget_title', $widget_title);
+        echo $after_title;
         SIB_Manager::$instance->generate_form_box($instance);
         echo $after_widget;
     }

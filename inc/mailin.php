@@ -321,9 +321,9 @@ class Mailin
         {
                 return $this->post("bounces",json_encode(array("start_date"=>$start_date,"end_date"=>$end_date,"email"=>$email)));
         }
-        public function send_transactional_template($id,$to,$cc,$bcc,$attr)
+        public function send_transactional_template($id,$to,$cc,$bcc,$attr,$attachmentUrl,$attachment)
         {
-                return $this->put("template/".$id,json_encode(array("cc"=>$cc,"to"=>$to,"attr"=>$attr,"bcc"=>$bcc)));
+            return $this->put("template/".$id,json_encode(array("cc"=>$cc,"to"=>$to,"attr"=>$attr,"bcc"=>$bcc,"attachment_url"=>$attachmentUrl,"attachment"=>$attachment)));
         }
         public function create_template($from_name,$name,$bat_sent,$html_content,$html_url,$subject,$from_email,$reply_to,$to_field,$status)
         {

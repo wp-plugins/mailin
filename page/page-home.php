@@ -215,7 +215,7 @@ if(!class_exists('SIB_Page_Home'))
                                     echo SIB_Manager::$account_data[$i]['plan_type'] . ' - ' . SIB_Manager::$account_data[$i]['credits'] . ' ' .  __('credits', 'sib_lang') . '<br>';
                                 }
                                 ?>
-                                <a href="<?php echo add_query_arg('sib_action', 'logout'); ?>"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Log out', 'sib_lang'); ?></a>
+                                <a href="<?php echo esc_url(add_query_arg('sib_action', 'logout')); ?>"><i class="fa fa-angle-right"></i>&nbsp;<?php _e('Log out', 'sib_lang'); ?></a>
                             </p>
                         </div>
 

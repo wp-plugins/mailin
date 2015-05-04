@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.3.13
+Version: 2.4.0
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -629,13 +629,6 @@ EOD;
                 <input type="hidden" name="reference_id" value="<?php echo $this->reference_form_count; ?>">
                 <div class="sib_signup_box_inside">
                     <?php
-                    if($widget_attribute != null) {
-                    ?>
-                        <p style="margin-bottom: 20px;">
-                            <span class="sib_widget_title"><?php echo $widget_title; ?></span>
-                        </p>
-                    <?php
-                    }
                     if($this->reference_id == $this->reference_form_count) {
                         if($this->state_of_form == 'success' || $this->state_of_form == 'update') {
                         ?>
@@ -878,7 +871,6 @@ EOD;
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
 
             $response = $mailin->create_update_user($email, $info, 0, $listid, null);
-
             // db store
 
             $data = SIB_Model_Contact::get_data_by_email($email);
@@ -898,7 +890,7 @@ EOD;
 
 
             // send confirmation email
-            $this->send_email('confirm', $email, $uniqid, $list_id, $template_id);
+            $this->send_email('confirm', $email, $uniqid, $list_id, $template_id, $info);
 
             if($response['code'] == 'success')
                 return 'success';
@@ -934,7 +926,7 @@ EOD;
             }
 
             // send double optin email
-            $this->send_email('double-optin', $email, $uniqid, $list_id, self::$doubleoptin_template_id);
+            $this->send_email('double-optin', $email, $uniqid, $list_id, self::$doubleoptin_template_id, $info);
 
             return 'success';
         }
@@ -985,7 +977,7 @@ EOD;
          * Send mail
          * @params (type, to_email, to_info, list_id)
          */
-        function send_email($type, $to_email, $code, $list_id, $template_id='-1')
+        function send_email($type, $to_email, $code, $list_id, $template_id='-1', $attributes=null)
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             // set subject info
@@ -1015,37 +1007,38 @@ EOD;
             $text_content = $template_contents['text_content'];
 
             // get template html and text
-            if ($type=="confirm" && intval($template_id) > 0) {
-                $response = $mailin->get_campaign($template_id);
-                if($response['code'] == 'success') {
-                    $html_content = $response['data'][0]['html_content'];
-                    if (trim($response['data'][0]['subject']) != '') {
-                        $subject = trim($response['data'][0]['subject']);
+            if ((SIB_Manager::$activate_email != 'yes') || ($type != "confirm")) {
+                if ($type=="confirm" && intval($template_id) > 0) {
+                    $response = $mailin->get_campaign($template_id);
+                    if($response['code'] == 'success') {
+                        $html_content = $response['data'][0]['html_content'];
+                        if (trim($response['data'][0]['subject']) != '') {
+                            $subject = trim($response['data'][0]['subject']);
+                        }
+                        if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                            ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                            ($response['data'][0]['from_email'] != '')) {
+                            $sender_name = $response['data'][0]['from_name'];
+                            $sender_email = $response['data'][0]['from_email'];
+                        }
                     }
-                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
-                        ($response['data'][0]['from_email'] != '')) {
-                        $sender_name = $response['data'][0]['from_name'];
-                        $sender_email = $response['data'][0]['from_email'];
+                }
+                else if($type=="double-optin" && intval($template_id) > 0) {
+                    $response = $mailin->get_campaign($template_id);
+                    if($response['code'] == 'success') {
+                        $html_content = $response['data'][0]['html_content'];
+                        if (trim($response['data'][0]['subject']) != '') {
+                            $subject = trim($response['data'][0]['subject']);
+                        }
+                        if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                            ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                            ($response['data'][0]['from_email'] != '')) {
+                            $sender_name = $response['data'][0]['from_name'];
+                            $sender_email = $response['data'][0]['from_email'];
+                        }
                     }
                 }
             }
-            else if($type=="double-optin" && intval($template_id) > 0) {
-                $response = $mailin->get_campaign($template_id);
-                if($response['code'] == 'success') {
-                    $html_content = $response['data'][0]['html_content'];
-                    if (trim($response['data'][0]['subject']) != '') {
-                        $subject = trim($response['data'][0]['subject']);
-                    }
-                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
-                        ($response['data'][0]['from_email'] != '')) {
-                        $sender_name = $response['data'][0]['from_name'];
-                        $sender_email = $response['data'][0]['from_email'];
-                    }
-                }
-            }
-
             // send mail
             $to = array($to_email => '');
             $from = array($sender_email, $sender_name);
@@ -1064,8 +1057,14 @@ EOD;
             $text_content = str_replace('{site_domain}', home_url(), $text_content);
 
             if(SIB_Manager::$activate_email == 'yes') {
-                $headers = array();
-                $mailin->send_email($to,$subject,$from,$html_content,$text_content,$null_array,$null_array,$from,$null_array,$headers);
+                if (intval($template_id) > 0 && is_array($attributes) && ($type == "confirm")) {
+                    $attrs = array_merge($attributes, array('EMAIL' => $to_email));
+                    $mailin->send_transactional_template(intval($template_id), $to_email, "", "", $attrs, "", array());
+                }
+                else {
+                    $headers = array();
+                    $mailin->send_email($to,$subject,$from,$html_content,$text_content,$null_array,$null_array,$from,$null_array,$headers);
+                }
             } else {
                 $headers[] = 'Content-Type: text/html; charset=UTF-8';
                 $headers[] = 'From: ' . $sender_name . ' <' . $sender_email . '>';
@@ -1354,6 +1353,7 @@ EOD;
      * */
 
     add_action( 'sendinblue_init', 'sendinblue_init' );
+    add_filter('widget_text', 'do_shortcode');
 
     function sendinblue_init() {
         SIB_Manager::LoadTextDomain();
