@@ -458,7 +458,7 @@ if(!class_exists('SIB_Page_Home'))
         <?php
         }
         /** ajax module for validation (Home - welcome) */
-        public function ajax_validation_process()
+        public static function ajax_validation_process()
         {
             $access_key = trim($_POST['access_key']);
 
@@ -493,7 +493,7 @@ if(!class_exists('SIB_Page_Home'))
         }
 
         /** Ajax module for change list */
-        function ajax_change_list()
+        public static function ajax_change_list()
         {
             $list_id = $_POST['list_id'];
 
@@ -516,7 +516,7 @@ if(!class_exists('SIB_Page_Home'))
         }
 
         /** ajax module to change activate email option */
-        function ajax_activate_email_change()
+        public static function ajax_activate_email_change()
         {
             $option_val = $_POST['option_val'];
             $home_settings = get_option(SIB_Manager::home_option_name);
@@ -527,7 +527,7 @@ if(!class_exists('SIB_Page_Home'))
         }
 
         /** ajax module for send test email */
-        function ajax_send_email()
+        public static function ajax_send_email()
         {
             $to = array($_POST['email'] => '');
 

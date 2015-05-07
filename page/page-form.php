@@ -373,7 +373,7 @@ if(!class_exists('SIB_Page_Form'))
         }
 
         /** save sign up setting */
-        function save_setting_signup()
+        public static function save_setting_signup()
         {
             // check user role
             if( !current_user_can( 'manage_options' ) )
@@ -415,7 +415,7 @@ if(!class_exists('SIB_Page_Form'))
         }
 
         /** save confirmation message setting */
-        function save_setting_confirm()
+        public static function save_setting_confirm()
         {
             // check user role
             if( !current_user_can( 'manage_options' ) )
@@ -442,7 +442,7 @@ if(!class_exists('SIB_Page_Form'))
         }
 
         /** save subscription setting */
-        function save_setting_subscription()
+        public static function save_setting_subscription()
         {
             // check user role
             if( !current_user_can( 'manage_options' ) )
@@ -496,6 +496,9 @@ if(!class_exists('SIB_Page_Form'))
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
             $response = $mailin->get_campaigns('template','temp_active');
+            if (!isset($response['code']) || ($response['code'] != 'success')) {
+                return null;
+            }
             return $response['data']['campaign_records'];
         }
 
@@ -510,7 +513,7 @@ if(!class_exists('SIB_Page_Form'))
         }
 
       /** ajax process when change template id */
-        function ajax_change_template()
+        public static function ajax_change_template()
         {
             $template_id = $_POST['template_id'];
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
@@ -533,42 +536,42 @@ if(!class_exists('SIB_Page_Form'))
       /**
        * Ajax module to get all lists.
        */
-      function ajax_get_lists() {
-        $lists = SIB_Page_Home::get_lists();
-        if (!is_array($lists)) {
-          $lists = array();
+        public static function ajax_get_lists() {
+            $lists = SIB_Page_Home::get_lists();
+            if (!is_array($lists)) {
+              $lists = array();
+            }
+            $result = array('lists' => $lists);
+            wp_send_json($result);
         }
-        $result = array('lists' => $lists);
-        wp_send_json($result);
-      }
 
       /**
        * Ajax module to get all templates.
        */
-      function ajax_get_templates() {
-        $templates = self::get_template_lists();
-        if (!is_array($templates)) {
-          $templates = array();
+        public static function ajax_get_templates() {
+            $templates = self::get_template_lists();
+            if (!is_array($templates)) {
+              $templates = array();
+            }
+            $result = array('templates' => $templates);
+            wp_send_json($result);
         }
-        $result = array('templates' => $templates);
-        wp_send_json($result);
-      }
 
       /**
        * Ajax module to get all attributes.
        */
-      function ajax_get_attributes() {
-        $attributes = self::get_crm_attributes();
-        if (!is_array($attributes)) {
-          $attributes = array(
-            'normal_attributes' => array(),
-            'category_attributes' => array(),
-          );
+        public static function ajax_get_attributes() {
+            $attributes = self::get_crm_attributes();
+            if (!is_array($attributes)) {
+              $attributes = array(
+                'normal_attributes' => array(),
+                'category_attributes' => array(),
+              );
+            }
+            $result = array('attributes' => $attributes);
+            $attrs = array_merge($attributes['normal_attributes'], $attributes['category_attributes']);;
+            update_option(SIB_Manager::attribute_list_option_name, $attrs);
+            wp_send_json($result);
         }
-        $result = array('attributes' => $attributes);
-        $attrs = array_merge($attributes['normal_attributes'], $attributes['category_attributes']);;
-        update_option(SIB_Manager::attribute_list_option_name, $attrs);
-        wp_send_json($result);
-      }
     }
 }
