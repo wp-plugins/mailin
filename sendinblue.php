@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.4.1
+Version: 2.4.2
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -1007,38 +1007,37 @@ EOD;
             $text_content = $template_contents['text_content'];
 
             // get template html and text
-            if ((SIB_Manager::$activate_email != 'yes') || ($type != "confirm")) {
-                if ($type=="confirm" && intval($template_id) > 0) {
-                    $response = $mailin->get_campaign($template_id);
-                    if($response['code'] == 'success') {
-                        $html_content = $response['data'][0]['html_content'];
-                        if (trim($response['data'][0]['subject']) != '') {
-                            $subject = trim($response['data'][0]['subject']);
-                        }
-                        if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                            ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
-                            ($response['data'][0]['from_email'] != '')) {
-                            $sender_name = $response['data'][0]['from_name'];
-                            $sender_email = $response['data'][0]['from_email'];
-                        }
+            if ($type=="confirm" && intval($template_id) > 0) {
+                $response = $mailin->get_campaign($template_id);
+                if($response['code'] == 'success') {
+                    $html_content = $response['data'][0]['html_content'];
+                    if (trim($response['data'][0]['subject']) != '') {
+                        $subject = trim($response['data'][0]['subject']);
                     }
-                }
-                else if($type=="double-optin" && intval($template_id) > 0) {
-                    $response = $mailin->get_campaign($template_id);
-                    if($response['code'] == 'success') {
-                        $html_content = $response['data'][0]['html_content'];
-                        if (trim($response['data'][0]['subject']) != '') {
-                            $subject = trim($response['data'][0]['subject']);
-                        }
-                        if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
-                            ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
-                            ($response['data'][0]['from_email'] != '')) {
-                            $sender_name = $response['data'][0]['from_name'];
-                            $sender_email = $response['data'][0]['from_email'];
-                        }
+                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                        ($response['data'][0]['from_email'] != '')) {
+                        $sender_name = $response['data'][0]['from_name'];
+                        $sender_email = $response['data'][0]['from_email'];
                     }
                 }
             }
+            else if($type=="double-optin" && intval($template_id) > 0) {
+                $response = $mailin->get_campaign($template_id);
+                if($response['code'] == 'success') {
+                    $html_content = $response['data'][0]['html_content'];
+                    if (trim($response['data'][0]['subject']) != '') {
+                        $subject = trim($response['data'][0]['subject']);
+                    }
+                    if (($response['data'][0]['from_name'] != '[DEFAULT_FROM_NAME]') &&
+                        ($response['data'][0]['from_email'] != '[DEFAULT_FROM_EMAIL]') &&
+                        ($response['data'][0]['from_email'] != '')) {
+                        $sender_name = $response['data'][0]['from_name'];
+                        $sender_email = $response['data'][0]['from_email'];
+                    }
+                }
+            }
+
             // send mail
             $to = array($to_email => '');
             $from = array($sender_email, $sender_name);
@@ -1067,7 +1066,7 @@ EOD;
                 }
             } else {
                 $headers[] = 'Content-Type: text/html; charset=UTF-8';
-                $headers[] = 'From: ' . $sender_name . ' <' . $sender_email . '>';
+                $headers[] = "From: $sender_name <$sender_email>";
                 @wp_mail($to_email, $subject, $html_content, $headers);
             }
         }
