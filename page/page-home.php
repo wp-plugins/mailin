@@ -656,7 +656,7 @@ if(!class_exists('SIB_Page_Home'))
             $campaign_records = $response['data']['campaign_records'];
             if(isset($campaign_records) && is_array($campaign_records)) {
                 foreach($campaign_records as $campaign_record) {
-                    if($campaign_record['type'] == 'template')
+                    if($campaign_record['type'] == 'template' || $campaign_record['type'] == '')
                         continue;
 
                     $ret[$campaign_record['type']][$campaign_record['status']] ++;
