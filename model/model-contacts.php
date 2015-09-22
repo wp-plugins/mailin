@@ -89,7 +89,7 @@ class SIB_Model_Contact
         $query = 'select * from ' . self::table_name . ' where email like "' . $email . '";';
         $results = $wpdb->get_results($query, ARRAY_A);
 
-        if(is_array($results))
+        if(is_array($results) && count($results)>0)
             return $results[0];
         else
             return false;

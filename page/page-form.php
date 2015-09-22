@@ -390,7 +390,11 @@ if(!class_exists('SIB_Page_Form'))
             $doubleoptin_template_id = $_POST['doubleoptin_template_id'];
             $sender_id = $_POST['sender_id'];
             $is_redirect_url_click = $_POST['is_redirect_url_click'];
-
+            //validate double optin template
+            if($doubleoptin_template_id == '-1' && $is_double_optin == 'yes') {
+                wp_redirect(add_query_arg('page', self::page_id, admin_url('admin.php')));
+                exit;
+            }
             $settings = array(
                 'is_confirm_email' => $is_confirm_email,
                 'is_double_optin' => $is_double_optin,
@@ -485,7 +489,8 @@ if(!class_exists('SIB_Page_Form'))
         public static function get_sender_lists()
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $response = $mailin->get_senders('');
+            $data = array( "option" => "" );
+            $response = $mailin->get_senders($data);
             return $response['data'];
         }
 
@@ -495,7 +500,11 @@ if(!class_exists('SIB_Page_Form'))
         public static function get_template_lists()
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $response = $mailin->get_campaigns('template','temp_active');
+            $data = array(
+                'type' => 'template',
+                'status' => 'temp_active'
+            );
+            $response = $mailin->get_campaigns_v2($data);
             if (!isset($response['code']) || ($response['code'] != 'success')) {
                 return null;
             }
@@ -517,11 +526,14 @@ if(!class_exists('SIB_Page_Form'))
         {
             $template_id = $_POST['template_id'];
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $response = $mailin->get_campaign($template_id);
+            $data = array(
+                'id' => $template_id
+            );
+            $response = $mailin->get_campaign_v2($data);
 
             $ret_email = '-1';
             if($response['code'] == 'success') {
-                $from_email = $response['data'][$template_id]['from_email'];
+                $from_email = $response['data'][0]['from_email'];
                 if($from_email == '[DEFAULT_FROM_EMAIL]') {
                     $ret_email = '-1';
                 } else {

@@ -160,7 +160,8 @@ if(!class_exists('SIB_Page_Home'))
         function generate_main_content()
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $list_response = $mailin->get_lists();
+            $data = array();
+            $list_response = $mailin->get_lists($data);
             if($list_response['code'] != 'success') {
                 $total_subscribers = 0;
             } else {
@@ -171,7 +172,12 @@ if(!class_exists('SIB_Page_Home'))
                         $list_ids[] = $list_data['id'];
                     }
                 }
-                $users_response = $mailin->display_list_users($list_ids,1,500);
+                $data = array(
+                    "listids" => $list_ids,
+                    "page" => 1,
+                    "page_limit" => 500
+                );
+                $users_response = $mailin->display_list_users($data);
                 $total_subscribers = intval($users_response['data']['total_list_records']);
             }
 
@@ -317,7 +323,7 @@ if(!class_exists('SIB_Page_Home'))
                         <?php
                         if(SIB_Manager::$smtp_details['relay'] == false) :
                         ?>
-                            <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert"><?php _e('Unfortunately, you wannot activate "Transactional emails"  because your SendinBlue SMTP account is not valid. Please send an email to contact@sendinblue.com in order to ask for SMTP account activation', 'sib_lang');?></div>
+                            <div id="failure-alert" class="col-md-12 alert alert-danger" role="alert"><?php _e('Unfortunately, your "Transactional emails" are not activated because your SendinBlue SMTP account is not active. Please send an email to contact@sendinblue.com in order to ask for SMTP account activation', 'sib_lang');?></div>
                         <?php
                         endif;
                         ?>
@@ -503,7 +509,10 @@ if(!class_exists('SIB_Page_Home'))
 
             // get total contacts
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $list_info = $mailin->get_list($list_id);
+            $data = array(
+                'id' => $list_id
+            );
+            $list_info = $mailin->get_list($data);
 
             if(!is_array($list_info)) {
                 $total_subscribers = 0;
@@ -547,7 +556,15 @@ if(!class_exists('SIB_Page_Home'))
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
 
             $headers = array();
-            $mailin->send_email($to,$subject,$from,$html,$text,$null_array,$null_array,$from,$null_array,$headers);
+            $data = array(
+                "to" => $to,
+                "subject"  => $subject,
+                "from" => $from,
+                "text" => $email_templates['text_content'],
+                "html" => $html,
+                "headers" => $headers
+            );
+            $result = $mailin->send_email($data);
 
             echo 'success';
             die();
@@ -582,8 +599,9 @@ if(!class_exists('SIB_Page_Home'))
         {
             $access_key = SIB_Manager::$access_key;
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
+            $data = array();
+            $list_response = $mailin->get_lists($data);
 
-            $list_response = $mailin->get_lists();
             $lists = array();
 
             // check response
@@ -618,7 +636,8 @@ if(!class_exists('SIB_Page_Home'))
         {
             $access_key = SIB_Manager::$access_key;
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
-            $response = $mailin->get_campaigns("", '');
+            $data = array();
+            $response = $mailin->get_campaigns_v2($data);
 
             $ret = array(
                 'classic' => array(
@@ -628,8 +647,10 @@ if(!class_exists('SIB_Page_Home'))
                     'Suspended' => 0,
                     'In_process' => 0,
                     'Archive' => 0,
+                    'Sent and Archived' =>0,
                     'Temp_active' => 0,
-                    'Temp_inactive' =>0
+                    'Temp_inactive' =>0,
+                    'Scheduled' => 0
                 ),
                 'sms' => array(
                     'Sent' => 0,
@@ -638,8 +659,10 @@ if(!class_exists('SIB_Page_Home'))
                     'Suspended' => 0,
                     'In_process' => 0,
                     'Archive' => 0,
+                    'Sent and Archived' =>0,
                     'Temp_active' => 0,
-                    'Temp_inactive' =>0
+                    'Temp_inactive' =>0,
+                    'Scheduled' => 0
                 ),
                 'trigger' => array(
                     'Sent' => 0,
@@ -648,8 +671,10 @@ if(!class_exists('SIB_Page_Home'))
                     'Suspended' => 0,
                     'In_process' => 0,
                     'Archive' => 0,
+                    'Sent and Archived' =>0,
                     'Temp_active' => 0,
-                    'Temp_inactive' =>0
+                    'Temp_inactive' =>0,
+                    'Scheduled' => 0
                 ),
             );
 

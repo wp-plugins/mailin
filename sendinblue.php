@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.4.3
+Version: 2.4.6
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -814,6 +814,7 @@ EOD;
             $error = '';
             if(SIB_Manager::$is_double_optin == 'yes') {
                 // double optin process
+                $info['DOUBLE_OPT-IN'] = '1';
                 $error = $this->double_optin_signup($email, $info, $list_id);
             } else {
                 if(SIB_Manager::$is_confirm_email == 'yes') {
@@ -844,8 +845,15 @@ EOD;
             $listid_unlink = null;
 
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-
-            $response = $mailin->create_update_user($email, $info, 0, $listid, null);
+            $data = array(
+                "email" => $email,
+                "attributes" => $info,
+                "blacklisted" => 0,
+                "listid" => $listid,
+                "listid_unlink" => null,
+                "blacklisted_sms" => 0
+            );
+            $response = $mailin->create_update_user($data);
             if($response['code'] == 'success')
                 return 'success';
 
@@ -869,12 +877,19 @@ EOD;
             $listid_unlink = null;
 
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-
-            $response = $mailin->create_update_user($email, $info, 0, $listid, null);
+            $data = array(
+                "email" => $email,
+                "attributes" => $info,
+                "blacklisted" => 0,
+                "listid" => $listid,
+                "listid_unlink" => null,
+                "blacklisted_sms" => 0
+            );
+            $response = $mailin->create_update_user($data);
             // db store
 
-            $data = SIB_Model_Contact::get_data_by_email($email);
-            if($data == false) {
+            $result = SIB_Model_Contact::get_data_by_email($email);
+            if($result == false) {
                 $uniqid = uniqid();
                 $data = array(
                     'email' => $email,
@@ -885,7 +900,7 @@ EOD;
                 );
                 SIB_Model_Contact::add_record($data);
             } else {
-                $uniqid = $data['code'];
+                $uniqid = $result['code'];
             }
 
 
@@ -937,7 +952,8 @@ EOD;
         function validation_email($email, $list_id)
         {
             $mailin = new Mailin(SIB_Manager::sendinblue_api_url, SIB_Manager::$access_key);
-            $response = $mailin->get_user($email);
+            $data = array( "email" => $email );
+            $response = $mailin->get_user($data);
             if($response['code'] == 'failure') {
                 $ret = array(
                     'code' => 'success',
@@ -1008,7 +1024,10 @@ EOD;
 
             // get template html and text
             if ($type=="confirm" && intval($template_id) > 0) {
-                $response = $mailin->get_campaign($template_id);
+                $data = array(
+                    'id' => $template_id
+                );
+                $response = $mailin->get_campaign_v2($data);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][0]['html_content'];
                     if (trim($response['data'][0]['subject']) != '') {
@@ -1023,7 +1042,10 @@ EOD;
                 }
             }
             else if($type=="double-optin" && intval($template_id) > 0) {
-                $response = $mailin->get_campaign($template_id);
+                $data = array(
+                    'id' => $template_id
+                );
+                $response = $mailin->get_campaign_v2($data);
                 if($response['code'] == 'success') {
                     $html_content = $response['data'][0]['html_content'];
                     if (trim($response['data'][0]['subject']) != '') {
@@ -1058,11 +1080,32 @@ EOD;
             if(SIB_Manager::$activate_email == 'yes') {
                 if (intval($template_id) > 0 && is_array($attributes) && ($type == "confirm")) {
                     $attrs = array_merge($attributes, array('EMAIL' => $to_email));
-                    $mailin->send_transactional_template(intval($template_id), $to_email, "", "", $attrs, "", array());
+                    $data = array(
+                        "id" => intval($template_id),
+                        "to" => $to_email,
+                        "cc" => "",
+                        "bcc" => "",
+                        "attr" => $attrs,
+                        "attachment_url" => "",
+                        "attachment" => array()
+                    );
+                    $mailin->send_transactional_template($data);
                 }
                 else {
                     $headers = array();
-                    $mailin->send_email($to,$subject,$from,$html_content,$text_content,$null_array,$null_array,$from,$null_array,$headers);
+                    $data = array( "to" => $to,
+                        "cc" => array(),
+                        "bcc" =>array(),
+                        "from" => $from,
+                        "replyto" => array(),
+                        "subject" => $subject,
+                        "text" => $text_content,
+                        "html" => $html_content,
+                        "attachment" => array(),
+                        "headers" => $headers,
+                        "inline_image" => array()
+                    );
+                    $mailin->send_email($data);
                 }
             } else {
                 $headers[] = 'Content-Type: text/html; charset=UTF-8';
@@ -1085,7 +1128,10 @@ EOD;
             if($contact_info != false) {
 
                 $email = $contact_info['email'];
-                $response = $mailin->get_user($email);
+                $data = array(
+                    'email' => $email
+                );
+                $response = $mailin->get_user($data);
 
                 if($response['code'] == 'success') {
                     $attributes = $response['data']['attributes'];
@@ -1097,10 +1143,18 @@ EOD;
 
                     if(count($listid) == 0) {
 
-                        $mailin->delete_user($email);
+                        $mailin->delete_user($data);
                         SIB_Model_Contact::remove_record($contact_info['id']);
                     } else {
-                        $mailin->create_update_user($email, $attributes, $blacklisted, $listid, null);
+                        $data = array(
+                            "email" => $email,
+                            "attributes" => $attributes,
+                            "blacklisted" => $blacklisted,
+                            "listid" => $listid,
+                            "listid_unlink" => null,
+                            "blacklisted_sms" => 0
+                        );
+                        $mailin->create_update_user($data);
                     }
                 }
             }
@@ -1183,7 +1237,10 @@ EOD;
 
             if($contact_info != false) {
                 $email = $contact_info['email'];
-                $response = $mailin->get_user($email);
+                $data = array(
+                    'email' => $email
+                );
+                $response = $mailin->get_user($data);
 
                 if($response['code'] == 'success') {
                     $listid = $response['data']['listid'];
@@ -1199,8 +1256,16 @@ EOD;
                 }
 
                 array_push($listid, $list_id);
-                $attribues = maybe_unserialize($contact_info['info']);
-                $mailin->create_update_user($email, $attribues, 0, $listid, null);
+                $attributes = maybe_unserialize($contact_info['info']);
+                $data = array(
+                    "email" => $email,
+                    "attributes" => $attributes,
+                    "blacklisted" => 0,
+                    "listid" => $listid,
+                    "listid_unlink" => null,
+                    "blacklisted_sms" => 0
+                );
+                $mailin->create_update_user($data);
             }
 
             if(SIB_Manager::$redirect_url != '') {
