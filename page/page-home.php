@@ -468,7 +468,16 @@ if(!class_exists('SIB_Page_Home'))
         {
             $access_key = trim($_POST['access_key']);
 
-            $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
+			try {
+                $mailin = new Mailin(SIB_Manager::sendinblue_api_url, $access_key);
+            }catch( Exception $e ){
+                if( $e->getMessage() == 'Mailin requires CURL module' ) {
+                    echo 'curl_no_installed';
+                }else{
+                    echo 'curl_error';
+                }
+                die();
+            }
 
             $response = $mailin->get_access_tokens();
             if(is_array($response)) {
