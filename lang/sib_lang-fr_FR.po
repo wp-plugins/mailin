@@ -1,21 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SendinBlue plugin\n"
-"POT-Creation-Date: 2015-03-11 17:29+0700\n"
-"PO-Revision-Date: 2015-03-11 17:29+0700\n"
+"POT-Creation-Date: 2015-10-14 19:26+0700\n"
+"PO-Revision-Date: 2015-10-14 19:26+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.7\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../page/page-campaigns.php:39 ../page/page-home.php:226
+#: ../page/page-campaigns.php:39 ../page/page-home.php:285
 msgid "Campaigns"
 msgstr "Campagnes"
 
@@ -298,8 +298,8 @@ msgstr ""
 "Paramétrer le message qui apparaît lorsque l'adresse utilisée pour "
 "l'inscription n'est pas valide"
 
-#: ../page/page-home.php:39 ../page/page-home.php:418
-#: ../page/page-home.php:529 ../sendinblue.php:1007
+#: ../page/page-home.php:39 ../page/page-home.php:533
+#: ../page/page-home.php:675 ../sendinblue.php:1034
 msgid "SendinBlue"
 msgstr "SendinBlue"
 
@@ -307,15 +307,15 @@ msgstr "SendinBlue"
 msgid "Home"
 msgstr "Page d'accueil"
 
-#: ../page/page-home.php:112 ../page/page-home.php:130
+#: ../page/page-home.php:115 ../page/page-home.php:148
 msgid "Step"
 msgstr "Etape"
 
-#: ../page/page-home.php:112
+#: ../page/page-home.php:116
 msgid "Create a SendinBlue Account"
 msgstr "Créer un compte SendinBlue"
 
-#: ../page/page-home.php:116
+#: ../page/page-home.php:120
 msgid ""
 "By Creating a free SendinBlue account, you will have access to send a "
 "confirmation message."
@@ -323,47 +323,55 @@ msgstr ""
 "En créant un compte gratuit SendinBlue, vous pourrez envoyer un message de "
 "confirmation après inscription."
 
-#: ../page/page-home.php:118
+#: ../page/page-home.php:123
 msgid "Collect your contacts and upload your lists"
 msgstr "Collectez vos contacts et importez vos listes"
 
-#: ../page/page-home.php:119
+#: ../page/page-home.php:126
 msgid "Use SendinBlue SMTP to send your transactional emails"
 msgstr "Utilisez le SMTP SendinBlue pour vos emails transactionnels"
 
-#: ../page/page-home.php:120
+#: ../page/page-home.php:129
 msgid "Email marketing builders"
 msgstr "Editeurs d'Email Marketing"
 
-#: ../page/page-home.php:121
+#: ../page/page-home.php:132
 msgid "Create and schedule your email marketing campaigns"
 msgstr "Créer une nouvelle campagne email"
 
-#: ../page/page-home.php:122
+#: ../page/page-home.php:135
 msgid "See all of"
 msgstr "Consulter toutes les"
 
-#: ../page/page-home.php:122
+#: ../page/page-home.php:138
 msgid "SendinBlue's features"
 msgstr "Fonctionnalités de Sendinblue"
 
-#: ../page/page-home.php:124
+#: ../page/page-home.php:142
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: ../page/page-home.php:130
+#: ../page/page-home.php:149
 msgid "Activate your account with your API key"
 msgstr "Activez votre compte avec votre clé API"
 
-#: ../page/page-home.php:134
+#: ../page/page-home.php:154
 msgid "You successfully activate your account."
 msgstr "Voter compte a bien été activé"
 
-#: ../page/page-home.php:135
+#: ../page/page-home.php:156 ../page/page-home.php:162
 msgid "Please input correct information."
 msgstr "Merci de rentrer des clés valides"
 
-#: ../page/page-home.php:137
+#: ../page/page-home.php:158
+msgid "Please install curl on site to use sendinblue plugin."
+msgstr "S'il vous plaît installer CURL sur le serveur"
+
+#: ../page/page-home.php:159
+msgid "Curl error."
+msgstr "Erreur Curl."
+
+#: ../page/page-home.php:164
 msgid ""
 "Once your have created your SendinBlue account, activate this plugin to send "
 "all your transactional emails by using SendinBlue SMTP to make sure all of "
@@ -373,101 +381,101 @@ msgstr ""
 "vos emails transactionnels avec SendinBlue SMTP. Vous vous assurerez que vos "
 "contacts reçoivent vos emails."
 
-#: ../page/page-home.php:138
+#: ../page/page-home.php:166
 msgid "To activate your plugin, enter your API Access key."
 msgstr "Pour activer ce plugin, entrez votre clé API d'accès. "
 
-#: ../page/page-home.php:141
+#: ../page/page-home.php:172
 msgid "Get your API key from your account"
 msgstr "Obtenez la clé API de votre compte"
 
-#: ../page/page-home.php:145
+#: ../page/page-home.php:181
 msgid "Access Key"
 msgstr "Clé d'accès"
 
-#: ../page/page-home.php:146
+#: ../page/page-home.php:186
 msgid "Login"
 msgstr "Identifiant"
 
-#: ../page/page-home.php:201
+#: ../page/page-home.php:251
 msgid "My Account"
 msgstr "Mon Compte"
 
-#: ../page/page-home.php:204
+#: ../page/page-home.php:255
 msgid "You are currently logged in as : "
 msgstr "Vous êtes actuellement connecté comme : "
 
-#: ../page/page-home.php:212
+#: ../page/page-home.php:264
 msgid "credits"
 msgstr "crédits"
 
-#: ../page/page-home.php:215
+#: ../page/page-home.php:268
 msgid "Log out"
 msgstr "Se déconnecter"
 
-#: ../page/page-home.php:219
+#: ../page/page-home.php:272
 msgid "Contacts"
 msgstr "Contacts"
 
-#: ../page/page-home.php:222
+#: ../page/page-home.php:276
 msgid "You have"
 msgstr "Vous avez"
 
-#: ../page/page-home.php:222
+#: ../page/page-home.php:276
 msgid "contacts."
 msgstr "contacts."
 
-#: ../page/page-home.php:223
+#: ../page/page-home.php:281
 msgid "Access to the list of all my contacts"
 msgstr "Accéder à ma liste de tous mes contacts"
 
-#: ../page/page-home.php:231
+#: ../page/page-home.php:291
 msgid "Email Campaigns"
 msgstr "Campagnes Email"
 
-#: ../page/page-home.php:237 ../page/page-home.php:263
-#: ../page/page-home.php:289
+#: ../page/page-home.php:299 ../page/page-home.php:333
+#: ../page/page-home.php:367
 msgid "Sent"
 msgstr "Envoyées"
 
-#: ../page/page-home.php:242 ../page/page-home.php:268
-#: ../page/page-home.php:294
+#: ../page/page-home.php:305 ../page/page-home.php:339
+#: ../page/page-home.php:373
 msgid "Draft"
 msgstr "Brouillons"
 
-#: ../page/page-home.php:247 ../page/page-home.php:273
-#: ../page/page-home.php:299
+#: ../page/page-home.php:311 ../page/page-home.php:345
+#: ../page/page-home.php:379
 msgid "Scheduled"
 msgstr "Programmées"
 
-#: ../page/page-home.php:250
+#: ../page/page-home.php:317
 msgid "Create new email campaign"
 msgstr "Créer une nouvelle campagne email"
 
-#: ../page/page-home.php:257
+#: ../page/page-home.php:325
 msgid "SMS Campaigns"
 msgstr "Campagnes SMS"
 
-#: ../page/page-home.php:276
+#: ../page/page-home.php:351
 msgid "Create new sms campaign"
 msgstr "Créer une nouvelle campagne SMS"
 
-#: ../page/page-home.php:283
+#: ../page/page-home.php:359
 msgid "Trigger Marketing"
 msgstr "Trigger Marketing"
 
-#: ../page/page-home.php:302
+#: ../page/page-home.php:385
 msgid "Create new trigger campaign"
 msgstr "Créer une nouvelle campagne de trigger "
 
-#: ../page/page-home.php:311
+#: ../page/page-home.php:395
 msgid "Transactional emails"
 msgstr "Emails transactionnels"
 
-#: ../page/page-home.php:317
+#: ../page/page-home.php:402
 msgid ""
-"Unfortunately, you wannot activate \"Transactional emails\"  because your "
-"SendinBlue SMTP account is not valid. Please send an email to "
+"Unfortunately, your \"Transactional emails\" are not activated because your "
+"SendinBlue SMTP account is not active. Please send an email to "
 "contact@sendinblue.com in order to ask for SMTP account activation"
 msgstr ""
 "Malheureusement, vous ne pouvez pas activer \"Emails transactionnels\" parce "
@@ -475,19 +483,19 @@ msgstr ""
 "email à contact@sendinblue.com afin de demander l'activation de votre compte "
 "SMTP"
 
-#: ../page/page-home.php:321
+#: ../page/page-home.php:407
 msgid "Mail Sent."
 msgstr "Email envoyé"
 
-#: ../page/page-home.php:322
+#: ../page/page-home.php:409
 msgid "Please input valid email."
 msgstr "Insérer une adresse valide"
 
-#: ../page/page-home.php:324
+#: ../page/page-home.php:411
 msgid "Activate email through SendinBlue"
 msgstr "Activer les emails avec SendinBlue "
 
-#: ../page/page-home.php:334
+#: ../page/page-home.php:427
 msgid ""
 "Choose \"Yes\" if you want to use SendinBlue SMTP to send transactional "
 "emails"
@@ -495,25 +503,25 @@ msgstr ""
 "Choisir \"Oui\" pour utiliser SMTP SendinBlue pour envoyer vos emails "
 "transactionnels"
 
-#: ../page/page-home.php:343
+#: ../page/page-home.php:436
 msgid "Enter email to send a test"
 msgstr "Entrer une adresse email pour envoyer un test"
 
-#: ../page/page-home.php:346
+#: ../page/page-home.php:441
 msgid "Send email"
 msgstr "Envoyer l'email"
 
-#: ../page/page-home.php:349
+#: ../page/page-home.php:446
 msgid "Select here the email address you want to send a test email to."
 msgstr ""
 "Sélectionner ici l'adresse email à qui vous souhaitez envoyer un email de "
 "test"
 
-#: ../page/page-home.php:363
+#: ../page/page-home.php:460
 msgid "About SendinBlue"
 msgstr "A propos de SendinBlue"
 
-#: ../page/page-home.php:365
+#: ../page/page-home.php:462
 msgid ""
 "SendinBlue is an online software that allows you to send emails and SMS. "
 "Easily manage your Marketing campaigns, transactional emails and SMS."
@@ -522,47 +530,47 @@ msgstr ""
 "Gérer de manière simple et efficace vos campagnes Marketing, SMS et emails  "
 "transactionnels"
 
-#: ../page/page-home.php:368
+#: ../page/page-home.php:467
 msgid "Who we are"
 msgstr "Qui sommes nous"
 
-#: ../page/page-home.php:371
+#: ../page/page-home.php:472
 msgid "Pricing"
 msgstr "Tarifs"
 
-#: ../page/page-home.php:374
+#: ../page/page-home.php:477
 msgid "Features"
 msgstr "Fonctionnalités"
 
-#: ../page/page-home.php:381
+#: ../page/page-home.php:484
 msgid "Need Help ?"
 msgstr "Besoin d'aide"
 
-#: ../page/page-home.php:383
+#: ../page/page-home.php:486
 msgid "You have a question or need more information ?"
 msgstr "Vous avez une question, ou besoin de plus d'information ? "
 
-#: ../page/page-home.php:385
+#: ../page/page-home.php:491
 msgid "Tutorials"
 msgstr "Tutoriels"
 
-#: ../page/page-home.php:386
+#: ../page/page-home.php:494
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../page/page-home.php:391
+#: ../page/page-home.php:500
 msgid "Recommended this plugin"
 msgstr "Recommender ce plugin"
 
-#: ../page/page-home.php:393
+#: ../page/page-home.php:502
 msgid "You like this plugin? Let everybody knows and review it"
 msgstr "Vous aimez ce plugin ? Faites-le savoir et notez le"
 
-#: ../page/page-home.php:395
+#: ../page/page-home.php:505
 msgid "Review this plugin"
 msgstr "Noter ce plugin"
 
-#: ../page/page-home.php:422
+#: ../page/page-home.php:537
 msgid ""
 "You are currently not logged in. Create an account or log in to benefit from "
 "all of SendinBlue's features an your Wordpress site."
@@ -571,35 +579,35 @@ msgstr ""
 "pour bénéficier de toutes les fonctionnalités de SendinBlue pour votre site "
 "Wordpress"
 
-#: ../page/page-home.php:425
+#: ../page/page-home.php:541
 msgid "Collect and manage your contacts"
 msgstr "Collectez et gérez vos contacts"
 
-#: ../page/page-home.php:426
+#: ../page/page-home.php:544
 msgid "Send transactional emails via SMTP or API"
 msgstr "Envoyer des emails transactionnels via SMTP ou API"
 
-#: ../page/page-home.php:427
+#: ../page/page-home.php:547
 msgid "Real time statistics and email tracking"
 msgstr "Statistiques en temps réel et tracking des emails"
 
-#: ../page/page-home.php:428
+#: ../page/page-home.php:550
 msgid "Edit and send email marketing"
 msgstr "Editer et envoyer des emails marketings"
 
-#: ../page/page-home.php:432
+#: ../page/page-home.php:556
 msgid "Have an account?"
 msgstr "Vous avez un compte ?"
 
-#: ../page/page-home.php:435
+#: ../page/page-home.php:561
 msgid "Free Subscribe Now"
 msgstr "S'inscrire gratuitement"
 
-#: ../page/page-home.php:528
+#: ../page/page-home.php:674
 msgid "[SendinBlue SMTP] test email"
 msgstr "email de test [SendinBlue SMTP]"
 
-#: ../page/page-home.php:530 ../sendinblue.php:1006
+#: ../page/page-home.php:676 ../sendinblue.php:1033
 msgid "no-reply@sendinblue.com"
 msgstr "no-reply@sendinblue.com"
 
@@ -611,51 +619,51 @@ msgstr "Listes"
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: ../sendinblue.php:474
+#: ../sendinblue.php:491
 msgid "Thank you, you have successfully registered !"
 msgstr "Vous êtes désormais inscrit !"
 
-#: ../sendinblue.php:475
+#: ../sendinblue.php:492
 msgid "Something wrong occured"
 msgstr "Une erreur est survenue"
 
-#: ../sendinblue.php:476
+#: ../sendinblue.php:493
 msgid "You have already registered"
 msgstr "Vous êtes déjà inscrit"
 
-#: ../sendinblue.php:477
+#: ../sendinblue.php:494
 msgid "Your email address is invalid"
 msgstr "Cette adresse email n'est pas valide"
 
-#: ../sendinblue.php:990
+#: ../sendinblue.php:1017
 msgid "Subscription confirmed"
 msgstr "Inscription newsletter confirmée"
 
-#: ../sendinblue.php:992
+#: ../sendinblue.php:1019
 msgid "Please confirm subscription"
 msgstr "Confirmer l'inscription "
 
-#: ../sendinblue.php:1124
+#: ../sendinblue.php:1195
 msgid "Unsubscribe"
 msgstr "Se désabonner"
 
-#: ../sendinblue.php:1143
+#: ../sendinblue.php:1214
 msgid "Your request has been taken into account."
 msgstr "Votre demande a bien été prise en compte."
 
-#: ../sendinblue.php:1145
+#: ../sendinblue.php:1216
 msgid "The user has been unsubscribed"
 msgstr "L'utilisateur s'est désinscrit"
 
-#: ../sendinblue.php:1227
+#: ../sendinblue.php:1309
 msgid "Thank you for subscribing"
 msgstr "Merci pour votre inscription"
 
-#: ../sendinblue.php:1246
+#: ../sendinblue.php:1328
 msgid "You have just subscribed to the newsletter of "
 msgstr "Vous vous êtes inscrit à la newsletter de"
 
-#: ../sendinblue.php:1247
+#: ../sendinblue.php:1329
 msgid "-SendinBlue"
 msgstr "-SendinBlue"
 
@@ -682,6 +690,16 @@ msgstr "Saisir"
 #: ../widget/widget_form.php:90
 msgid "List"
 msgstr "Liste"
+
+#~ msgid ""
+#~ "Unfortunately, you wannot activate \"Transactional emails\"  because your "
+#~ "SendinBlue SMTP account is not valid. Please send an email to "
+#~ "contact@sendinblue.com in order to ask for SMTP account activation"
+#~ msgstr ""
+#~ "Malheureusement, vous ne pouvez pas activer \"Emails transactionnels\" "
+#~ "parce que votre compte SMTP SendinBlue n'a pas été validé. Merci "
+#~ "d'envoyer un email à contact@sendinblue.com afin de demander l'activation "
+#~ "de votre compte SMTP"
 
 #~ msgid "SendinBlue merge fields"
 #~ msgstr "Champs synchronisé avec SendinBlue"

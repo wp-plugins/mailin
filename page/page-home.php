@@ -185,9 +185,7 @@ if(!class_exists('SIB_Page_Home'))
             $campaign_stat = self::get_campaign_stats();
 
             // display account info
-            if(SIB_Manager::$account_email == '') {
-                self::update_account_info();
-            }
+            self::update_account_info();
 
             // check smtp available
             if(SIB_Manager::is_done_validation()) {

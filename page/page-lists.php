@@ -47,7 +47,7 @@ if(!class_exists('SIB_Page_Lists'))
          */
         function Init()
         {
-
+            add_action( 'admin_notices', array( 'SIB_Manager', 'language_admin_notice' ) );
         }
 
         /**
@@ -106,9 +106,10 @@ if(!class_exists('SIB_Page_Lists'))
         {
             $access_token = SIB_Manager::update_access_token();
 
+            $lang = substr(get_bloginfo('language'),0,2);
             ?>
 
-                <iframe id="datamain" src="https://my.sendinblue.com/lists/index/access_token/<?php echo $access_token; ?>" width="100%" height="750" scrolling="yes"></iframe>
+                <iframe id="datamain" src="https://my.sendinblue.com/lists/index/access_token/<?php echo $access_token; ?>/lang/<?php echo $lang; ?>" width="100%" height="750" scrolling="yes"></iframe>
 
             <?php
         }

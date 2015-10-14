@@ -3,7 +3,7 @@
 Plugin Name: SendinBlue Subscribe Form And WP SMTP
 Plugin URI: https://www.sendinblue.com/?r=wporg
 Description: Easily send emails from your WordPress blog using SendinBlue SMTP and easily add a subscribe form to your site
-Version: 2.4.7
+Version: 2.4.8
 Author: SendinBlue
 Author URI: https://www.sendinblue.com/?r=wporg
 License: GPLv2 or later
@@ -93,6 +93,12 @@ if(!class_exists('SIB_Manager'))
         const attribute_smtp_name = 'sib_smtp_details';
 
         /**
+         * plugin language notice option name
+         */
+        const language_option_name = 'sib_language_notice_option';
+ 
+        /**
+
          * Request url of sendinblue api
          */
         const sendinblue_api_url = 'https://api.sendinblue.com/v2.0';
@@ -392,8 +398,14 @@ EOD;
                 $this->subscribe();
                 exit;
             }
+			// Dismiss language notice
+            if(isset($_GET['dismiss_admin_lang_notice']) && $_GET['dismiss_admin_lang_notice'] == '1'){
+                update_option(SIB_Manager::language_option_name, true);
+                wp_safe_redirect($_SERVER['HTTP_REFERER']);
+                exit();
+            }
         }
-
+            
         /** hook admin_init */
         function admin_init()
         {
@@ -568,7 +580,7 @@ EOD;
          */
         static function deactivate()
         {
-
+            update_option(SIB_Manager::language_option_name, false);
         }
 
         /**
@@ -1410,6 +1422,55 @@ EOD;
           $filename       = plugin_dir_path(__FILE__). '/lang/' .$i18n_file_name.'-'.$locale.'.mo';
           load_textdomain('sib_lang', $filename);
         }
+        /**
+         * Notice the language is difference than site's language
+         */
+        static function language_admin_notice() {
+            if(!get_option(SIB_Manager::language_option_name)) {
+                $lang_prefix = substr(get_bloginfo('language'), 0, 2);
+                $lang = self::getLanguageName($lang_prefix);
+                $class = "error";
+                $message = sprintf('Please note that your SendinBlue account is in %s, but SendinBlue Wordpress plugin is only available in English / French for now. Sorry for inconvenience.', $lang);
+                //if( $lang_prefix != 'en' && $lang_prefix != 'fr' )
+                echo "<div class=\"$class\" style='margin-left: 2px;margin-bottom: 4px;'> <p>$message<a class='' href='?dismiss_admin_lang_notice=1'> No problem...</a></p></div>";
+            }
+        }
+        /**
+         * Names of languages
+         */
+        public static function getLanguageName( $prefix = 'en' )
+        {
+            $lang = array();
+            $lang['de'] = 'Deutsch';
+            $lang['en'] = 'English';
+            $lang['zh'] = '中文';
+            $lang['ru'] = 'Русский';
+            $lang['fi'] = 'suomi';
+            $lang['fr'] = 'Français';
+            $lang['nl'] = 'Nederlands';
+            $lang['sv'] = 'Svenska';
+            $lang['it'] = 'Italiano';
+            $lang['ro'] = 'Română';
+            $lang['hu'] = 'Magyar';
+            $lang['ja'] = '日本語';
+            $lang['es'] = 'Español';
+            $lang['vi'] = 'Tiếng Việt';
+            $lang['ar'] = 'العربية';
+            $lang['pt'] = 'Português';
+            $lang['pb'] = 'Português do Brasil';
+            $lang['pl'] = 'Polski';
+            $lang['gl'] = 'galego';
+            $lang['tr'] = 'Turkish';
+            $lang['et'] = 'Eesti';
+            $lang['hr'] = 'Hrvatski';
+            $lang['eu'] = 'Euskera';
+            $lang['el'] = 'Ελληνικά';
+            $lang['ua'] = 'Українська';
+            $lang['ko'] = '한국어';
+
+            return $lang[$prefix];
+        }
+
     }
 
     /**
